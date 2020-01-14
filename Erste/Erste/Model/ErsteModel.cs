@@ -103,7 +103,7 @@ namespace Erste
                 .IsUnicode(false);
 
             modelBuilder.Entity<sluzbenik>()
-                .Property(e => e.Lozinka)
+                .Property(e => e.LozinkaHash)
                 .IsUnicode(false);
 
             modelBuilder.Entity<termin>()

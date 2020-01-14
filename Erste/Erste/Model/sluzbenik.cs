@@ -15,7 +15,7 @@ namespace Erste
 
         [Required]
         [StringLength(256)]
-        public string Lozinka { get; set; }
+        public string LozinkaHash { get; set; }
 
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }

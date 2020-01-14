@@ -76,7 +76,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `erste`.`SLUZBENIK` (
   `KorisnickoIme` VARCHAR(256) NOT NULL,
-  `Lozinka` VARCHAR(256) NOT NULL,
+  `LozinkaHash` VARCHAR(256) NOT NULL,
   `Id` INT NOT NULL,
   PRIMARY KEY (`Id`),
   CONSTRAINT `OSOBA3`
@@ -120,6 +120,7 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `erste`.`GRUPA` (
   `Id` INT NOT NULL,
   `KursId` INT NOT NULL,
+  `BrojClanova` INT NULL,
   PRIMARY KEY (`Id`),
   INDEX `KURS1_idx` (`KursId` ASC) VISIBLE,
   CONSTRAINT `KURS1`
