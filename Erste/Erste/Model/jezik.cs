@@ -24,5 +24,12 @@ namespace Erste
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<kurs> kursevi { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            var jezik = obj as jezik;
+            return jezik != null &&
+                   Id == jezik.Id;
+        }
     }
 }

@@ -19,11 +19,14 @@
         </Grid.ColumnDefinitions>
         <StackPanel Background="#FF6DCEF9" Grid.RowSpan="2" UseLayoutRounding="False" Margin="0,0,0,1">
             <Image x:Name="image" Height="55" Margin="0" Source="/Resources/erste_logo.jpg" Stretch="Fill"/>
-            <Button x:Name="button" Style="{DynamicResource buttonStyle}" Content="Nalozi službenika" HorizontalContentAlignment="Left" FontFamily="Rockwell" FontSize="14" Foreground="White" Cursor="Hand" Height="35" Background="#FFEF3D4A"/>
-            <Button x:Name="button1" Style="{DynamicResource buttonStyle}" Content="Evidencija profesora" HorizontalContentAlignment="Left" FontFamily="Rockwell" FontSize="14" Foreground="White" Cursor="Hand" Height="35" Background="#FFEF3D4A"/>
-            <Button x:Name="button2" Style="{DynamicResource buttonStyle}" Content="Evidencija kurseva" HorizontalContentAlignment="Left" FontFamily="Rockwell" FontSize="14" Foreground="White" Cursor="Hand" Height="35" Background="#FFEF3D4A"/>
+            <Button x:Name="button" Click="Button_NaloziSluzbenika" Style="{DynamicResource buttonStyle}" Content="Nalozi službenika" HorizontalContentAlignment="Left" FontFamily="Rockwell" FontSize="14" Foreground="White" Cursor="Hand" Height="35" Background="#FFEF3D4A"/>
+            <Button x:Name="button1" Click="Button_EvidencijaProfesora" Style="{DynamicResource buttonStyle}" Content="Evidencija profesora" HorizontalContentAlignment="Left" FontFamily="Rockwell" FontSize="14" Foreground="White" Cursor="Hand" Height="35" Background="#FFEF3D4A"/>
+            <Button x:Name="button2" Click="Button_EvidencijaKurseva" Style="{DynamicResource buttonStyle}" Content="Evidencija kurseva" HorizontalContentAlignment="Left" FontFamily="Rockwell" FontSize="14" Foreground="White" Cursor="Hand" Height="35" Background="#FFEF3D4A"/>
             <Label x:Name="label" Content="" Height="223" Margin="0"/>
             <Button x:Name="button4" Style="{DynamicResource buttonStyle}" Content="Izlaz" HorizontalContentAlignment="Left" FontFamily="Rockwell" FontSize="14" Foreground="White" Cursor="Hand" Click="Exit_Click" Height="35" Background="#FFEF3D4A"/>
         </StackPanel>
+        <Frame Name="frame" Grid.Row="1" Grid.Column="1">
+            
+        </Frame>
     </Grid>
 </Window>

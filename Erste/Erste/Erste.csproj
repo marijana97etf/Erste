@@ -45,8 +45,8 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="MySql.Data, Version=8.0.19.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
-    <Reference Include="MySql.Data.EntityFramework, Version=8.0.19.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
+    <Reference Include="MySql.Data, Version=8.0.17.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
+    <Reference Include="MySql.Data.EntityFramework, Version=8.0.17.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
@@ -70,6 +70,24 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Administrator\EvidencijaKursaDialog.xaml.cs">
+      <DependentUpon>EvidencijaKursaDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Administrator\EvidencijaKurseva.xaml.cs">
+      <DependentUpon>EvidencijaKurseva.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Administrator\EvidencijaProfesora.xaml.cs">
+      <DependentUpon>EvidencijaProfesora.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Administrator\EvidencijaProfesoraDialog.xaml.cs">
+      <DependentUpon>EvidencijaProfesoraDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Administrator\NalogSluzbenikaDialog.xaml.cs">
+      <DependentUpon>NalogSluzbenikaDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Administrator\NaloziSluzbenika.xaml.cs">
+      <DependentUpon>NaloziSluzbenika.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AdminMainWindow.xaml.cs">
       <DependentUpon>AdminMainWindow.xaml</DependentUpon>
     </Compile>
@@ -79,6 +97,30 @@
     <Compile Include="SluzbenikMainWindow.xaml.cs">
       <DependentUpon>SluzbenikMainWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="Administrator\EvidencijaKursaDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Administrator\EvidencijaKurseva.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Administrator\EvidencijaProfesora.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Administrator\EvidencijaProfesoraDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Administrator\NalogSluzbenikaDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Administrator\NaloziSluzbenika.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="AdminMainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

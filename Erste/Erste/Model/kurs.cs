@@ -28,5 +28,12 @@ namespace Erste
         public virtual ICollection<grupa> grupe { get; set; }
 
         public virtual jezik jezik { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            var kurs = obj as kurs;
+            return kurs != null &&
+                   Id == kurs.Id;
+        }
     }
 }

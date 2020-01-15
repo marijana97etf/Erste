@@ -1,0 +1,40 @@
+﻿<Window x:Class="Erste.Administrator.EvidencijaKursaDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Erste.Administrator"
+        mc:Ignorable="d"
+        Title="EvidencijaKursaDialog" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Label Grid.Column="0" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Center">Id</Label>
+        <TextBox Name="textBox_Id" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" Margin="10,0,10,0"></TextBox>
+
+        <Label Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center">Jezik</Label>
+        <ComboBox Name="comboBox_Jezik" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" Margin="10,0,10,0" IsReadOnly="True" IsEditable="True" Text="Izaberite" DisplayMemberPath="Naziv"></ComboBox>
+
+        <Label Grid.Column="0" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center">Nivo</Label>
+        <TextBox Name="textBox_Nivo" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" Margin="10,0,10,0"></TextBox>
+
+        <Grid Grid.ColumnSpan="3" Grid.Row="8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Name="Button_Uredu" Content="Uredu" Click="Button_Uredu_Click" Grid.Column="0" Margin="10,0,10,0" Style="{DynamicResource buttonStyle}"></Button>
+            <Button Name="Button_Otkazi" Content="Otkazi" Click="Button_Otkazi_Click" Grid.Column="1" Margin="10,0,10,0" Style="{DynamicResource buttonStyle}"></Button>
+        </Grid>
+    </Grid>
+</Window>
