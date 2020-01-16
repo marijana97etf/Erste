@@ -19,7 +19,7 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <DataGrid Name="DataGrid" Grid.ColumnSpan="3">
+        <DataGrid Name="DataGrid" Grid.ColumnSpan="3" ColumnHeaderStyle="{StaticResource DataGridErsteStyle}" CellStyle="{StaticResource DataGridCellErsteStyle}">
             <DataGrid.Columns>
                 <DataGridTextColumn Width="*" Header="Id" Binding="{Binding Path=osoba.Id}"></DataGridTextColumn>
                 <DataGridTextColumn Width="*" Header="Ime" Binding="{Binding Path=osoba.Ime}"></DataGridTextColumn>
@@ -29,7 +29,7 @@
                 <DataGridTextColumn Width="*" Header="Korisnicko ime" Binding="{Binding Path=KorisnickoIme}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Grid Grid.ColumnSpan="3" Grid.Row="8">
+        <Grid Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>

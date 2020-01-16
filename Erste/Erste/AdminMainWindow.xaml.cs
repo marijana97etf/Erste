@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +24,11 @@ namespace Erste
 
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
+            Environment.Exit(0);
+        }
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            base.OnClosing(e);
             Environment.Exit(0);
         }
 

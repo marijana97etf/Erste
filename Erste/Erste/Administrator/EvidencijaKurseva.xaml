@@ -19,7 +19,7 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <DataGrid Name="DataGrid" Grid.ColumnSpan="3">
+        <DataGrid Name="DataGrid" Grid.ColumnSpan="3" ColumnHeaderStyle="{StaticResource DataGridErsteStyle}" CellStyle="{StaticResource DataGridCellErsteStyle}">
             <DataGrid.Columns>
                 <DataGridTextColumn Width="*" Header="Id" Binding="{Binding Path=Id}"></DataGridTextColumn>
                 <DataGridTextColumn Width="*" Header="Jezik" Binding="{Binding Path=jezik.Naziv}"></DataGridTextColumn>
