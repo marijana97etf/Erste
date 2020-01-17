@@ -18,15 +18,32 @@ namespace Erste.Sluzbenik
             Load_Data();
         }
 
-        private void Button_Dodaj(object sender, RoutedEventArgs e)
+        public Kandidati(params Button[] buttons) : this()
         {
-            KandidatiDialog polaznikDialog = new KandidatiDialog(null);
-            polaznikDialog.ShowDialog();
-
-            Load_Data();
+            buttons[0].Click += (sender, args) =>
+            {
+                var dataGridSelectedItems = DataGrid.SelectedItems;
+                using (var ersteModel = new ErsteModel())
+                {
+                    foreach (var dataGridSelectedItem in dataGridSelectedItems)
+                    {
+                        var polaznikRemove = ersteModel.polaznici.Find(((polaznik)dataGridSelectedItem).Id);
+                        if (polaznikRemove?.osoba != null)
+                        {
+                            ersteModel.osobe.Remove(polaznikRemove.osoba);
+                            ersteModel.SaveChanges();
+                        }
+                    }
+                }
+                Load_Data();
+            };
+            buttons[1].Click += (sender, args) =>
+            {
+                MessageBox.Show("Cekanje");
+            };
         }
 
-        private void Button_Pregledaj(object sender, RoutedEventArgs e)
+        private void PregledKandidata_DoubleClick(object sender, RoutedEventArgs e)
         {
             polaznik polaznik = DataGrid.SelectedItem as polaznik;
             KandidatiDialog kandidatiDialog = new KandidatiDialog(polaznik);
@@ -35,9 +52,10 @@ namespace Erste.Sluzbenik
             Load_Data();
         }
 
+        public void Refresh() => Load_Data();
+
         private void Load_Data()
         {
-            
             DataGrid.Items.Clear();
             DataGrid.ItemsSource = null;
             DataGrid.Items.Refresh();
@@ -46,8 +64,8 @@ namespace Erste.Sluzbenik
                 using (var ersteModel = new ErsteModel())
                 {
                     var polaznici = (from polaznik in ersteModel.polaznici.Include("osoba")
-                                      join osoba in ersteModel.osobe.Include("polaznik") on polaznik.Id equals osoba.Id
-                                      select polaznik).ToList();
+                                     join osoba in ersteModel.osobe.Include("polaznik") on polaznik.Id equals osoba.Id
+                                     select polaznik).ToList();
 
                     foreach (var polaznik in polaznici)
                     {
@@ -62,6 +80,15 @@ namespace Erste.Sluzbenik
             {
                 MessageBox.Show("MySQL Exception: " + ex.ToString());
             }
+        }
+
+        private void DataGrid_OnBeginningEdit(object sender, DataGridBeginningEditEventArgs e)
+        {
+            polaznik polaznik = DataGrid.SelectedItem as polaznik;
+            KandidatiDialog kandidatiDialog = new KandidatiDialog(polaznik);
+            kandidatiDialog.ShowDialog();
+            Load_Data();
+            e.Cancel = true;
         }
     }
 }

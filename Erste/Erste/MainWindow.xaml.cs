@@ -123,56 +123,56 @@ namespace Erste
 
         }
 
-        #region Keep aspect ratio
+        //#region Keep aspect ratio
 
-        protected override void OnSourceInitialized(EventArgs e)
-        {
-            base.OnSourceInitialized(e);
-            if (PresentationSource.FromVisual(this) is HwndSource source)
-            {
-                source.AddHook(WinProc);
-            }
-        }
+        //protected override void OnSourceInitialized(EventArgs e)
+        //{
+        //    base.OnSourceInitialized(e);
+        //    if (PresentationSource.FromVisual(this) is HwndSource source)
+        //    {
+        //        source.AddHook(WinProc);
+        //    }
+        //}
 
-        private const Int32 WmExitsizemove = 0x0232;
-        private bool _firstTime = true;
-        private IntPtr WinProc(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, ref Boolean handled)
-        {
-            IntPtr result = IntPtr.Zero;
-            switch (msg)
-            {
-                case WmExitsizemove:
-                {
-                    if (_firstTime)
-                    {
-                        Viewbox.Height = 520;
-                        Viewbox.Width = 800;
-                        Height = 520;
-                        Width = 800;
-                        _firstTime = false;
-                    }
-                    else
-                    {
-                        Viewbox.Height=double.NaN;
-                        Viewbox.Width= double.NaN;
-                    }
-                    Viewbox.Height = Viewbox.Width * 0.69;
-                    Height = Width * 0.69;
-                }
-                    break;
-            }
+        //private const Int32 WmExitsizemove = 0x0232;
+        //private bool _firstTime = true;
+        //private IntPtr WinProc(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, ref Boolean handled)
+        //{
+        //    IntPtr result = IntPtr.Zero;
+        //    switch (msg)
+        //    {
+        //        case WmExitsizemove:
+        //        {
+        //            if (_firstTime)
+        //            {
+        //                Viewbox.Height = 520;
+        //                Viewbox.Width = 800;
+        //                Height = 520;
+        //                Width = 800;
+        //                _firstTime = false;
+        //            }
+        //            else
+        //            {
+        //                Viewbox.Height=double.NaN;
+        //                Viewbox.Width= double.NaN;
+        //            }
+        //            Viewbox.Height = Viewbox.Width * 0.69;
+        //            Height = Width * 0.69;
+        //        }
+        //            break;
+        //    }
 
-            return result;
-        }
+        //    return result;
+        //}
 
-        private void LoginWindow_OnLoadCompleted(object sender, NavigationEventArgs e)
-        {
-            Viewbox.Height = 520;
-            Viewbox.Width = 800;
-            Height = 520;
-            Width = 800;
-        }
+        //private void LoginWindow_OnLoadCompleted(object sender, NavigationEventArgs e)
+        //{
+        //    Viewbox.Height = 520;
+        //    Viewbox.Width = 800;
+        //    Height = 520;
+        //    Width = 800;
+        //}
 
-        #endregion
+        //#endregion
     }
 }

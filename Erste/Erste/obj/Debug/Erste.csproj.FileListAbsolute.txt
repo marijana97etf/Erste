@@ -118,7 +118,6 @@ C:\Users\stepa\Documents\GitHub\Erste\Erste\Erste\bin\Debug\EntityFramework.xml
 C:\Users\stepa\Documents\GitHub\Erste\Erste\Erste\bin\Debug\EntityFramework.SqlServer.xml
 C:\Users\stepa\Documents\GitHub\Erste\Erste\Erste\bin\Debug\MySql.Data.xml
 C:\Users\stepa\Documents\GitHub\Erste\Erste\Erste\bin\Debug\MySql.Data.EntityFramework.xml
-C:\Users\stepa\Documents\GitHub\Erste\Erste\Erste\obj\Debug\Erste.csprojAssemblyReference.cache
 C:\Users\stepa\Documents\GitHub\Erste\Erste\Erste\obj\Debug\Administrator\EvidencijaKursaDialog.g.cs
 C:\Users\stepa\Documents\GitHub\Erste\Erste\Erste\obj\Debug\Administrator\EvidencijaKurseva.g.cs
 C:\Users\stepa\Documents\GitHub\Erste\Erste\Erste\obj\Debug\Administrator\EvidencijaProfesora.g.cs
@@ -153,3 +152,4 @@ C:\Users\stepa\Documents\GitHub\Erste\Erste\Erste\obj\Debug\Sluzbenik\Kandidati.
 C:\Users\stepa\Documents\GitHub\Erste\Erste\Erste\obj\Debug\Sluzbenik\KandidatiDialog.g.cs
 C:\Users\stepa\Documents\GitHub\Erste\Erste\Erste\obj\Debug\Sluzbenik\Kandidati.baml
 C:\Users\stepa\Documents\GitHub\Erste\Erste\Erste\obj\Debug\Sluzbenik\KandidatiDialog.baml
+C:\Users\stepa\Documents\GitHub\Erste\Erste\Erste\obj\Debug\Erste.csprojAssemblyReference.cache

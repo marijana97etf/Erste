@@ -9,42 +9,44 @@
        mc:Ignorable="d"
         Title="Erste" 
         ResizeMode="CanResizeWithGrip"
-        WindowStartupLocation="CenterOwner"
-        ShowsNavigationUI="False" SizeToContent="WidthAndHeight" LoadCompleted="LoginWindow_OnLoadCompleted">
+        WindowStartupLocation="CenterOwner" Height="517" Width="800"
+        ShowsNavigationUI="False" SizeToContent="WidthAndHeight" >
     <NavigationWindow.Content>
-        <Viewbox Stretch="Uniform" x:Name="Viewbox">
-            <Grid Background="GhostWhite" Width="855">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="55"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="7*" />
-                    <ColumnDefinition Width="27*"/>
-                </Grid.ColumnDefinitions>
-                <Image x:Name="image" Grid.Row="0" Grid.Column="0" Height="55" Source="/Resources/erste_logo.png" Stretch="Uniform"/>
-                <StackPanel Grid.Column="0" Grid.Row="1" Background="#FF6DCEF9" UseLayoutRounding="False">
-                    <Button x:Name="upisButton" Style="{DynamicResource buttonStyle}" Content="Upis kandidata" HorizontalContentAlignment="Left" Click="Upis_Click"/>
-                    <StackPanel x:Name="UpisPanel" Height="0">
-                        <Button Style="{DynamicResource buttonStyle}" Content="Upiši kandidata" HorizontalContentAlignment="Left" FontWeight="Bold" Foreground="#FFEF3D4A" Background="White"></Button>
-                        <Button Style="{DynamicResource buttonStyle}" Content="Otpiši kandidata" HorizontalContentAlignment="Left" FontWeight="Bold" Foreground="#FFEF3D4A" Background="White"></Button>
-                    </StackPanel>
-                    <Button x:Name="pregledButton" Style="{DynamicResource buttonStyle}" Content="Pregled kandidata" HorizontalContentAlignment="Left" Click="Pregled_Click"/>
-                    <StackPanel x:Name="PregledPanel" Height="0">
-                        <Button Style="{DynamicResource buttonStyle}" Content="Obriši kandidate" HorizontalContentAlignment="Left" FontWeight="Bold" Foreground="#FFEF3D4A" Background="White"></Button>
-                        <Button Style="{DynamicResource buttonStyle}" Content="Izmjeni kandidate" HorizontalContentAlignment="Left" FontWeight="Bold" Foreground="#FFEF3D4A" Background="White"></Button>
-                    </StackPanel>
-                    <Button x:Name="rasporedButton" Style="{DynamicResource buttonStyle}" Content="Raspored nastave" HorizontalContentAlignment="Left" Click="Raspored_Click"/>
-                    <StackPanel x:Name="RasporedPanel" Height="0">
-                        <Button Style="{DynamicResource buttonStyle}" Content="Izmjeni raspored" HorizontalContentAlignment="Left" FontWeight="Bold" Foreground="#FFEF3D4A" Background="White"></Button>
-                        <Button Style="{DynamicResource buttonStyle}" Content="Generiši novi raspored" HorizontalContentAlignment="Left" FontWeight="Bold" Foreground="#FFEF3D4A" Background="White"></Button>
-                    </StackPanel>
-                    <Label x:Name="label" Content="" Height="260" Margin="0"/>
-                    <Button x:Name="odjavaButton" Style="{DynamicResource buttonStyle}" Content="Odjava" HorizontalContentAlignment="Left" Click="LogOff_Click" />
-                    <Button x:Name="button4" Style="{DynamicResource buttonStyle}" Content="Izlaz" HorizontalContentAlignment="Left" Click="Exit_Click" />
+        <Grid Background="GhostWhite">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="55"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="210" />
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Image x:Name="image" Grid.Row="0" Grid.Column="0" Height="55" HorizontalAlignment="Center" Source="/Resources/erste_logo.png" Stretch="Uniform" Width="170"/>
+            <StackPanel Grid.Column="0" Grid.Row="1" Background="#FF6DCEF9" UseLayoutRounding="False" HorizontalAlignment="Left" Width="214.667">
+                <Button x:Name="upisButton" Style="{DynamicResource buttonStyle}" Content="Upis kandidata" HorizontalContentAlignment="Left" Click="Upis_Click"/>
+                <StackPanel x:Name="UpisPanel" Height="0">
+                    <Button Style="{DynamicResource buttonStyle}" Content="Upiši kandidata" HorizontalContentAlignment="Left" FontWeight="Bold" Foreground="#FFEF3D4A" Background="White"></Button>
+                    <Button Style="{DynamicResource buttonStyle}" Content="Otpiši kandidata" HorizontalContentAlignment="Left" FontWeight="Bold" Foreground="#FFEF3D4A" Background="White"></Button>
                 </StackPanel>
-                <Grid x:Name="GridZaPrikaz" Grid.Column="1" Grid.Row="1"></Grid>
-            </Grid>
-        </Viewbox>
+                <Button x:Name="pregledButton" Style="{DynamicResource buttonStyle}" Content="Pregled kandidata" HorizontalContentAlignment="Left" Click="Pregled_Click"/>
+                <StackPanel x:Name="PregledPanel" Height="0">
+                    <Button x:Name="BrisanjeButton" Height="40" Style="{DynamicResource buttonStyle}" HorizontalContentAlignment="Left" FontWeight="Bold" Foreground="#FFEF3D4A" Background="White">
+                        <TextBlock Text="Obriši odabrane polaznike" TextWrapping="Wrap" TextAlignment="Center"></TextBlock>
+                    </Button>
+                    <Button x:Name="KandidatiNaCekanjuButton" Height="40" Style="{DynamicResource buttonStyle}" HorizontalContentAlignment="Left" FontWeight="Bold" Foreground="#FFEF3D4A" Background="White">
+                        <TextBlock Margin="15,0,0,0" Text="Kandidati na čekanju" TextWrapping="Wrap" TextAlignment="Center"></TextBlock>
+                    </Button>
+                </StackPanel>
+                <Button x:Name="rasporedButton" Style="{DynamicResource buttonStyle}" Content="Raspored nastave" HorizontalContentAlignment="Left" Click="Raspored_Click"/>
+                <StackPanel x:Name="RasporedPanel" Height="0">
+                    <Button Style="{DynamicResource buttonStyle}" Content="Izmjeni raspored" HorizontalContentAlignment="Left" FontWeight="Bold" Foreground="#FFEF3D4A" Background="White"></Button>
+                    <Button Style="{DynamicResource buttonStyle}" Content="Generiši novi raspored" HorizontalContentAlignment="Left" FontWeight="Bold" Foreground="#FFEF3D4A" Background="White"></Button>
+                </StackPanel>
+                <Label x:Name="label" Content="" Height="260" Margin="0"/>
+                <Button x:Name="odjavaButton" Style="{DynamicResource buttonStyle}" Content="Odjava" HorizontalContentAlignment="Left" Click="LogOff_Click" />
+                <Button x:Name="button4" Style="{DynamicResource buttonStyle}" Content="Izlaz" HorizontalContentAlignment="Left" Click="Exit_Click" />
+            </StackPanel>
+            <Grid x:Name="GridZaPrikaz" Grid.Column="1" Grid.Row="1" Width="583"/>
+        </Grid>
     </NavigationWindow.Content>
 </NavigationWindow>

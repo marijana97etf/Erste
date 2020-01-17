@@ -7,7 +7,7 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800">
 
-    <Grid Background="#FF6DCEF9">
+    <Grid Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
@@ -18,7 +18,7 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <DataGrid Name="DataGrid" Grid.ColumnSpan="3" ColumnHeaderStyle="{StaticResource DataGridErsteStyle}" CellStyle="{StaticResource DataGridCellErsteStyle}">
+        <DataGrid Name="DataGrid" Grid.ColumnSpan="3" ColumnHeaderStyle="{StaticResource DataGridErsteStyle}" BeginningEdit="DataGrid_OnBeginningEdit" CellStyle="{StaticResource DataGridCellErsteStyle}">
             <DataGrid.Columns>
                 <DataGridTextColumn Width="*" Header="Id" Binding="{Binding Path=osoba.Id}"></DataGridTextColumn>
                 <DataGridTextColumn Width="*" Header="Ime" Binding="{Binding Path=osoba.Ime}"></DataGridTextColumn>
@@ -32,8 +32,6 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Button Content="Dodaj" Click="Button_Dodaj" Grid.Column="0" Margin="10,0,10,0" Style="{DynamicResource buttonStyle}"></Button>
-            <Button Content="Pregledaj" Click="Button_Pregledaj" Grid.Column="1" Margin="10,0,10,0" Style="{DynamicResource buttonStyle}"></Button>
         </Grid>
     </Grid>
 </UserControl>

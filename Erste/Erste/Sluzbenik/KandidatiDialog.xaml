@@ -44,7 +44,7 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Button Name="Button_Uredu" Content="Uredu" Click="Button_Uredu_Click" Grid.Column="0" Margin="10,0,10,0" Style="{DynamicResource buttonStyle}"></Button>
+            <Button Name="Button_Uredu" Content="Uredu" Click="Button_Uredu_Click" Grid.Column="0" Margin="10,6,9.667,5.667" Style="{DynamicResource buttonStyle}"/>
             <Button Name="Button_Otkazi" Content="Otkazi" Click="Button_Otkazi_Click" Grid.Column="1" Margin="10,0,10,0" Style="{DynamicResource buttonStyle}"></Button>
         </Grid>
     </Grid>

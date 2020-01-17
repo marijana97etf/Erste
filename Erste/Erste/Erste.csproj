@@ -201,9 +201,6 @@
     <Resource Include="Resources\ikonica.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\kandidat.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="ikonica.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
