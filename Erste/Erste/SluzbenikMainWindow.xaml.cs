@@ -170,59 +170,7 @@ namespace Erste
                 });
             });
         }
-
-        #endregion
-
-        //#region Keep aspect ratio
-
-        //protected override void OnSourceInitialized(EventArgs e)
-        //{
-        //    base.OnSourceInitialized(e);
-        //    if (PresentationSource.FromVisual(this) is HwndSource source)
-        //    {
-        //        source.AddHook(WinProc);
-        //    }
-        //}
-
-        //private const Int32 WmExitsizemove = 0x0232;
-        //private bool _firstTime = true;
-        //private IntPtr WinProc(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, ref Boolean handled)
-        //{
-        //    IntPtr result = IntPtr.Zero;
-        //    switch (msg)
-        //    {
-        //        case WmExitsizemove:
-        //        {
-        //            if (_firstTime)
-        //            {
-        //                Viewbox.Height = 517;
-        //                Viewbox.Width = 861;
-        //                Height = 517;
-        //                Width = 861;
-        //                _firstTime = false;
-        //            }
-        //            else
-        //            {
-        //                Viewbox.Height = double.NaN;
-        //                Viewbox.Width = double.NaN;
-        //            }
-        //            Viewbox.Height = Viewbox.Width * 517.0/861;
-        //            Height = Width * 517.0 / 861;
-        //        }
-        //            break;
-        //    }
-
-        //    return result;
-        //}
-
-        //private void LoginWindow_OnLoadCompleted(object sender, NavigationEventArgs e)
-        //{
-        //    Viewbox.Height = 517;
-        //    Viewbox.Width = 861;
-        //    Height = 517;
-        //    Width = 861;
-        //}
-
-        //#endregion
     }
+
+    #endregion
 }

@@ -9,7 +9,7 @@
        mc:Ignorable="d"
         Title="Erste" 
         ResizeMode="CanResizeWithGrip"
-        WindowStartupLocation="CenterOwner" Height="517" Width="800"
+        WindowStartupLocation="CenterScreen" Height="517" Width="800"
         ShowsNavigationUI="False" SizeToContent="WidthAndHeight" >
     <NavigationWindow.Content>
         <Grid Background="GhostWhite">

@@ -18,30 +18,39 @@ namespace Erste.Administrator
     /// <summary>
     /// Interaction logic for EvidencijaKurseva.xaml
     /// </summary>
-    public partial class EvidencijaKurseva : Page
+    public partial class EvidencijaKurseva : UserControl
     {
         public EvidencijaKurseva()
         {
             InitializeComponent();
-            Load_Data();
-        }
+        }     
 
-        private void Button_Dodaj(object sender, RoutedEventArgs e)
+        public void AddButtonActions(params Button[] buttons)
         {
-            EvidencijaKursaDialog evidencijaKursaDialog = new EvidencijaKursaDialog(null);
-            evidencijaKursaDialog.ShowDialog();
+            buttons[0].Click += (sender, args) =>
+            {
+                EvidencijaKursaDialog evidencijaKursaDialog = new EvidencijaKursaDialog(null);
+                evidencijaKursaDialog.ShowDialog();
 
-            Load_Data();
+                Load_Data();
+            };
+            buttons[1].Click += (sender, args) =>
+            {
+                var dataGridSelectedItems = DataGrid.SelectedItems;
+                using (var ersteModel = new ErsteModel())
+                {
+                    foreach (var dataGridSelectedItem in dataGridSelectedItems)
+                    {
+                        var kursRemove = ersteModel.kursevi.Find(((kurs)dataGridSelectedItem).Id);
+                        ersteModel.kursevi.Remove(kursRemove);
+                        ersteModel.SaveChanges();
+                    }
+                }
+                Load_Data();
+            };
         }
 
-        private void Button_Pregledaj(object sender, RoutedEventArgs e)
-        {
-            kurs kurs = DataGrid.SelectedItem as kurs;
-            EvidencijaKursaDialog evidencijaKursaDialog = new EvidencijaKursaDialog(kurs);
-            evidencijaKursaDialog.ShowDialog();
-
-            Load_Data();
-        }
+        public void Refresh() => Load_Data();
 
         private void Load_Data()
         {
@@ -69,6 +78,16 @@ namespace Erste.Administrator
             {
                 MessageBox.Show("MySQL Exception: " + ex.ToString());
             }
+        }
+
+        private void DataGrid_OnBeginningEdit(object sender, DataGridBeginningEditEventArgs e)
+        {
+            kurs kurs = DataGrid.SelectedItem as kurs;
+            EvidencijaKursaDialog evidencijaKursaDialog = new EvidencijaKursaDialog(kurs);
+            evidencijaKursaDialog.ShowDialog();
+
+            Load_Data();
+            e.Cancel = true;
         }
     }
 }

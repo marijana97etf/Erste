@@ -23,27 +23,25 @@ namespace Erste.Administrator
         private profesor profesor = null;
         private Boolean izmjena = false;
         private const string uredu = "Uredu";
-        private const string otkazi = "Otkazi";
-        private const string izmjeni = "Izmjeni";
-        private const string obrisi = "Obrisi";
+        private const string otkazi = "Otkaži";
+        private const string izmjeni = "Izmijeni";
+        private const string obrisi = "Obriši";
 
         public EvidencijaProfesoraDialog(profesor profesor)
         {
             InitializeComponent();
             this.profesor = profesor;
-            textBox_Id.IsEnabled = false;
+
             if (profesor != null)
             {
-                Button_Uredu.Content = izmjeni;
-                Button_Otkazi.Content = obrisi;
+                Button1.Content = izmjeni;
+                Button2.Content = obrisi;
 
-                textBox_Id.IsEnabled = false;
                 textBox_Ime.IsEnabled = false;
                 textBox_Prezime.IsEnabled = false;
                 textBox_Email.IsEnabled = false;
                 textBox_BrojTelefona.IsEnabled = false;
 
-                textBox_Id.Text = profesor.Id.ToString();
                 textBox_Ime.Text = profesor.osoba.Ime;
                 textBox_Prezime.Text = profesor.osoba.Prezime;
                 textBox_Email.Text = profesor.osoba.Email;
@@ -51,7 +49,7 @@ namespace Erste.Administrator
             }
         }
 
-        private void Button_Uredu_Click(object sender, RoutedEventArgs e)
+        private void Button1Click(object sender, RoutedEventArgs e)
         {
             if (!izmjena)
             {
@@ -60,8 +58,8 @@ namespace Erste.Administrator
                 textBox_Email.IsEnabled = true;
                 textBox_BrojTelefona.IsEnabled = true;
 
-                Button_Uredu.Content = uredu;
-                Button_Otkazi.Content = otkazi;
+                Button1.Content = uredu;
+                Button2.Content = otkazi;
                 izmjena = true;
             }
             else
@@ -83,6 +81,9 @@ namespace Erste.Administrator
                                 profesor.osoba.Email = textBox_Email.Text;
                                 profesor.osoba.BrojTelefona = textBox_BrojTelefona.Text;
                                 ersteModel.SaveChanges();
+
+                                MessageBox.Show("Korisnik je uspješno izmijenjen.");
+                                Close();
                             }
                         }
                         catch (Exception ex)
@@ -105,6 +106,8 @@ namespace Erste.Administrator
                             {
                                 ersteModel.profesori.Add(profesor);
                                 ersteModel.SaveChanges();
+                                MessageBox.Show("Korisnik je uspješno dodan.");
+                                Close();
                             }
                         }
                         catch (Exception ex)
@@ -112,26 +115,11 @@ namespace Erste.Administrator
                             MessageBox.Show("MySQL Exception: " + ex.ToString());
                         }
                     }
-                    Close();
+                    
                 }
                 else
                 {
-                    if (String.IsNullOrEmpty(textBox_Ime.Text))
-                    {
-                        MessageBox.Show("Lozinke moraju biti iste.");
-                    }
-                    else if (String.IsNullOrEmpty(textBox_Prezime.Text))
-                    {
-                        MessageBox.Show("Lozinke moraju biti iste.");
-                    }
-                    else if (String.IsNullOrEmpty(textBox_Email.Text))
-                    {
-                        MessageBox.Show("Lozinke moraju biti iste.");
-                    }
-                    else if (String.IsNullOrEmpty(textBox_BrojTelefona.Text))
-                    {
-                        MessageBox.Show("Lozinke moraju biti iste.");
-                    }
+                    MessageBox.Show("Sva polja moraju biti popunjena.");
                 }
             }
         }
@@ -144,7 +132,6 @@ namespace Erste.Administrator
                 {
                     using (var ersteModel = new ErsteModel())
                     {
-                        //Mozda treba setovati da nije aktivan
                         profesor profesor_remove = ersteModel.profesori.Find(profesor.Id);
                         if (profesor_remove.osoba != null)
                         {
@@ -152,6 +139,7 @@ namespace Erste.Administrator
                             ersteModel.SaveChanges();
                         }
                     }
+                    MessageBox.Show("Korisnik je uspješno obrisan.");
                     Close();
                 }
                 catch (Exception ex)

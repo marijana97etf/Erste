@@ -5,36 +5,23 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Erste.Administrator"
         mc:Ignorable="d"
-        Title="EvidencijaKursaDialog" Height="450" Width="800">
+        Title="EvidencijaKursaDialog" SizeToContent="WidthAndHeight" Height="278" Width="379"  ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <Label Grid.Column="0" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Center">Id</Label>
-        <TextBox Name="textBox_Id" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" Margin="10,0,10,0"></TextBox>
+        <Label Grid.Column="0" VerticalAlignment="Top" Margin="68,71,249,0" Height="26">Jezik:</Label>
+        <ComboBox Name="comboBox_Jezik" VerticalAlignment="Top" Margin="153,73,61,0" IsReadOnly="True" IsEditable="True" Text="Izaberite..." DisplayMemberPath="Naziv" Height="22"/>
 
-        <Label Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center">Jezik</Label>
-        <ComboBox Name="comboBox_Jezik" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" Margin="10,0,10,0" IsReadOnly="True" IsEditable="True" Text="Izaberite" DisplayMemberPath="Naziv"></ComboBox>
+        <Label Grid.Column="0" VerticalAlignment="Center" Margin="68,115,255,105" Height="29">Nivo:</Label>
+        <TextBox Name="textBox_Nivo" VerticalAlignment="Bottom" Margin="153,0,61,108" Height="22"/>
 
-        <Label Grid.Column="0" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center">Nivo</Label>
-        <TextBox Name="textBox_Nivo" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" Margin="10,0,10,0"></TextBox>
-
-        <Grid Grid.ColumnSpan="3" Grid.Row="8">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Button Name="Button_Uredu" Content="Uredu" Click="Button_Uredu_Click" Grid.Column="0" Margin="10,0,10,0" Style="{DynamicResource buttonStyle}"></Button>
-            <Button Name="Button_Otkazi" Content="Otkazi" Click="Button_Otkazi_Click" Grid.Column="1" Margin="10,0,10,0" Style="{DynamicResource buttonStyle}"></Button>
-        </Grid>
+        <Button x:Name="Button1" Content="Uredu" Click="Button1_Click" Grid.Column="0" Margin="73,178,205,43" Style="{DynamicResource buttonStyle}" Height="Auto"/>
+        <Button x:Name="Button2" Content="Otkaži" Click="Button_Otkazi_Click" Margin="195,178,78,43" Style="{DynamicResource buttonStyle}" Height="Auto"/>
+        <Label x:Name="label" Content="Podaci o kursu" Height="32" Margin="107,7,120,0" VerticalAlignment="Top"  FontSize="19" FontWeight="Bold" Foreground="DarkRed"/>
     </Grid>
 </Window>

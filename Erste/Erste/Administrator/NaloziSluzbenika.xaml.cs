@@ -18,30 +18,42 @@ namespace Erste.Administrator
     /// <summary>
     /// Interaction logic for NaloziSluzbenika.xaml
     /// </summary>
-    public partial class NaloziSluzbenika : Page
+    public partial class NaloziSluzbenika : UserControl
     {
         public NaloziSluzbenika()
         {
             InitializeComponent();
-            Load_Data();
         }
 
-        private void Button_Dodaj(object sender, RoutedEventArgs e)
+        public void AddButtonActions(params Button[] buttons)
         {
-            NalogSluzbenikaDialog nalogSluzbenikaDialog = new NalogSluzbenikaDialog(null);
-            nalogSluzbenikaDialog.ShowDialog();
+            buttons[0].Click += (sender, args) =>
+            {
+                NalogSluzbenikaDialog nalogSluzbenikaDialog = new NalogSluzbenikaDialog(null);
+                nalogSluzbenikaDialog.ShowDialog();
 
-            Load_Data();
+                Load_Data();
+            };
+            buttons[1].Click += (sender, args) =>
+            {
+                var dataGridSelectedItems = DataGrid.SelectedItems;
+                using (var ersteModel = new ErsteModel())
+                {
+                    foreach (var dataGridSelectedItem in dataGridSelectedItems)
+                    {
+                        var sluzbenikRemove = ersteModel.sluzbenici.Find(((sluzbenik)dataGridSelectedItem).Id);
+                        if (sluzbenikRemove?.osoba != null)
+                        {
+                            ersteModel.osobe.Remove(sluzbenikRemove.osoba);
+                            ersteModel.SaveChanges();
+                        }
+                    }
+                }
+                Load_Data();
+            };
         }
 
-        private void Button_Pregledaj(object sender, RoutedEventArgs e)
-        {
-            sluzbenik sluzbenik = DataGrid.SelectedItem as sluzbenik;
-            NalogSluzbenikaDialog nalogSluzbenikaDialog = new NalogSluzbenikaDialog(sluzbenik);
-            nalogSluzbenikaDialog.ShowDialog();
-
-            Load_Data();
-        }
+        public void Refresh() => Load_Data();
 
         private void Load_Data()
         {
@@ -69,6 +81,16 @@ namespace Erste.Administrator
             {
                 MessageBox.Show("MySQL Exception: " + ex.ToString());
             }
+        }
+
+        private void DataGrid_OnBeginningEdit(object sender, DataGridBeginningEditEventArgs e)
+        {
+            sluzbenik sluzbenik = DataGrid.SelectedItem as sluzbenik;
+            NalogSluzbenikaDialog nalogSluzbenikaDialog = new NalogSluzbenikaDialog(sluzbenik);
+            nalogSluzbenikaDialog.ShowDialog();
+
+            Load_Data();
+            e.Cancel = true;
         }
     }
 }

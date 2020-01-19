@@ -23,21 +23,19 @@ namespace Erste.Administrator
         private sluzbenik sluzbenik = null;
         private Boolean izmjena = false;
         private const string uredu = "Uredu";
-        private const string otkazi = "Otkazi";
-        private const string izmjeni = "Izmjeni";
-        private const string obrisi = "Obrisi";
+        private const string otkazi = "Otkaži";
+        private const string izmijeni = "Izmijeni";
+        private const string obrisi = "Obriši";
 
         public NalogSluzbenikaDialog(sluzbenik sluzbenik)
         {
             InitializeComponent();
             this.sluzbenik = sluzbenik;
-            textBox_Id.IsEnabled = false;
             if (sluzbenik != null)
             {
-                Button_Uredu.Content = izmjeni;
-                Button_Otkazi.Content = obrisi;
+                Button1.Content = izmijeni;
+                Button2.Content = obrisi;
 
-                textBox_Id.IsEnabled = false;
                 textBox_Ime.IsEnabled = false;
                 textBox_Prezime.IsEnabled = false;
                 textBox_Email.IsEnabled = false;
@@ -46,7 +44,6 @@ namespace Erste.Administrator
                 textBox_Lozinka.IsEnabled = false;
                 textBox_LozinkaProvjera.IsEnabled = false;
 
-                textBox_Id.Text = sluzbenik.Id.ToString();
                 textBox_Ime.Text = sluzbenik.osoba.Ime;
                 textBox_Prezime.Text = sluzbenik.osoba.Prezime;
                 textBox_Email.Text = sluzbenik.osoba.Email;
@@ -57,7 +54,7 @@ namespace Erste.Administrator
             }
         }
 
-        private void Button_Uredu_Click(object sender, RoutedEventArgs e)
+        private void Button1_Click(object sender, RoutedEventArgs e)
         {
             if (!izmjena)
             {
@@ -69,8 +66,8 @@ namespace Erste.Administrator
                 textBox_Lozinka.IsEnabled = true;
                 textBox_LozinkaProvjera.IsEnabled = true;
 
-                Button_Uredu.Content = uredu;
-                Button_Otkazi.Content = otkazi;
+                Button1.Content = uredu;
+                Button2.Content = otkazi;
                 izmjena = true;
             }
             else
@@ -101,6 +98,8 @@ namespace Erste.Administrator
                                     sluzbenik.LozinkaHash = hashGenerator.ComputeHash(textBox_Lozinka.Password);
                                 }
                                 ersteModel.SaveChanges();
+                                MessageBox.Show("Korisnik je uspješno izmijenjen.");
+                                Close();
                             }
                         }
                         catch (Exception ex)
@@ -127,6 +126,8 @@ namespace Erste.Administrator
                             {
                                 ersteModel.sluzbenici.Add(sluzbenik);
                                 ersteModel.SaveChanges();
+                                MessageBox.Show("Korisnik je uspješno dodan.");
+                                Close();
                             }
                         }
                         catch (Exception ex)
@@ -134,43 +135,18 @@ namespace Erste.Administrator
                             MessageBox.Show("MySQL Exception: " + ex.ToString());
                         }
                     }
-                    Close();
                 }
                 else
-                {
-                    if (String.IsNullOrEmpty(textBox_Ime.Text))
-                    {
+                {               
+                    if (!textBox_Lozinka.Password.Equals(textBox_LozinkaProvjera.Password))
                         MessageBox.Show("Lozinke moraju biti iste.");
-                    }
-                    else if (String.IsNullOrEmpty(textBox_Prezime.Text))
-                    {
-                        MessageBox.Show("Lozinke moraju biti iste.");
-                    }
-                    else if (String.IsNullOrEmpty(textBox_Email.Text))
-                    {
-                        MessageBox.Show("Lozinke moraju biti iste.");
-                    }
-                    else if (String.IsNullOrEmpty(textBox_BrojTelefona.Text))
-                    {
-                        MessageBox.Show("Lozinke moraju biti iste.");
-                    }
-                    else if (String.IsNullOrEmpty(textBox_KorisnickoIme.Text))
-                    {
-                        MessageBox.Show("Lozinke moraju biti iste.");
-                    }
-                    else if (String.IsNullOrEmpty(textBox_Lozinka.Password))
-                    {
-                        MessageBox.Show("Lozinke moraju biti iste.");
-                    }
-                    else if (textBox_Lozinka.Password.Equals(textBox_LozinkaProvjera.Password))
-                    {
-                        MessageBox.Show("Lozinke moraju biti iste.");
-                    }
+                    else
+                        MessageBox.Show("Sva polja moraju biti popunjena.");
                 }
             }
         }
 
-        private void Button_Otkazi_Click(object sender, RoutedEventArgs e)
+        private void Button2_Click(object sender, RoutedEventArgs e)
         {
             if (sluzbenik != null && !izmjena)
             {
@@ -178,7 +154,6 @@ namespace Erste.Administrator
                 {
                     using (var ersteModel = new ErsteModel())
                     {
-                        //Mozda treba setovati da nije aktivan
                         sluzbenik sluzbenik_remove = ersteModel.sluzbenici.Find(sluzbenik.Id);
                         if (sluzbenik_remove.osoba != null)
                         {
@@ -186,6 +161,7 @@ namespace Erste.Administrator
                             ersteModel.SaveChanges();
                         }
                     }
+                    MessageBox.Show("Korisnik je uspješno obrisan.");
                     Close();
                 }
                 catch (Exception ex)

@@ -5,56 +5,38 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Erste.Administrator"
         mc:Ignorable="d"
-        Title="NalogSluzbenikaDialog" Height="450" Width="800">
+        Title="NalogSluzbenikaDialog" SizeToContent="WidthAndHeight" Height="450" Width="446.607" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="206*"/>
+
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="274*"/>
+
         </Grid.ColumnDefinitions>
+        <TextBox Name="textBox_Ime" VerticalAlignment="Top" Margin="200,71,82,0" Height="18"/>
+        <TextBox Name="textBox_Prezime" VerticalAlignment="Top" Margin="200,111,82,0" Height="18"/>
+        <TextBox Name="textBox_Email" VerticalAlignment="Top" Margin="200,151,82,0" Height="18"/>
+        <TextBox Name="textBox_BrojTelefona" VerticalAlignment="Top" Margin="200,191,82,0" Height="18"/>
+        <TextBox Name="textBox_KorisnickoIme" VerticalAlignment="Top" Margin="198,231,84,0" Height="18"/>
+        <PasswordBox Name="textBox_Lozinka" VerticalAlignment="Top" Margin="200,271,82,0" Height="18"/>
+        <PasswordBox Name="textBox_LozinkaProvjera" VerticalAlignment="Top" Margin="200,311,82,0" Height="18"/>
 
-        <Label Grid.Column="0" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Center">Id</Label>
-        <TextBox Name="textBox_Id" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" Margin="10,0,10,0"></TextBox>
-
-        <Label Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center">Ime</Label>
-        <TextBox Name="textBox_Ime" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" Margin="10,0,10,0"></TextBox>
-
-        <Label Grid.Column="0" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center">Prezime</Label>
-        <TextBox Name="textBox_Prezime" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" Margin="10,0,10,0"></TextBox>
-
-        <Label Grid.Column="0" Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Center">Email</Label>
-        <TextBox Name="textBox_Email" Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" Margin="10,0,10,0"></TextBox>
-
-        <Label Grid.Column="0" Grid.Row="4" HorizontalAlignment="Right" VerticalAlignment="Center">Broj telefona</Label>
-        <TextBox Name="textBox_BrojTelefona" Grid.Column="1" Grid.Row="4" VerticalAlignment="Center" Margin="10,0,10,0"></TextBox>
-
-        <Label Grid.Column="0" Grid.Row="5" HorizontalAlignment="Right" VerticalAlignment="Center">Korisnicko ime</Label>
-        <TextBox Name="textBox_KorisnickoIme" Grid.Column="1" Grid.Row="5" VerticalAlignment="Center" Margin="10,0,10,0"></TextBox>
-        
-        <Label Grid.Column="0" Grid.Row="6" HorizontalAlignment="Right" VerticalAlignment="Center">Lozinka</Label>
-        <PasswordBox Name="textBox_Lozinka" Grid.Column="1" Grid.Row="6" VerticalAlignment="Center" Margin="10,0,10,0"></PasswordBox>
-
-        <Label Grid.Column="0" Grid.Row="7" HorizontalAlignment="Right" VerticalAlignment="Center">Lozinka</Label>
-        <PasswordBox Name="textBox_LozinkaProvjera" Grid.Column="1" Grid.Row="7" VerticalAlignment="Center" Margin="10,0,10,0"></PasswordBox>
-
-        <Grid Grid.ColumnSpan="3" Grid.Row="8">
+        <Grid Grid.Row="8">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="791*"/>
             </Grid.ColumnDefinitions>
-            <Button Name="Button_Uredu" Content="Uredu" Click="Button_Uredu_Click" Grid.Column="0" Margin="10,0,10,0" Style="{DynamicResource buttonStyle}"></Button>
-            <Button Name="Button_Otkazi" Content="Otkazi" Click="Button_Otkazi_Click" Grid.Column="1" Margin="10,0,10,0" Style="{DynamicResource buttonStyle}"></Button>
+            <Button Name="Button1" Content="Uredu" Click="Button1_Click" Margin="96,372,244,21" Style="{DynamicResource buttonStyle}" Height="Auto"/>
+            <Label HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="26" Margin="0,0,269,330" Width="37" Content="Ime:"/>
+            <Label HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="26" Margin="0,0,268,289" Width="60" Content="Prezime:"/>
+            <Label HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="26" Margin="0,0,266,248" Width="49" Content="Email:"/>
+            <Label HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="26" Margin="0,0,269,210" Width="84" Content="Broj telefona:"/>
+            <Label VerticalAlignment="Bottom" Height="26" Margin="78,0,269,168" Content="Korisničko ime:"/>
+            <Label HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="26" Margin="0,0,267,129" Width="59" Content="Lozinka:"/>
+            <Label HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="26" Margin="0,0,268,90" Width="109" Content="Lozinka (ponovo):"/>
+            <Button x:Name="Button2" Content="Otkaži" Click="Button2_Click" Margin="227,372,112,21" Style="{DynamicResource buttonStyle}" Height="Auto"/>
+            <Label x:Name="label" Content="Podaci o službeniku" Height="34" Margin="127,8,127,0" VerticalAlignment="Top" FontSize="19" FontWeight="Bold" Foreground="DarkRed"/>
         </Grid>
     </Grid>
 </Window>

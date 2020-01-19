@@ -18,30 +18,42 @@ namespace Erste.Administrator
     /// <summary>
     /// Interaction logic for EvidencijaProfesora.xaml
     /// </summary>
-    public partial class EvidencijaProfesora : Page
+    public partial class EvidencijaProfesora : UserControl
     {
         public EvidencijaProfesora()
         {
             InitializeComponent();
-            Load_Data();
         }
 
-        private void Button_Dodaj(object sender, RoutedEventArgs e)
+        public void AddButtonActions(params Button[] buttons)
         {
-            EvidencijaProfesoraDialog evidencijaProfesoraDialog = new EvidencijaProfesoraDialog(null);
-            evidencijaProfesoraDialog.ShowDialog();
+            buttons[0].Click += (sender, args) =>
+            {
+                EvidencijaProfesoraDialog evidencijaProfesoraDialog = new EvidencijaProfesoraDialog(null);
+                evidencijaProfesoraDialog.ShowDialog();
 
-            Load_Data();
+                Load_Data();
+            };
+            buttons[1].Click += (sender, args) =>
+            {
+                var dataGridSelectedItems = DataGrid.SelectedItems;
+                using (var ersteModel = new ErsteModel())
+                {
+                    foreach (var dataGridSelectedItem in dataGridSelectedItems)
+                    {
+                        var profesorRemove = ersteModel.profesori.Find(((profesor)dataGridSelectedItem).Id);
+                        if (profesorRemove?.osoba != null)
+                        {
+                            ersteModel.osobe.Remove(profesorRemove.osoba);
+                            ersteModel.SaveChanges();
+                        }
+                    }
+                }
+                Load_Data();
+            };
         }
 
-        private void Button_Pregledaj(object sender, RoutedEventArgs e)
-        {
-            profesor profesor = DataGrid.SelectedItem as profesor;
-            EvidencijaProfesoraDialog evidencijaProfesoraDialog = new EvidencijaProfesoraDialog(profesor);
-            evidencijaProfesoraDialog.ShowDialog();
-
-            Load_Data();
-        }
+        public void Refresh() => Load_Data();
 
         private void Load_Data()
         {
@@ -69,6 +81,16 @@ namespace Erste.Administrator
             {
                 MessageBox.Show("MySQL Exception: " + ex.ToString());
             }
+        }
+
+        private void DataGrid_OnBeginningEdit(object sender, DataGridBeginningEditEventArgs e)
+        {
+            profesor profesor = DataGrid.SelectedItem as profesor;
+            EvidencijaProfesoraDialog evidencijaProfesoraDialog = new EvidencijaProfesoraDialog(profesor);
+            evidencijaProfesoraDialog.ShowDialog();
+
+            Load_Data();
+            e.Cancel = true;
         }
     }
 }

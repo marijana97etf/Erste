@@ -58,23 +58,22 @@
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <Border x:Name="BackgroundBorder" BorderThickness="0,0,0,2"
+                            <Border x:Name="BackgroundBorder" BorderThickness="0,0,0,1"
                                     Background="#FFEF3D4A"
-                                    BorderBrush="Black"
+                                    BorderBrush="White"
                                     Grid.ColumnSpan="2"/>
                             <ContentPresenter Margin="6,3,6,3" VerticalAlignment="Center"/>
                             <Path x:Name="SortArrow" Visibility="Collapsed" Data="M 0,0 L 1,0 0.5,1 z" Stretch="Fill"
                                   Grid.Column="1" Width="8" Height="6" Fill="Black" Margin="0,0,8,0"
                                   VerticalAlignment="Center" RenderTransformOrigin="0.5, 0.4"/>
-                            <Rectangle Width="1" Fill="White" HorizontalAlignment="Right" Grid.ColumnSpan="2"/>
                             <Rectangle Width="1" Margin="0,0,1,0" Fill="White" HorizontalAlignment="Right" Grid.ColumnSpan="2"/>
                             <Thumb x:Name="PART_LeftHeaderGripper" HorizontalAlignment="Left" Style="{StaticResource ThumbStyle}"/>
                             <Thumb x:Name="PART_RightHeaderGripper" Grid.Column="1" HorizontalAlignment="Right" Style="{StaticResource ThumbStyle}"/>
                         </Grid>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="BackgroundBorder" Property="Background" Value="#FF6DCEF9"/>
-                                <Setter TargetName="BackgroundBorder" Property="BorderBrush" Value="#FF6DCEF9"/>
+                                <Setter TargetName="BackgroundBorder" Property="Background" Value="DarkRed"/>
+                                <Setter TargetName="BackgroundBorder" Property="BorderBrush" Value="DarkRed"/>
                             </Trigger>
                             <Trigger Property="SortDirection" Value="Descending">
                                 <Setter TargetName="SortArrow" Property="Visibility" Value="Visible"/>
@@ -97,14 +96,17 @@
             </Setter>
         </Style>
         <Style TargetType="{x:Type DataGridCell}" x:Key="DataGridCellErsteStyle">
+            <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="VerticalContentAlignment" Value="Center" />
             <Setter Property="HorizontalContentAlignment" Value="Center" />
             <Setter Property="Foreground" Value="Black" />
             <Setter Property="Background" Value="White" />
             <Setter Property="IsEditing" Value="False" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="MinHeight" Value="30"/>
             <Style.Triggers>
                 <Trigger Property="IsSelected" Value="True">
-                    <Setter Property="Background" Value="#FF6DCEF9"/>
+                    <Setter Property="Background" Value="#E4F0F5"/>
                     <Setter Property="Foreground" Value="Black"/>
                 </Trigger>
             </Style.Triggers>

@@ -25,9 +25,9 @@ namespace Erste.Administrator
         private kurs kurs = null;
         private Boolean izmjena = false;
         private const string uredu = "Uredu";
-        private const string otkazi = "Otkazi";
-        private const string izmjeni = "Izmjeni";
-        private const string obrisi = "Obrisi";
+        private const string otkazi = "Otkaži";
+        private const string izmjeni = "Izmijeni";
+        private const string obrisi = "Obriši";
 
         public EvidencijaKursaDialog(kurs kurs)
         {
@@ -52,31 +52,28 @@ namespace Erste.Administrator
             }
 
             this.kurs = kurs;
-            textBox_Id.IsEnabled = false;
             if (kurs != null)
             {
-                Button_Uredu.Content = izmjeni;
-                Button_Otkazi.Content = obrisi;
+                Button1.Content = izmjeni;
+                Button2.Content = obrisi;
 
-                textBox_Id.IsEnabled = false;
                 comboBox_Jezik.IsEnabled = false;
                 textBox_Nivo.IsEnabled = false;
 
-                textBox_Id.Text = kurs.Id.ToString();
                 comboBox_Jezik.SelectedIndex = comboBoxList.IndexOf(kurs.jezik);
                 textBox_Nivo.Text = kurs.Nivo;
             }
         }
 
-        private void Button_Uredu_Click(object sender, RoutedEventArgs e)
+        private void Button1_Click(object sender, RoutedEventArgs e)
         {
             if (!izmjena)
             {
                 comboBox_Jezik.IsEnabled = true;
                 textBox_Nivo.IsEnabled = true;
 
-                Button_Uredu.Content = uredu;
-                Button_Otkazi.Content = otkazi;
+                Button1.Content = uredu;
+                Button2.Content = otkazi;
                 izmjena = true;
             }
             else
@@ -93,6 +90,8 @@ namespace Erste.Administrator
                                 kurs.Nivo = textBox_Nivo.Text;
                                 kurs.JezikId = (comboBox_Jezik.SelectedItem as jezik).Id;
                                 ersteModel.SaveChanges();
+                                MessageBox.Show("Kurs je uspješno izmijenjen.");
+                                Close();
                             }
                         }
                         catch (Exception ex)
@@ -112,6 +111,8 @@ namespace Erste.Administrator
                             {
                                 ersteModel.kursevi.Add(kurs);
                                 ersteModel.SaveChanges();
+                                MessageBox.Show("Kurs je uspješno dodan.");
+                                Close();
                             }
                         }
                         catch (Exception ex)
@@ -119,18 +120,11 @@ namespace Erste.Administrator
                             MessageBox.Show("MySQL Exception: " + ex.ToString());
                         }
                     }
-                    Close();
+                    
                 }
                 else
                 {
-                    if (String.IsNullOrEmpty(textBox_Nivo.Text))
-                    {
-                        MessageBox.Show("Niste unijeli kurs.");
-                    }
-                    else if (comboBox_Jezik.SelectedIndex == -1)
-                    {
-                        MessageBox.Show("Niste izabrali jezik.");
-                    }
+                    MessageBox.Show("Sva polja moraju biti popunjena.");
                 }
             }
         }
@@ -143,11 +137,11 @@ namespace Erste.Administrator
                 {
                     using (var ersteModel = new ErsteModel())
                     {
-                        //Mozda treba setovati da nije aktivan
                         kurs kurs_remove = ersteModel.kursevi.Find(kurs.Id);
                         ersteModel.kursevi.Remove(kurs_remove);
                         ersteModel.SaveChanges();
                     }
+                    MessageBox.Show("Kurs je uspješno obrisan.");
                     Close();
                 }
                 catch (Exception ex)

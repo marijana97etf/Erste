@@ -30,55 +30,57 @@ namespace Erste
         public LoginWindow()
         {
             InitializeComponent();
+            usernameBox.Focus();
+
             //za testiranje
-            using (ErsteModel context = new ErsteModel())
-            {
-                List<administrator> administrators = new List<administrator>();
-                List<sluzbenik> employees = new List<sluzbenik>();
-                List<osoba> users = new List<osoba>();
+            //using (ErsteModel context = new ErsteModel())
+            //{
+            //    List<administrator> administrators = new List<administrator>();
+            //    List<sluzbenik> employees = new List<sluzbenik>();
+            //    List<osoba> users = new List<osoba>();
 
-                HashGenerator hashGenerator = new HashGenerator();
-                osoba user = new osoba
-                {
-                    Id = 1,
-                    Ime = "nikola",
-                    Prezime = "nikolic",
-                    BrojTelefona = "2345324",
-                    Email = "nikola@gmail.com"
-                };
-                users.Add(user);
-                administrator admin = new administrator
-                {
-                    Id = 1,
-                    KorisnickoIme = "nikola.nikolic",
-                    LozinkaHash = hashGenerator.ComputeHash("lozinka1")
-                };
-                administrators.Add(admin);
+            //    HashGenerator hashGenerator = new HashGenerator();
+            //    osoba user = new osoba
+            //    {
+            //        Id = 1,
+            //        Ime = "admin",
+            //        Prezime = "admin",
+            //        BrojTelefona = "2345324",
+            //        Email = "admin@gmail.com"
+            //    };
+            //    users.Add(user);
+            //    administrator admin = new administrator
+            //    {
+            //        Id = 1,
+            //        KorisnickoIme = "admin",
+            //        LozinkaHash = hashGenerator.ComputeHash("admin")
+            //    };
+            //    administrators.Add(admin);
 
-                osoba user2 = new osoba
-                {
-                    Id = 2,
-                    Ime = "marko",
-                    Prezime = "markovic",
-                    BrojTelefona = "2332131232124",
-                    Email = "marko@gmail.com"
-                };
-                users.Add(user2);
-                sluzbenik employee = new sluzbenik
-                {
-                    Id = 2,
-                    KorisnickoIme = "marko.markovic",
-                    LozinkaHash = hashGenerator.ComputeHash("lozinka2")
-                };
-                employees.Add(employee);
+            //    osoba user2 = new osoba
+            //    {
+            //        Id = 2,
+            //        Ime = "sluzbenik",
+            //        Prezime = "sluzbenik",
+            //        BrojTelefona = "2332131232124",
+            //        Email = "marko@gmail.com"
+            //    };
+            //    users.Add(user2);
+            //    sluzbenik employee = new sluzbenik
+            //    {
+            //        Id = 2,
+            //        KorisnickoIme = "sluzbenik",
+            //        LozinkaHash = hashGenerator.ComputeHash("sluzbenik")
+            //    };
+            //    employees.Add(employee);
 
-                context.osobe.AddOrUpdate(user);
-                context.administratori.AddOrUpdate(admin);
-                context.osobe.AddOrUpdate(user2);
-                context.sluzbenici.AddOrUpdate(employee);
-                context.SaveChanges();
+            //    context.osobe.AddOrUpdate(user);
+            //    context.administratori.AddOrUpdate(admin);
+            //    context.osobe.AddOrUpdate(user2);
+            //    context.sluzbenici.AddOrUpdate(employee);
+            //    context.SaveChanges();
 
-            }
+            //}
         }
 
         private void Prijava_Click(object sender, RoutedEventArgs e)
@@ -123,56 +125,10 @@ namespace Erste
 
         }
 
-        //#region Keep aspect ratio
-
-        //protected override void OnSourceInitialized(EventArgs e)
-        //{
-        //    base.OnSourceInitialized(e);
-        //    if (PresentationSource.FromVisual(this) is HwndSource source)
-        //    {
-        //        source.AddHook(WinProc);
-        //    }
-        //}
-
-        //private const Int32 WmExitsizemove = 0x0232;
-        //private bool _firstTime = true;
-        //private IntPtr WinProc(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, ref Boolean handled)
-        //{
-        //    IntPtr result = IntPtr.Zero;
-        //    switch (msg)
-        //    {
-        //        case WmExitsizemove:
-        //        {
-        //            if (_firstTime)
-        //            {
-        //                Viewbox.Height = 520;
-        //                Viewbox.Width = 800;
-        //                Height = 520;
-        //                Width = 800;
-        //                _firstTime = false;
-        //            }
-        //            else
-        //            {
-        //                Viewbox.Height=double.NaN;
-        //                Viewbox.Width= double.NaN;
-        //            }
-        //            Viewbox.Height = Viewbox.Width * 0.69;
-        //            Height = Width * 0.69;
-        //        }
-        //            break;
-        //    }
-
-        //    return result;
-        //}
-
-        //private void LoginWindow_OnLoadCompleted(object sender, NavigationEventArgs e)
-        //{
-        //    Viewbox.Height = 520;
-        //    Viewbox.Width = 800;
-        //    Height = 520;
-        //    Width = 800;
-        //}
-
-        //#endregion
+        private void passwordBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+                Prijava_Click(sender, e);
+        }
     }
 }
