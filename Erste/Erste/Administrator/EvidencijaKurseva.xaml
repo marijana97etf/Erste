@@ -17,7 +17,7 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <DataGrid Name="DataGrid" Grid.ColumnSpan="3" ColumnHeaderStyle="{StaticResource DataGridErsteStyle}" CellStyle="{StaticResource DataGridCellErsteStyle}" BeginningEdit="DataGrid_OnBeginningEdit">
+        <DataGrid Name="DataGrid" Grid.ColumnSpan="3" ColumnHeaderStyle="{StaticResource DataGridErsteStyle}" CellStyle="{StaticResource DataGridCellErsteStyle}" VerticalGridLinesBrush="#FFB2B2B2" HorizontalGridLinesBrush="#FFB2B2B2" BeginningEdit="DataGrid_OnBeginningEdit">
             <DataGrid.Columns>
                 <DataGridTextColumn Width="*" Header="Id" Binding="{Binding Path=Id}"></DataGridTextColumn>
                 <DataGridTextColumn Width="*" Header="Jezik" Binding="{Binding Path=jezik.Naziv}"></DataGridTextColumn>

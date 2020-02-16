@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Erste.Administrator"
         mc:Ignorable="d"
-        Title="Erste" SizeToContent="WidthAndHeight" Height="361" Width="405" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+        Title="Erste" SizeToContent="WidthAndHeight" Height="361" MinHeight="361" Width="405" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -24,8 +24,8 @@
         <Label VerticalAlignment="Top" Height="28" Margin="44,194,271,0">Broj telefona:</Label>
         <TextBox Name="textBox_BrojTelefona" VerticalAlignment="Top" Margin="164,198,81,0" Height="20"/>
 
-        <Button Name="Button1" Content="Uredu" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Click="Button1Click" Margin="77,264,220,38" Style="{DynamicResource buttonStyle}" Height="Auto" Padding="0"/>
-        <Button Name="Button2" Content="Otkaži" Click="Button_Otkazi_Click" Margin="0,264,81,38" Style="{DynamicResource buttonStyle}" Height="Auto" Padding="0" HorizontalAlignment="Right" Width="108"/>
+        <Button Name="Button1" Content="Uredu" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Click="Button1Click" Margin="77,264,0,0" Style="{DynamicResource buttonStyle}" Height="30" Padding="0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="102"/>
+        <Button Name="Button2" Content="Otkaži" Click="Button_Otkazi_Click" Margin="0,264,81,0" Style="{DynamicResource buttonStyle}" Height="30" Padding="0" HorizontalAlignment="Right" Width="108" VerticalAlignment="Top"/>
         <Label VerticalAlignment="Top" Height="29" Margin="82,156,266,0" Content="Email:"/>
         <Label x:Name="label" Content="Podaci o profesoru" Margin="106,18,112,0" VerticalAlignment="Top" FontSize="19" FontWeight="Bold" Foreground="DarkRed" Height="38"/>
     </Grid>

@@ -20,14 +20,14 @@ namespace Erste
     /// </summary>
     public partial class AdminMainWindow : Window
     {
-        private object _locker = new object();
-        private static int[] _menuIndex = { 0, 0, 0 };
+        //private object _locker = new object();
+        //private static int[] _menuIndex = { 0, 0, 0 };
         private NaloziSluzbenika naloziSluzbenika;
         private EvidencijaProfesora evidencijaProfesora;
         private EvidencijaKurseva evidencijaKurseva;
 
         public AdminMainWindow()
-        {           
+        {
             InitializeComponent();
         }
 
@@ -41,31 +41,43 @@ namespace Erste
             Environment.Exit(0);
         }
 
-        private async void Button_NaloziSluzbenika(object sender, RoutedEventArgs e)
-        {            
+        private void Button_NaloziSluzbenika(object sender, RoutedEventArgs e)
+        {
             GridZaPrikaz.Children.Add(naloziSluzbenika = new NaloziSluzbenika());
-            if (_menuIndex[0] == 0)
-                naloziSluzbenika.AddButtonActions(DodavanjeSluzbenikaButton, BrisanjeSluzbenikaButton);
-            await NapraviAnimaciju(NaloziSluzbenikaPanel, 0, sender as Button, TimeSpan.FromSeconds(0.5));
+            naloziSluzbenika.Refresh();
         }
 
-        private async void Button_EvidencijaProfesora(object sender, RoutedEventArgs e)
-        {            
+        private void Button_DodajSluzbenika(object sender, RoutedEventArgs e)
+        {
+            NalogSluzbenikaDialog nalogSluzbenikaDialog = new NalogSluzbenikaDialog(null);
+            nalogSluzbenikaDialog.ShowDialog();
+        }
+
+        private void Button_EvidencijaProfesora(object sender, RoutedEventArgs e)
+        {
             GridZaPrikaz.Children.Add(evidencijaProfesora = new EvidencijaProfesora());
-            if (_menuIndex[1] == 0)
-                evidencijaProfesora.AddButtonActions(DodavanjeProfesoraButton, BrisanjeProfesoraButton);
-            await NapraviAnimaciju(EvidencijaProfesoraPanel, 1, sender as Button, TimeSpan.FromSeconds(0.5));
+            evidencijaProfesora.Refresh();
         }
 
-        private async void Button_EvidencijaKurseva(object sender, RoutedEventArgs e)
+        private void Button_DodajProfesora(object sender, RoutedEventArgs e)
+        {
+            EvidencijaProfesoraDialog evidencijaProfesoraDialog = new EvidencijaProfesoraDialog(null);
+            evidencijaProfesoraDialog.ShowDialog();
+        }
+
+        private void Button_EvidencijaKurseva(object sender, RoutedEventArgs e)
         {
             GridZaPrikaz.Children.Add(evidencijaKurseva = new EvidencijaKurseva());
-            if (_menuIndex[2] == 0)
-                evidencijaKurseva.AddButtonActions(DodavanjeKursaButton, BrisanjeKursaButton);
-            await NapraviAnimaciju(EvidencijaKursevaPanel, 2, sender as Button, TimeSpan.FromSeconds(0.5));
+            evidencijaKurseva.Refresh();
         }
 
-        private async Task NapraviAnimaciju(StackPanel stackPanel, int index, Button button, TimeSpan animationDurance)
+        private void Button_DodajKurs(object sender, RoutedEventArgs e)
+        {
+            EvidencijaKursaDialog evidencijaKursaDialog = new EvidencijaKursaDialog(null);
+            evidencijaKursaDialog.ShowDialog();
+        }
+
+        /*private async Task NapraviAnimaciju(StackPanel stackPanel, int index, Button button, TimeSpan animationDurance)
         {
             lock (_locker)
             {
@@ -160,6 +172,6 @@ namespace Erste
                     button2.IsEnabled = true;
                 });
             });
-        }
+        }*/
     }
 }

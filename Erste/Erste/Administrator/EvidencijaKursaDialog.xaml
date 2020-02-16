@@ -20,8 +20,8 @@
         <Label Grid.Column="0" VerticalAlignment="Center" Margin="68,115,255,105" Height="29">Nivo:</Label>
         <TextBox Name="textBox_Nivo" VerticalAlignment="Bottom" Margin="153,0,61,108" Height="22"/>
 
-        <Button x:Name="Button1" Content="Uredu" Click="Button1_Click" Grid.Column="0" Margin="73,178,205,43" Style="{DynamicResource buttonStyle}" Height="Auto"/>
-        <Button x:Name="Button2" Content="Otkaži" Click="Button_Otkazi_Click" Margin="195,178,78,43" Style="{DynamicResource buttonStyle}" Height="Auto"/>
+        <Button x:Name="Button1" Content="Uredu" Click="Button1_Click" Grid.Column="0" Margin="73,178,0,0" Style="{DynamicResource buttonStyle}" Height="28" VerticalAlignment="Top" HorizontalAlignment="Left" Width="95"/>
+        <Button x:Name="Button2" Content="Otkaži" Click="Button_Otkazi_Click" Margin="0,178,78,0" Style="{DynamicResource buttonStyle}" Height="28" VerticalAlignment="Top" HorizontalAlignment="Right" Width="100"/>
         <Label x:Name="label" Content="Podaci o kursu" Height="32" Margin="107,7,120,0" VerticalAlignment="Top"  FontSize="19" FontWeight="Bold" Foreground="DarkRed"/>
     </Grid>
 </Window>

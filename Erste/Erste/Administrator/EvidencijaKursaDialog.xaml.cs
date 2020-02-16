@@ -35,11 +35,11 @@ namespace Erste.Administrator
 
             try
             {
-                using(var ersteModel = new ErsteModel())
+                using (var ersteModel = new ErsteModel())
                 {
                     var jezici = (from jezik in ersteModel.jezici
                                   select jezik).ToList();
-                    foreach(var jezik in jezici)
+                    foreach (var jezik in jezici)
                     {
                         comboBoxList.Add(jezik);
                     }
@@ -96,7 +96,7 @@ namespace Erste.Administrator
                         }
                         catch (Exception ex)
                         {
-                            MessageBox.Show("MySQL Exception: " + ex.ToString());
+                            MessageBox.Show("Greška. Pokušajte ponovo kasnije.");
                         }
                     }
                     else
@@ -117,10 +117,10 @@ namespace Erste.Administrator
                         }
                         catch (Exception ex)
                         {
-                            MessageBox.Show("MySQL Exception: " + ex.ToString());
+                            MessageBox.Show("Greška. Pokušajte ponovo kasnije.");
                         }
                     }
-                    
+
                 }
                 else
                 {

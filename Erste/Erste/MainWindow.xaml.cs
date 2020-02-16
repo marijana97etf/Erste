@@ -79,7 +79,6 @@ namespace Erste
             //    context.osobe.AddOrUpdate(user2);
             //    context.sluzbenici.AddOrUpdate(employee);
             //    context.SaveChanges();
-
             //}
         }
 
@@ -89,18 +88,18 @@ namespace Erste
 
             if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
             {
-                MessageBox.Show("Polja za korisničko ime i lozinku moraju biti popunjena.","Greška");
+                MessageBox.Show("Polja za korisničko ime i lozinku moraju biti popunjena.", "Greška");
                 return;
             }
 
-            HashGenerator hashGenerator= new HashGenerator();
+            HashGenerator hashGenerator = new HashGenerator();
             string hash = hashGenerator.ComputeHash(password);
 
             //slanje podataka na server i login
             using (ErsteModel context = new ErsteModel())
             {
                 var administators = (from a in context.administratori where a.KorisnickoIme.Equals(username) select a).ToList();
-                if (administators.Count!=0 && hash.Equals(administators[0].LozinkaHash))
+                if (administators.Count != 0 && hash.Equals(administators[0].LozinkaHash))
                 {
                     AdminMainWindow window = new AdminMainWindow();
                     window.Show();
@@ -109,7 +108,7 @@ namespace Erste
                 }
 
                 var employees = (from a in context.sluzbenici where a.KorisnickoIme.Equals(username) select a).ToList();
-                if (employees.Count!=0 && hash.Equals(employees[0].LozinkaHash))
+                if (employees.Count != 0 && hash.Equals(employees[0].LozinkaHash))
                 {
                     SluzbenikMainWindow window = new SluzbenikMainWindow();
                     window.Owner = null;
@@ -117,7 +116,7 @@ namespace Erste
                     Hide();
                     return;
                 }
-                
+
             }
 
             MessageBox.Show("Korisničko ime ili lozinka su pogrešni.", "Greška");

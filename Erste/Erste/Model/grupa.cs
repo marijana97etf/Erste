@@ -17,10 +17,11 @@ namespace Erste
             profesori = new HashSet<profesor>();
         }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
 
         public int KursId { get; set; }
+
+        public int? BrojClanova { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<termin> termini { get; set; }

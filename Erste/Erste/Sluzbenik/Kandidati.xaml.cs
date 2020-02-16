@@ -12,13 +12,15 @@ namespace Erste.Sluzbenik
     /// </summary>
     public partial class Kandidati : UserControl
     {
-        public Kandidati()
+        private String mode;
+        public Kandidati(String mode)
         {
             InitializeComponent();
-            Load_Data();
+
+            this.mode = mode;
         }
 
-        public Kandidati(params Button[] buttons) : this()
+        /*public Kandidati(params Button[] buttons) : this()
         {
             buttons[0].Click += (sender, args) =>
             {
@@ -41,16 +43,16 @@ namespace Erste.Sluzbenik
             {
                 MessageBox.Show("Cekanje");
             };
-        }
+        }*/
 
-        private void PregledKandidata_DoubleClick(object sender, RoutedEventArgs e)
+        /*private void PregledKandidata_DoubleClick(object sender, RoutedEventArgs e)
         {
             polaznik polaznik = DataGrid.SelectedItem as polaznik;
             KandidatiDialog kandidatiDialog = new KandidatiDialog(polaznik);
             kandidatiDialog.ShowDialog();
 
             Load_Data();
-        }
+        }*/
 
         public void Refresh() => Load_Data();
 
@@ -63,15 +65,33 @@ namespace Erste.Sluzbenik
             {
                 using (var ersteModel = new ErsteModel())
                 {
-                    var polaznici = (from polaznik in ersteModel.polaznici.Include("osoba")
-                                     join osoba in ersteModel.osobe.Include("polaznik") on polaznik.Id equals osoba.Id
-                                     select polaznik).ToList();
-
-                    foreach (var polaznik in polaznici)
+                    if ("svi".Equals(mode))
                     {
-                        if (polaznik.osoba != null)
+                        var polaznici = (from polaznik in ersteModel.polaznici.Include("osoba")
+                                         join osoba in ersteModel.osobe.Include("polaznik") on polaznik.Id equals osoba.Id
+                                         select polaznik).ToList();
+
+                        foreach (var polaznik in polaznici)
                         {
-                            DataGrid.Items.Add(polaznik);
+                            if (polaznik.osoba != null)
+                            {
+                                DataGrid.Items.Add(polaznik);
+                            }
+                        }
+                    }
+                    else if ("cekanje".Equals(mode))
+                    {
+                        var polazniciNaCekanju = (from polaznik in ersteModel.polaznici.Include("osoba")
+                                                  join osoba in ersteModel.osobe.Include("polaznik") on polaznik.Id equals osoba.Id
+                                                  where polaznik.grupe.Count == 0
+                                                  select polaznik).ToList();
+
+                        foreach (var polaznik in polazniciNaCekanju)
+                        {
+                            if (polaznik.osoba != null)
+                            {
+                                DataGrid.Items.Add(polaznik);
+                            }
                         }
                     }
                 }

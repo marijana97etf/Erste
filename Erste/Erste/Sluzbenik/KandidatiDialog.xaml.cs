@@ -12,27 +12,25 @@ namespace Erste.Sluzbenik
         private polaznik polaznik = null;
         private bool izmjena = false;
         private const string uredu = "Uredu";
-        private const string otkazi = "Otkazi";
-        private const string izmjeni = "Izmjeni";
-        private const string obrisi = "Obrisi";
+        private const string otkazi = "Otkaži";
+        private const string izmjeni = "Izmijeni";
+        private const string obrisi = "Obriši";
 
         public KandidatiDialog(polaznik polaznik)
         {
             InitializeComponent();
             this.polaznik = polaznik;
-            textBox_Id.IsEnabled = false;
+
             if (polaznik != null)
             {
                 Button_Uredu.Content = izmjeni;
                 Button_Otkazi.Content = obrisi;
 
-                textBox_Id.IsEnabled = false;
                 textBox_Ime.IsEnabled = false;
                 textBox_Prezime.IsEnabled = false;
                 textBox_Email.IsEnabled = false;
                 textBox_BrojTelefona.IsEnabled = false;
 
-                textBox_Id.Text = polaznik.Id.ToString();
                 textBox_Ime.Text = polaznik.osoba.Ime;
                 textBox_Prezime.Text = polaznik.osoba.Prezime;
                 textBox_Email.Text = polaznik.osoba.Email;
@@ -107,21 +105,10 @@ namespace Erste.Sluzbenik
                 }
                 else
                 {
-                    if (string.IsNullOrEmpty(textBox_Ime.Text))
+                    if (string.IsNullOrEmpty(textBox_Ime.Text) || string.IsNullOrEmpty(textBox_Prezime.Text)
+                        || string.IsNullOrEmpty(textBox_Email.Text) || string.IsNullOrEmpty(textBox_BrojTelefona.Text))
                     {
-                        MessageBox.Show("Lozinke moraju biti iste.");
-                    }
-                    else if (string.IsNullOrEmpty(textBox_Prezime.Text))
-                    {
-                        MessageBox.Show("Lozinke moraju biti iste.");
-                    }
-                    else if (string.IsNullOrEmpty(textBox_Email.Text))
-                    {
-                        MessageBox.Show("Lozinke moraju biti iste.");
-                    }
-                    else if (string.IsNullOrEmpty(textBox_BrojTelefona.Text))
-                    {
-                        MessageBox.Show("Lozinke moraju biti iste.");
+                        MessageBox.Show("Sva polja moraju biti popunjena.");
                     }
                 }
             }

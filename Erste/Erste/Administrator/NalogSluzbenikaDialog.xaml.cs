@@ -49,8 +49,6 @@ namespace Erste.Administrator
                 textBox_Email.Text = sluzbenik.osoba.Email;
                 textBox_BrojTelefona.Text = sluzbenik.osoba.BrojTelefona;
                 textBox_KorisnickoIme.Text = sluzbenik.KorisnickoIme;
-                textBox_Lozinka.Password = sluzbenik.LozinkaHash;
-                textBox_LozinkaProvjera.Password = sluzbenik.LozinkaHash;
             }
         }
 
@@ -77,7 +75,6 @@ namespace Erste.Administrator
                     !String.IsNullOrEmpty(textBox_Email.Text) &&
                     !String.IsNullOrEmpty(textBox_BrojTelefona.Text) &&
                     !String.IsNullOrEmpty(textBox_KorisnickoIme.Text) &&
-                    !String.IsNullOrEmpty(textBox_Lozinka.Password) &&
                     textBox_Lozinka.Password.Equals(textBox_LozinkaProvjera.Password))
                 {
                     if (sluzbenik != null)
@@ -92,7 +89,7 @@ namespace Erste.Administrator
                                 sluzbenik.osoba.Email = textBox_Email.Text;
                                 sluzbenik.osoba.BrojTelefona = textBox_BrojTelefona.Text;
                                 sluzbenik.KorisnickoIme = textBox_KorisnickoIme.Text;
-                                if (!sluzbenik.LozinkaHash.Equals(textBox_Lozinka.Password))
+                                if (!String.IsNullOrEmpty(textBox_Lozinka.Password))
                                 {
                                     HashGenerator hashGenerator = new HashGenerator();
                                     sluzbenik.LozinkaHash = hashGenerator.ComputeHash(textBox_Lozinka.Password);
@@ -137,7 +134,7 @@ namespace Erste.Administrator
                     }
                 }
                 else
-                {               
+                {
                     if (!textBox_Lozinka.Password.Equals(textBox_LozinkaProvjera.Password))
                         MessageBox.Show("Lozinke moraju biti iste.");
                     else

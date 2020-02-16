@@ -9,7 +9,6 @@ namespace Erste
     [Table("erste.termin")]
     public partial class termin
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
 
         [Required]

@@ -122,12 +122,16 @@
     <Compile Include="Sluzbenik\KandidatiDialog.xaml.cs">
       <DependentUpon>KandidatiDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Sluzbenik\Raspored.xaml.cs">
+      <DependentUpon>Raspored.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Util\HashUtil.cs" />
     <Compile Include="Model\sluzbenik.cs" />
     <Compile Include="Model\termin.cs" />
     <Compile Include="SluzbenikMainWindow.xaml.cs">
       <DependentUpon>SluzbenikMainWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Util\TimetableItem.cs" />
     <Page Include="Administrator\EvidencijaKursaDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -184,6 +188,10 @@
     <Page Include="Sluzbenik\KandidatiDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Sluzbenik\Raspored.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>

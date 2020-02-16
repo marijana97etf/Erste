@@ -18,9 +18,10 @@ namespace Erste
     /// <summary>
     /// Interaction logic for SluzbenikMainWindow.xaml
     /// </summary>
-    public partial class SluzbenikMainWindow : NavigationWindow
+    public partial class SluzbenikMainWindow : Window
     {
-        private Kandidati _kandidati;
+        private Kandidati kandidati;
+        private Raspored raspored;
         public SluzbenikMainWindow()
         {
             InitializeComponent();
@@ -35,30 +36,34 @@ namespace Erste
         private void LogOff_Click(object sender, RoutedEventArgs e)
         {
             Hide();
-            LoginWindow window = new LoginWindow {WindowStartupLocation = WindowStartupLocation.CenterOwner, Owner = null};
+            LoginWindow window = new LoginWindow { WindowStartupLocation = WindowStartupLocation.CenterOwner, Owner = null };
             window.Show();
         }
 
-        private static int[] _menuIndex = { 0, 0, 0 };
-        private object _locker = new object();
+        /*private static int[] _menuIndex = { 0, 0, 0 };
+        private object _locker = new object();*/
 
-        private async void Upis_Click(object sender, RoutedEventArgs e)
+        private void Upis_Click(object sender, RoutedEventArgs e)
         {
-            await NapraviAnimaciju(UpisPanel, 0, sender as Button, TimeSpan.FromSeconds(1));
+            //TODO:Upis kandidata
         }
 
-        private async void Raspored_Click(object sender, RoutedEventArgs e)
+        private void Raspored_Click(object sender, RoutedEventArgs e)
         {
-            await NapraviAnimaciju(RasporedPanel, 1, sender as Button, TimeSpan.FromSeconds(1));
+            GridZaPrikaz.Children.Add(raspored = new Raspored());
+            raspored.Refresh();
         }
 
-        private async void Pregled_Click(object sender, RoutedEventArgs e)
+        private void Pregled_Click(object sender, RoutedEventArgs e)
         {
-            if (_kandidati == null)
-            {
-                GridZaPrikaz.Children.Add(_kandidati = new Kandidati(BrisanjeButton, KandidatiNaCekanjuButton));
-            }
-            await NapraviAnimaciju(PregledPanel, 2, sender as Button, TimeSpan.FromSeconds(1));
+            GridZaPrikaz.Children.Add(kandidati = new Kandidati("svi"));
+            kandidati.Refresh();
+        }
+
+        private void KandidatiNaCekanju_Click(object sender, RoutedEventArgs e)
+        {
+            GridZaPrikaz.Children.Add(kandidati = new Kandidati("cekanje"));
+            kandidati.Refresh();
         }
 
         protected override void OnClosing(CancelEventArgs e)
@@ -67,9 +72,8 @@ namespace Erste
             Environment.Exit(0);
         }
 
-        #region Animacija
 
-        private async Task NapraviAnimaciju(StackPanel stackPanel, int index, Button button, TimeSpan animationDurance)
+        /*private async Task NapraviAnimaciju(StackPanel stackPanel, int index, Button button, TimeSpan animationDurance)
         {
             lock (_locker)
             {
@@ -169,8 +173,6 @@ namespace Erste
                     rasporedButton.IsEnabled = true;
                 });
             });
-        }
+        }*/
     }
-
-    #endregion
 }

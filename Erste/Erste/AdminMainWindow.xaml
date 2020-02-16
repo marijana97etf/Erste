@@ -7,7 +7,8 @@
         xmlns:local="clr-namespace:Erste"
         xmlns:System="clr-namespace:System;assembly=mscorlib" x:Name="MainWindow" x:Class="Erste.AdminMainWindow"
         mc:Ignorable="d"
-        Title="Erste" Height="450" Width="800" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" WindowStartupLocation="CenterScreen">
+        Title="Erste" Height="505" Width="833" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" WindowStartupLocation="CenterScreen">
+
     <Grid Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="361*"/>
@@ -18,36 +19,18 @@
         </Grid.ColumnDefinitions>
         <StackPanel Background="#FF6DCEF9" UseLayoutRounding="False" Margin="0,0,0,33">
             <Image x:Name="image" Height="60" Margin="0" Source="Resources/erste_logo.jpg" VerticalAlignment="Top" Stretch="Fill"/>
-            <Button x:Name="button" Click="Button_NaloziSluzbenika" Style="{DynamicResource buttonStyle}" Content="Nalozi službenika" HorizontalContentAlignment="Left" />
-            <StackPanel x:Name="NaloziSluzbenikaPanel" Height="0">
-                <Button x:Name="DodavanjeSluzbenikaButton" Height="40" Style="{DynamicResource buttonStyle}" HorizontalContentAlignment="Left" FontWeight="Bold" Foreground="#FFEF3D4A" Background="White">
-                    <TextBlock Margin="0,0,0,0" Text="Dodaj službenika" TextWrapping="Wrap" TextAlignment="Center" Width="128"></TextBlock>
-                </Button>
-                <Button x:Name="BrisanjeSluzbenikaButton" Height="40" Style="{DynamicResource buttonStyle}" HorizontalContentAlignment="Center" FontWeight="Bold" Foreground="#FFEF3D4A" Background="White">
-                    <TextBlock Text="Obriši odabrane službenike" TextWrapping="Wrap" TextAlignment="Center" Width="123"></TextBlock>
-                </Button>
-            </StackPanel>
-            <Button x:Name="button1" Click="Button_EvidencijaProfesora" Style="{DynamicResource buttonStyle}" Content="Evidencija profesora" HorizontalContentAlignment="Left" />
-            <StackPanel x:Name="EvidencijaProfesoraPanel" Height="0">
-                <Button x:Name="DodavanjeProfesoraButton" Height="40" Style="{DynamicResource buttonStyle}" HorizontalContentAlignment="Left" FontWeight="Bold" Foreground="#FFEF3D4A" Background="White">
-                    <TextBlock Margin="0,0,0,0" Text="Dodaj profesora" TextWrapping="Wrap" TextAlignment="Center" Width="122"></TextBlock>
-                </Button>
-                <Button x:Name="BrisanjeProfesoraButton" Height="40" Style="{DynamicResource buttonStyle}" HorizontalContentAlignment="Center" FontWeight="Bold" Foreground="#FFEF3D4A" Background="White">
-                    <TextBlock Text="Obriši odabrane profesore" TextWrapping="Wrap" TextAlignment="Center" Width="125"></TextBlock>
-                </Button>
-            </StackPanel>
-            <Button x:Name="button2" Click="Button_EvidencijaKurseva" Style="{DynamicResource buttonStyle}" Content="Evidencija kurseva" HorizontalContentAlignment="Left" />
-            <StackPanel x:Name="EvidencijaKursevaPanel" Height="0">
-                <Button x:Name="DodavanjeKursaButton" Height="40" Style="{DynamicResource buttonStyle}" HorizontalContentAlignment="Left" FontWeight="Bold" Foreground="#FFEF3D4A" Background="White">
-                    <TextBlock Margin="0,0,0,0" Text="Dodaj kurs" TextWrapping="Wrap" TextAlignment="Center" Height="18" Width="130"></TextBlock>
-                </Button>
-                <Button x:Name="BrisanjeKursaButton" Height="40" Style="{DynamicResource buttonStyle}" HorizontalContentAlignment="Center" FontWeight="Bold" Foreground="#FFEF3D4A" Background="White">
-                    <TextBlock Text="Obriši odabrane kurseve" TextWrapping="Wrap" TextAlignment="Center" Width="129"></TextBlock>
-                </Button>
-            </StackPanel>
+            <Label x:Name="label" Height="31" Margin="0" Content="Službenici" FontSize="14" FontFamily="Rockwell" Foreground="#FFEF3D4A" FontWeight="Bold" Padding="8,8,5,5"></Label>
+            <Button x:Name="button" Click="Button_NaloziSluzbenika" Style="{DynamicResource buttonStyle}" Content="Prikaži službenike" HorizontalContentAlignment="Left" />
+            <Button x:Name="button1" Click="Button_DodajSluzbenika" Style="{DynamicResource buttonStyle}" Content="Dodaj službenika" HorizontalContentAlignment="Left" />
+            <Label x:Name="label1" Height="31" Margin="0" Content="Profesori" FontSize="14" FontFamily="Rockwell" Foreground="#FFEF3D4A" FontWeight="Bold" Padding="8,8,5,5"></Label>
+            <Button x:Name="button2" Click="Button_EvidencijaProfesora" Style="{DynamicResource buttonStyle}" Content="Prikaži profesore" HorizontalContentAlignment="Left" />
+            <Button x:Name="button3" Click="Button_DodajProfesora" Style="{DynamicResource buttonStyle}" Content="Dodaj profesora" HorizontalContentAlignment="Left" />
+            <Label x:Name="label2" Height="31" Margin="0" Content="Kursevi" FontSize="14" FontFamily="Rockwell" Foreground="#FFEF3D4A" FontWeight="Bold" Padding="8,8,5,5"></Label>
+            <Button x:Name="button4" Click="Button_EvidencijaKurseva" Style="{DynamicResource buttonStyle}" Content="Prikaži kurseve" HorizontalContentAlignment="Left" />
+            <Button x:Name="button5" Click="Button_DodajKurs" Style="{DynamicResource buttonStyle}" Content="Dodaj kurs" HorizontalContentAlignment="Left" />
         </StackPanel>
         <Grid x:Name="GridZaPrikaz" Grid.Column="1"/>
-        <Button x:Name="button4" Style="{DynamicResource buttonStyle}" Content="Izlaz" HorizontalContentAlignment="Left"
+        <Button x:Name="button6" Style="{DynamicResource buttonStyle}" Content="Izlaz" HorizontalContentAlignment="Left"
                     Click="Exit_Click" Height="33" VerticalAlignment="Bottom" Margin="0,0,0,1" />
     </Grid>
 </Window>

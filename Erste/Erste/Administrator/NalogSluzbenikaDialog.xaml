@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Erste.Administrator"
         mc:Ignorable="d"
-        Title="NalogSluzbenikaDialog" SizeToContent="WidthAndHeight" Height="450" Width="446.607" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="NalogSluzbenikaDialog" SizeToContent="WidthAndHeight" Height="450" Width="446.607" MinHeight="450" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="206*"/>
@@ -27,15 +27,15 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="791*"/>
             </Grid.ColumnDefinitions>
-            <Button Name="Button1" Content="Uredu" Click="Button1_Click" Margin="96,372,244,21" Style="{DynamicResource buttonStyle}" Height="Auto"/>
-            <Label HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="26" Margin="0,0,269,330" Width="37" Content="Ime:"/>
-            <Label HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="26" Margin="0,0,268,289" Width="60" Content="Prezime:"/>
-            <Label HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="26" Margin="0,0,266,248" Width="49" Content="Email:"/>
-            <Label HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="26" Margin="0,0,269,210" Width="84" Content="Broj telefona:"/>
-            <Label VerticalAlignment="Bottom" Height="26" Margin="78,0,269,168" Content="Korisničko ime:"/>
-            <Label HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="26" Margin="0,0,267,129" Width="59" Content="Lozinka:"/>
-            <Label HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="26" Margin="0,0,268,90" Width="109" Content="Lozinka (ponovo):"/>
-            <Button x:Name="Button2" Content="Otkaži" Click="Button2_Click" Margin="227,372,112,21" Style="{DynamicResource buttonStyle}" Height="Auto"/>
+            <Button Name="Button1" Content="Uredu" Click="Button1_Click" Margin="96,372,244,0" Style="{DynamicResource buttonStyle}" Height="28" VerticalAlignment="Top"/>
+            <Label HorizontalAlignment="Right" VerticalAlignment="Top" Height="26" Margin="0,65,269,0" Width="37" Content="Ime:"/>
+            <Label HorizontalAlignment="Right" VerticalAlignment="Top" Height="26" Margin="0,106,268,0" Width="60" Content="Prezime:"/>
+            <Label HorizontalAlignment="Right" VerticalAlignment="Top" Height="26" Margin="0,147,266,0" Width="49" Content="Email:"/>
+            <Label HorizontalAlignment="Right" VerticalAlignment="Top" Height="26" Margin="0,185,269,0" Width="84" Content="Broj telefona:"/>
+            <Label VerticalAlignment="Top" Height="26" Margin="78,227,269,0" Content="Korisničko ime:"/>
+            <Label HorizontalAlignment="Right" VerticalAlignment="Top" Height="26" Margin="0,266,267,0" Width="59" Content="Lozinka:"/>
+            <Label VerticalAlignment="Top" Height="26" Margin="0,305,268,0" Content="Lozinka (ponovo):" HorizontalAlignment="Right" Width="109"/>
+            <Button x:Name="Button2" Content="Otkaži" Click="Button2_Click" Margin="227,372,112,0" Style="{DynamicResource buttonStyle}" Height="28" VerticalAlignment="Top"/>
             <Label x:Name="label" Content="Podaci o službeniku" Height="34" Margin="127,8,127,0" VerticalAlignment="Top" FontSize="19" FontWeight="Bold" Foreground="DarkRed"/>
         </Grid>
     </Grid>
