@@ -14,182 +14,99 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 CREATE SCHEMA IF NOT EXISTS `erste` DEFAULT CHARACTER SET utf8 ;
 USE `erste` ;
 
--- -----------------------------------------------------
--- Table `erste`.`OSOBA`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `erste`.`OSOBA` (
-  `Id` INT NOT NULL,
-  `Ime` VARCHAR(256) NOT NULL,
-  `Prezime` VARCHAR(256) NOT NULL,
-  `BrojTelefona` VARCHAR(256) NOT NULL,
-  `Email` VARCHAR(256) NOT NULL,
-  PRIMARY KEY (`Id`))
-ENGINE = InnoDB;
+CREATE TABLE `osoba` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `Ime` varchar(256) NOT NULL,
+  `Prezime` varchar(256) NOT NULL,
+  `BrojTelefona` varchar(256) NOT NULL,
+  `Email` varchar(256) NOT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5;
 
-
--- -----------------------------------------------------
--- Table `erste`.`PROFESOR`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `erste`.`PROFESOR` (
-  `Id` INT NOT NULL,
+CREATE TABLE `polaznik` (
+  `Id` int(11) NOT NULL,
   PRIMARY KEY (`Id`),
-  CONSTRAINT `OSOBA`
-    FOREIGN KEY (`Id`)
-    REFERENCES `erste`.`OSOBA` (`Id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+  CONSTRAINT `OSOBA2` FOREIGN KEY (`Id`) REFERENCES `osoba` (`Id`)
+) ENGINE=InnoDB;
 
 
--- -----------------------------------------------------
--- Table `erste`.`ADMINISTRATOR`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `erste`.`ADMINISTRATOR` (
-  `KorisnickoIme` VARCHAR(256) NOT NULL,
-  `LozinkaHash` VARCHAR(256) NOT NULL,
-  `Id` INT NOT NULL,
+CREATE TABLE `administrator` (
+  `KorisnickoIme` varchar(256) NOT NULL,
+  `LozinkaHash` varchar(256) NOT NULL,
+  `Id` int(11) NOT NULL,
   PRIMARY KEY (`Id`),
-  CONSTRAINT `OSOBA1`
-    FOREIGN KEY (`Id`)
-    REFERENCES `erste`.`OSOBA` (`Id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+  CONSTRAINT `OSOBA1` FOREIGN KEY (`Id`) REFERENCES `osoba` (`Id`)
+) ENGINE=InnoDB;
 
+CREATE TABLE `jezik` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `Naziv` varchar(256) NOT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6;
 
--- -----------------------------------------------------
--- Table `erste`.`POLAZNIK`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `erste`.`POLAZNIK` (
-  `Id` INT NOT NULL,
+CREATE TABLE `kurs` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `Nivo` varchar(256) NOT NULL,
+  `JezikId` int(11) NOT NULL,
   PRIMARY KEY (`Id`),
-  CONSTRAINT `OSOBA2`
-    FOREIGN KEY (`Id`)
-    REFERENCES `erste`.`OSOBA` (`Id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+  KEY `JEZIK1_idx` (`JezikId`),
+  CONSTRAINT `JEZIK1` FOREIGN KEY (`JezikId`) REFERENCES `jezik` (`Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3;
 
 
--- -----------------------------------------------------
--- Table `erste`.`SLUZBENIK`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `erste`.`SLUZBENIK` (
-  `KorisnickoIme` VARCHAR(256) NOT NULL,
-  `LozinkaHash` VARCHAR(256) NOT NULL,
-  `Id` INT NOT NULL,
+CREATE TABLE `grupa` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `KursId` int(11) NOT NULL,
+  `BrojClanova` int(11) DEFAULT NULL,
   PRIMARY KEY (`Id`),
-  CONSTRAINT `OSOBA3`
-    FOREIGN KEY (`Id`)
-    REFERENCES `erste`.`OSOBA` (`Id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+  KEY `KURS1_idx` (`KursId`),
+  CONSTRAINT `KURS1` FOREIGN KEY (`KursId`) REFERENCES `kurs` (`Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2;
 
+CREATE TABLE `polaznik_grupa` (
+  `PolaznikId` int(11) NOT NULL,
+  `GrupaId` int(11) NOT NULL,
+  PRIMARY KEY (`PolaznikId`,`GrupaId`),
+  KEY `GRUPA2_idx` (`GrupaId`),
+  CONSTRAINT `GRUPA2` FOREIGN KEY (`GrupaId`) REFERENCES `grupa` (`Id`),
+  CONSTRAINT `POLAZNIK1` FOREIGN KEY (`PolaznikId`) REFERENCES `polaznik` (`Id`)
+) ENGINE=InnoDB;
 
--- -----------------------------------------------------
--- Table `erste`.`JEZIK`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `erste`.`JEZIK` (
-  `Id` INT NOT NULL,
-  `Naziv` VARCHAR(256) NOT NULL,
-  PRIMARY KEY (`Id`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `erste`.`KURS`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `erste`.`KURS` (
-  `Id` INT NOT NULL,
-  `Nivo` VARCHAR(256) NOT NULL,
-  `JezikId` INT NOT NULL,
+CREATE TABLE `profesor` (
+  `Id` int(11) NOT NULL,
   PRIMARY KEY (`Id`),
-  INDEX `JEZIK1_idx` (`JezikId` ASC) VISIBLE,
-  CONSTRAINT `JEZIK1`
-    FOREIGN KEY (`JezikId`)
-    REFERENCES `erste`.`JEZIK` (`Id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+  CONSTRAINT `OSOBA` FOREIGN KEY (`Id`) REFERENCES `osoba` (`Id`)
+) ENGINE=InnoDB;
+
+CREATE TABLE `profesor_grupa` (
+  `ProfesorId` int(11) NOT NULL,
+  `GrupaId` int(11) NOT NULL,
+  PRIMARY KEY (`ProfesorId`,`GrupaId`),
+  KEY `GRUPA3_idx` (`GrupaId`),
+  CONSTRAINT `GRUPA3` FOREIGN KEY (`GrupaId`) REFERENCES `grupa` (`Id`),
+  CONSTRAINT `PROFESOR1` FOREIGN KEY (`ProfesorId`) REFERENCES `profesor` (`Id`)
+) ENGINE=InnoDB;
 
 
--- -----------------------------------------------------
--- Table `erste`.`GRUPA`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `erste`.`GRUPA` (
-  `Id` INT NOT NULL,
-  `KursId` INT NOT NULL,
-  `BrojClanova` INT NULL,
+CREATE TABLE `sluzbenik` (
+  `KorisnickoIme` varchar(256) NOT NULL,
+  `LozinkaHash` varchar(256) NOT NULL,
+  `Id` int(11) NOT NULL,
   PRIMARY KEY (`Id`),
-  INDEX `KURS1_idx` (`KursId` ASC) VISIBLE,
-  CONSTRAINT `KURS1`
-    FOREIGN KEY (`KursId`)
-    REFERENCES `erste`.`KURS` (`Id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+  CONSTRAINT `OSOBA3` FOREIGN KEY (`Id`) REFERENCES `osoba` (`Id`)
+) ENGINE=InnoDB;
 
 
--- -----------------------------------------------------
--- Table `erste`.`TERMIN`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `erste`.`TERMIN` (
-  `Id` INT NOT NULL,
-  `Dan` VARCHAR(256) NOT NULL,
-  `Od` TIME NOT NULL,
-  `Do` TIME NOT NULL,
-  `GrupaId` INT NOT NULL,
+CREATE TABLE `termin` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `Dan` varchar(256) NOT NULL,
+  `Od` time NOT NULL,
+  `Do` time NOT NULL,
+  `GrupaId` int(11) NOT NULL,
   PRIMARY KEY (`Id`),
-  INDEX `GRUPA1_idx` (`GrupaId` ASC) VISIBLE,
-  CONSTRAINT `GRUPA1`
-    FOREIGN KEY (`GrupaId`)
-    REFERENCES `erste`.`GRUPA` (`Id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `erste`.`POLAZNIK_GRUPA`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `erste`.`POLAZNIK_GRUPA` (
-  `PolaznikId` INT NOT NULL,
-  `GrupaId` INT NOT NULL,
-  PRIMARY KEY (`PolaznikId`, `GrupaId`),
-  INDEX `GRUPA2_idx` (`GrupaId` ASC) VISIBLE,
-  CONSTRAINT `POLAZNIK1`
-    FOREIGN KEY (`PolaznikId`)
-    REFERENCES `erste`.`POLAZNIK` (`Id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `GRUPA2`
-    FOREIGN KEY (`GrupaId`)
-    REFERENCES `erste`.`GRUPA` (`Id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `erste`.`PROFESOR_GRUPA`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `erste`.`PROFESOR_GRUPA` (
-  `ProfesorId` INT NOT NULL,
-  `GrupaId` INT NOT NULL,
-  PRIMARY KEY (`ProfesorId`, `GrupaId`),
-  INDEX `GRUPA3_idx` (`GrupaId` ASC) VISIBLE,
-  CONSTRAINT `PROFESOR1`
-    FOREIGN KEY (`ProfesorId`)
-    REFERENCES `erste`.`PROFESOR` (`Id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `GRUPA3`
-    FOREIGN KEY (`GrupaId`)
-    REFERENCES `erste`.`GRUPA` (`Id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+  KEY `GRUPA1_idx` (`GrupaId`),
+  CONSTRAINT `GRUPA1` FOREIGN KEY (`GrupaId`) REFERENCES `grupa` (`Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
