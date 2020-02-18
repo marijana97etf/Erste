@@ -1,17 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using Erste.Model;
 using Erste.Util;
 
 namespace Erste.Sluzbenik
@@ -26,40 +21,60 @@ namespace Erste.Sluzbenik
             InitializeComponent();
         }
 
-        public void Refresh() => Load_Data();
+        public async Task Refresh() => await Load_Data();
 
-        private void Load_Data()
+        private async Task Load_Data()
         {
             try
             {
                 using (var ersteModel = new ErsteModel())
                 {
 
-                    List<ListView> kolone = new List<ListView>();
-                    kolone.Add(listViewMonday);
-                    kolone.Add(listViewTuesday);
-                    kolone.Add(listViewWednesday);
-                    kolone.Add(listViewThursday);
-                    kolone.Add(listViewFriday);
-                    kolone.Add(listViewSaturday);
-                    kolone.Add(listViewSunday);
+                    List<ListView> kolone = new List<ListView>
+                    {
+                        listViewMonday,
+                        listViewTuesday,
+                        listViewWednesday,
+                        listViewThursday,
+                        listViewFriday,
+                        listViewSaturday,
+                        listViewSunday
+                    };
 
-                    (from kurs in ersteModel.kursevi
-                     join jezik in ersteModel.jezici on kurs.JezikId equals jezik.Id
-                     select kurs).ToList();
+                    await (from kurs in ersteModel.kursevi
+                           join jezik in ersteModel.jezici on kurs.JezikId equals jezik.Id
+                           select kurs).ToListAsync();
 
-                    List<TimetableItem> items = (from termin in ersteModel.termini
-                                                 join grupa in ersteModel.grupe on termin.GrupaId equals grupa.Id
-                                                 join kurs in ersteModel.kursevi on grupa.KursId equals kurs.Id
-                                                 join jezik in ersteModel.jezici on kurs.JezikId equals jezik.Id
-                                                 select new TimetableItem
-                                                 {
-                                                     vrijemeOd = termin.Od,
-                                                     vrijemeDo = termin.Do,
-                                                     jezik = jezik.Naziv,
-                                                     nivo = kurs.Nivo,
-                                                     dan = termin.Dan
-                                                 }).ToList();
+                    List<TimetableItem> items = await (from termin in ersteModel.termini
+                                                       where termin.grupa != null
+                                                       join grupa in ersteModel.grupe on termin.GrupaId equals grupa.Id
+                                                       join kurs in ersteModel.kursevi on grupa.KursId equals kurs.Id
+                                                       join jezik in ersteModel.jezici on kurs.JezikId equals jezik.Id
+                                                       select new TimetableItem
+                                                       {
+                                                           vrijemeOd = termin.Od,
+                                                           vrijemeDo = termin.Do,
+                                                           jezik = jezik.Naziv,
+                                                           nivo = kurs.Nivo,
+                                                           dan = termin.Dan,
+                                                           GrupaId = termin.GrupaId,
+                                                           termin = termin
+                                                       }).ToListAsync();
+                    items.AddRange(
+                        await (from termin in ersteModel.termini
+                               where termin.grupa == null
+                               select new TimetableItem
+                               {
+                                   vrijemeOd = termin.Od,
+                                   vrijemeDo = termin.Do,
+                                   jezik = null,
+                                   nivo = null,
+                                   dan = termin.Dan,
+                                   GrupaId = termin.GrupaId,
+                                   termin = termin
+                               }).ToListAsync());
+
+
 
                     List<List<TimetableItem>> terminiPoDanima = new List<List<TimetableItem>>();
                     for (int i = 0; i < 7; ++i)
@@ -67,24 +82,52 @@ namespace Erste.Sluzbenik
 
                     foreach (var item in items)
                     {
-                        if ("Ponedjeljak".Equals(item.dan))
-                            terminiPoDanima.ElementAt(0).Add(item);
-                        else if ("Utorak".Equals(item.dan))
-                            terminiPoDanima.ElementAt(1).Add(item);
-                        else if ("Srijeda".Equals(item.dan))
-                            terminiPoDanima.ElementAt(2).Add(item);
-                        else if ("Cetvrtak".Equals(item.dan))
-                            terminiPoDanima.ElementAt(3).Add(item);
-                        else if ("Petak".Equals(item.dan))
-                            terminiPoDanima.ElementAt(4).Add(item);
-                        else if ("Subota".Equals(item.dan))
-                            terminiPoDanima.ElementAt(5).Add(item);
-                        else
-                            terminiPoDanima.ElementAt(6).Add(item);
+                        switch (item.dan)
+                        {
+                            case "Ponedjeljak":
+                                terminiPoDanima.ElementAt(0).Add(item);
+                                break;
+                            case "Utorak":
+                                terminiPoDanima.ElementAt(1).Add(item);
+                                break;
+                            case "Srijeda":
+                                terminiPoDanima.ElementAt(2).Add(item);
+                                break;
+                            case "Cetvrtak":
+                            case "Četvrtak":
+                                terminiPoDanima.ElementAt(3).Add(item);
+                                break;
+                            case "Petak":
+                                terminiPoDanima.ElementAt(4).Add(item);
+                                break;
+                            case "Subota":
+                                terminiPoDanima.ElementAt(5).Add(item);
+                                break;
+                            default:
+                                terminiPoDanima.ElementAt(6).Add(item);
+                                break;
+                        }
                     }
 
                     for (int i = 0; i < 7; ++i)
-                        kolone.ElementAt(i).ItemsSource = terminiPoDanima.ElementAt(i);
+                    {
+                        kolone[i].ItemsSource = terminiPoDanima.ElementAt(i).OrderBy(e => e.vrijemeOd);
+                        kolone[i].SelectionMode = SelectionMode.Single;
+                        kolone[i].MouseUp += (sender, args) =>
+                        {
+                            if (((FrameworkElement)args.OriginalSource).DataContext is TimetableItem item)
+                            {
+                                if (Dispatcher != null)
+                                {
+                                    Window pregledTermina = new PregledTermina(item);
+                                    pregledTermina.ShowDialog();
+                                    #pragma warning disable 4014
+                                    Refresh();
+                                    #pragma warning restore 4014
+                                }
+                            }
+                        };
+                    }
                 }
             }
             catch (Exception ex)

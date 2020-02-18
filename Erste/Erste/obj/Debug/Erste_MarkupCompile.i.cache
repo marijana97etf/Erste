@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\PC\Source\Repos\Erste\Erste\Erste\obj\Debug\
+C:\Users\stepa\Documents\GitHub\Erste\Erste\Erste\obj\Debug\
 Erste
 none
 false
 DEBUG;TRACE
-C:\Users\PC\Source\Repos\Erste\Erste\Erste\App.xaml
-12-1136584654
+C:\Users\stepa\Documents\GitHub\Erste\Erste\Erste\App.xaml
+15887454205
 
-29-1170008454
-32-1586184274
-Administrator\EvidencijaKursaDialog.xaml;Administrator\EvidencijaKurseva.xaml;Administrator\EvidencijaProfesora.xaml;Administrator\EvidencijaProfesoraDialog.xaml;Administrator\NalogSluzbenikaDialog.xaml;Administrator\NaloziSluzbenika.xaml;AdminMainWindow.xaml;MainWindow.xaml;SluzbenikMainWindow.xaml;Sluzbenik\Kandidati.xaml;Sluzbenik\KandidatiDialog.xaml;Sluzbenik\Raspored.xaml;
+321038937365
+371872469255
+Administrator\EvidencijaKursaDialog.xaml;Administrator\EvidencijaKurseva.xaml;Administrator\EvidencijaProfesora.xaml;Administrator\EvidencijaProfesoraDialog.xaml;Administrator\NalogSluzbenikaDialog.xaml;Administrator\NaloziSluzbenika.xaml;AdminMainWindow.xaml;MainWindow.xaml;SluzbenikMainWindow.xaml;Sluzbenik\EvidencijaTerminaDialog.xaml;Sluzbenik\Kandidati.xaml;Sluzbenik\KandidatiDialog.xaml;Sluzbenik\PregledGrupe.xaml;Sluzbenik\PregledTermina.xaml;Sluzbenik\Raspored.xaml;
 
-True
+False
 

@@ -13,15 +13,18 @@
     <NavigationWindow.Content>
         <Grid>
             <Label x:Name="label" Content="Korisničko ime:" FontSize="12.5" Margin="116,134,314,0" Height="26" VerticalAlignment="Top"/>
-            <Label x:Name="label1" Content="Lozinka:" FontSize="12.5" Margin="116,192,352,0" Height="26" VerticalAlignment="Top"/>
-            <TextBox x:Name="usernameBox" Margin="263,137,110,0" TextWrapping="Wrap" Height="24" VerticalAlignment="Top"/>
-            <PasswordBox x:Name="passwordBox" Margin="263,194,110,0" Height="24" VerticalAlignment="Top" KeyDown="passwordBox_KeyDown"/>
-            <Button x:Name="button" BorderThickness="0" Cursor="Hand" Height="35" Background="#FFEF3D4A" Margin="222,261,195,43" Click="Prijava_Click">
+            <Label x:Name="label1" Content="Lozinka:" FontSize="12.5" Margin="116,180,351.667,0" Height="26" VerticalAlignment="Top"/>
+            <TextBox x:Name="usernameBox" Margin="260,140,112.667,0" TextWrapping="Wrap" Height="24" VerticalAlignment="Top"/>
+            <PasswordBox x:Name="passwordBox" Margin="260,180,112.667,0" Height="24" MaxLength="16" VerticalAlignment="Top" KeyDown="passwordBox_KeyDown"/>
+            <TextBox x:Name="passwordBoxReveal" Margin="261,180,111.667,0" Height="24" VerticalAlignment="Top" KeyDown="passwordBox_KeyDown" Visibility="Collapsed"/>
+            <Image x:Name="PasswordRevealImage" Source="Resources/password_eye.png" Width="22" Stretch="Uniform" MouseDown="RevealPassword_OnMouseDown" MouseUp="RevealPassword_OnMouseUp" Margin="390,180,114.667,136"/>
+            <Button x:Name="button" BorderThickness="0" Cursor="Hand" Height="35" Background="#FFEF3D4A" Margin="205,275,205,30" Click="Prijava_Click">
                 <TextBlock TextAlignment="Center" Text="Prijavi se" FontFamily="Rockwell" FontSize="14" Foreground="White" ></TextBlock>
             </Button>
-            <Label x:Name="label2" Content="Prijava na sistem" FontSize="23"  Margin="189,66,146,0" VerticalAlignment="Top" Foreground="#FF6DCEF9" FontWeight="Bold" />
-            <Image x:Name="image" Source="Resources/erste_logo.jpg" Margin="0,0,0,0" Height="45" VerticalAlignment="Top" HorizontalAlignment="Left" Width="153"/>
+            <Label x:Name="label2" Content="Prijava na sistem" FontSize="23"  Margin="170,55,164.667,0" VerticalAlignment="Top" Foreground="#FF6DCEF9" FontWeight="Bold" RenderTransformOrigin="0.499,0.221" />
+            <Image x:Name="image" Source="Resources/erste_logo.png" Margin="0,0,0,0" Height="45" VerticalAlignment="Top" HorizontalAlignment="Left" Width="153"/>
             <Separator HorizontalAlignment="Left" Background="#FF6DCEF9" Height="11" Margin="146,10,0,0" VerticalAlignment="Top" Width="371"/>
+            <TextBlock x:Name="NapomenaBox" Visibility="Collapsed" TextAlignment="Center" Height="20" FontFamily="Rockwell" FontSize="14"  Background="#FFEF3D4A" Foreground="White" Margin="0,230,1.667,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
         </Grid>
     </NavigationWindow.Content>
 </NavigationWindow>

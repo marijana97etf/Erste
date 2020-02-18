@@ -1,0 +1,74 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Erste.Sluzbenik"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Class="Erste.Sluzbenik.PregledGrupe"
+        mc:Ignorable="d"
+        Title="PregledGrupe" Height="561" Width="983.333">
+    <Grid>
+
+        <Border BorderBrush="{x:Null}" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Stretch"  Height="60" Grid.RowSpan="1" Margin="0,57,249.667,415">
+            <TextBlock x:Name="naslov" TextAlignment="Center" VerticalAlignment="Top" FontSize="19" FontWeight="Bold" Foreground="DarkRed" Margin="1,-42,-248.333,0"><Run Text="Podaci o "/><Run Text="grupi"/></TextBlock>
+        </Border>
+
+        <Border BorderBrush="{x:Null}" VerticalAlignment="Top"  Height="60" Grid.RowSpan="1" Margin="58,60,0,0" HorizontalAlignment="Left" Width="116">
+            <TextBlock x:Name="label" Text="Broj članova:" TextAlignment="Center" VerticalAlignment="Center" Margin="1,16,-1,28"/>
+        </Border>
+        <Border BorderBrush="Black" BorderThickness="0,1" HorizontalAlignment="Left" Grid.RowSpan="1" Margin="215,72,0,0" Height="30" VerticalAlignment="Top" Width="205">
+            <TextBlock x:Name="BrojClanovaBox" Text="" TextAlignment="Center" VerticalAlignment="Center"/>
+        </Border>
+
+        <Border BorderBrush="{x:Null}" VerticalAlignment="Top" HorizontalAlignment="Left"  Height="60" Grid.RowSpan="1" Margin="59,112,0,0" Width="116">
+            <TextBlock x:Name="od" Text="Nivo kursa:" TextAlignment="Center" VerticalAlignment="Center"/>
+        </Border>
+        <Border BorderBrush="Black" BorderThickness="0,1" HorizontalAlignment="Left" Grid.RowSpan="1" Margin="215,132,0,0" Width="205" Height="30" VerticalAlignment="Top">
+            <TextBlock x:Name="NivoKursa" Text="" TextAlignment="Center" VerticalAlignment="Center" Margin="0,5.667,0.333,5.667"/>
+        </Border>
+
+        <Border BorderBrush="{x:Null}" VerticalAlignment="Top" HorizontalAlignment="Left"  Height="60" Grid.RowSpan="1" Margin="58,178,0,0" Width="116">
+            <TextBlock x:Name="dp" TextAlignment="Center" VerticalAlignment="Center"><Run Text="Jezik kursa"/><Run Text=":"/></TextBlock>
+        </Border>
+        <Border BorderBrush="Black" BorderThickness="0,1" HorizontalAlignment="Left" Grid.RowSpan="1" Margin="215,192,0,0" Width="205" Height="30" VerticalAlignment="Top">
+            <TextBlock x:Name="jezikKursa" Text="" TextAlignment="Center" VerticalAlignment="Center"/>
+        </Border>
+
+        <Button x:Name="Button1" Grid.Column="0" Content="Zatvori prozor" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" Click="Potvrdi_Click" Style="{DynamicResource buttonStyle}" Height="48" Padding="0" Margin="37,460,0,0" Width="158" VerticalAlignment="Top"/>
+        <DataGrid x:Name="TerminiTable" HorizontalAlignment="Left" Margin="40,275,0,0" Width="415" Height="160" VerticalAlignment="Top">
+            <DataGridColumnHeader Style="{StaticResource DataGridErsteStyle}"></DataGridColumnHeader>
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="*" Header="Dan" Binding="{Binding Path=Dan}"></DataGridTextColumn>
+                <DataGridTextColumn Width="*" Header="Početak termina" Binding="{Binding Path=Od}"></DataGridTextColumn>
+                <DataGridTextColumn Width="*" Header="Kraj termina" Binding="{Binding Path=Do}"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Border HorizontalAlignment="Left" Grid.RowSpan="1" Margin="635,220,0,0" Height="30" VerticalAlignment="Top" Width="205">
+            <TextBlock Text="Polaznici" TextAlignment="Center" VerticalAlignment="Center"/>
+        </Border>
+        <DataGrid x:Name="PolazniciTable" Margin="520,60,0,0" HorizontalAlignment="Left" Width="415" Height="160" VerticalAlignment="Top" RenderTransformOrigin="0.146,0.483">
+            <DataGridColumnHeader Style="{StaticResource DataGridErsteStyle}"></DataGridColumnHeader>
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="*" Header="Ime" Binding="{Binding Path=osoba.Ime}"></DataGridTextColumn>
+                <DataGridTextColumn Width="*" Header="Prezime" Binding="{Binding Path=osoba.Prezime}"></DataGridTextColumn>
+                <DataGridTextColumn Width="*" Header="Email" Binding="{Binding Path=osoba.Email}"></DataGridTextColumn>
+                <DataGridTextColumn Width="*" Header="Broj telefona" Binding="{Binding Path=osoba.BrojTelefona}"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <DataGrid x:Name="ProfesoriTable" Margin="520,275,0,0" HorizontalAlignment="Left" Width="415" Height="160" VerticalAlignment="Top">
+            <DataGridColumnHeader Style="{StaticResource DataGridErsteStyle}"></DataGridColumnHeader>
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="*" Header="Ime" Binding="{Binding Path=osoba.Ime}"></DataGridTextColumn>
+                <DataGridTextColumn Width="*" Header="Prezime" Binding="{Binding Path=osoba.Prezime}"></DataGridTextColumn>
+                <DataGridTextColumn Width="*" Header="Email" Binding="{Binding Path=osoba.Email}"></DataGridTextColumn>
+                <DataGridTextColumn Width="*" Header="Broj telefona" Binding="{Binding Path=osoba.BrojTelefona}"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Border HorizontalAlignment="Left" Grid.RowSpan="1" Margin="635,435,0,0" Height="30" VerticalAlignment="Top" Width="205">
+            <TextBlock Text="Profesori" TextAlignment="Center" VerticalAlignment="Center"/>
+        </Border>
+        <Border HorizontalAlignment="Left" Grid.RowSpan="1" Margin="150,435,0,0" Height="30" VerticalAlignment="Top" Width="205">
+            <TextBlock Text="Termini" TextAlignment="Center" VerticalAlignment="Top" Margin="0,7,0.333,0"/>
+        </Border>
+    </Grid>
+</Window>

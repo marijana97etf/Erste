@@ -1,4 +1,4 @@
-namespace Erste
+namespace Erste.Model
 {
     using System;
     using System.Collections.Generic;
@@ -17,6 +17,14 @@ namespace Erste
 
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
+
+        [Required]
+        [StringLength(45)]
+        public string Jezik { get; set; }
+
+        [Required]
+        [StringLength(45)]
+        public string Nivo { get; set; }
 
         public virtual osoba osoba { get; set; }
 

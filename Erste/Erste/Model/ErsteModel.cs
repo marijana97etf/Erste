@@ -1,4 +1,4 @@
-namespace Erste
+namespace Erste.Model
 {
     using System;
     using System.Data.Entity;
@@ -33,9 +33,8 @@ namespace Erste
                 .IsUnicode(false);
 
             modelBuilder.Entity<grupa>()
-                .HasMany(e => e.termini)
-                .WithRequired(e => e.grupa)
-                .WillCascadeOnDelete(false);
+                .Property(e => e.Naziv)
+                .IsUnicode(false);
 
             modelBuilder.Entity<grupa>()
                 .HasMany(e => e.polaznici)
@@ -97,6 +96,14 @@ namespace Erste
             modelBuilder.Entity<osoba>()
                 .HasOptional(e => e.sluzbenik)
                 .WithRequired(e => e.osoba);
+
+            modelBuilder.Entity<polaznik>()
+                .Property(e => e.Jezik)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<polaznik>()
+                .Property(e => e.Nivo)
+                .IsUnicode(false);
 
             modelBuilder.Entity<sluzbenik>()
                 .Property(e => e.KorisnickoIme)

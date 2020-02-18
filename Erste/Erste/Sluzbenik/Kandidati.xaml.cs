@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
 using Erste.Administrator;
+using Erste.Model;
 
 namespace Erste.Sluzbenik
 {
@@ -54,43 +57,51 @@ namespace Erste.Sluzbenik
             Load_Data();
         }*/
 
-        public void Refresh() => Load_Data();
+        public async Task Refresh() => await Load_Data();
 
-        private void Load_Data()
+        private async Task Load_Data()
         {
-            DataGrid.Items.Clear();
-            DataGrid.ItemsSource = null;
-            DataGrid.Items.Refresh();
+            if (Dispatcher != null)
+            {
+                await Dispatcher.InvokeAsync(() =>
+                {
+                    DataGrid.Items.Clear();
+                    DataGrid.ItemsSource = null;
+                    DataGrid.Items.Refresh();
+                });
+            }
+
+
             try
             {
                 using (var ersteModel = new ErsteModel())
                 {
                     if ("svi".Equals(mode))
                     {
-                        var polaznici = (from polaznik in ersteModel.polaznici.Include("osoba")
-                                         join osoba in ersteModel.osobe.Include("polaznik") on polaznik.Id equals osoba.Id
-                                         select polaznik).ToList();
+                        var polaznici = await (from polaznik in ersteModel.polaznici.Include("osoba")
+                                               join osoba in ersteModel.osobe.Include("polaznik") on polaznik.Id equals osoba.Id
+                                               select polaznik).ToListAsync();
 
                         foreach (var polaznik in polaznici)
                         {
-                            if (polaznik.osoba != null)
+                            if (polaznik.osoba != null && Dispatcher != null)
                             {
-                                DataGrid.Items.Add(polaznik);
+                                await Dispatcher.InvokeAsync(() => { DataGrid.Items.Add(polaznik); });
                             }
                         }
                     }
                     else if ("cekanje".Equals(mode))
                     {
-                        var polazniciNaCekanju = (from polaznik in ersteModel.polaznici.Include("osoba")
-                                                  join osoba in ersteModel.osobe.Include("polaznik") on polaznik.Id equals osoba.Id
-                                                  where polaznik.grupe.Count == 0
-                                                  select polaznik).ToList();
+                        var polazniciNaCekanju = await (from polaznik in ersteModel.polaznici.Include("osoba")
+                                                        join osoba in ersteModel.osobe.Include("polaznik") on polaznik.Id equals osoba.Id
+                                                        where polaznik.grupe.Count == 0
+                                                        select polaznik).ToListAsync();
 
                         foreach (var polaznik in polazniciNaCekanju)
                         {
-                            if (polaznik.osoba != null)
+                            if (polaznik.osoba != null && Dispatcher != null)
                             {
-                                DataGrid.Items.Add(polaznik);
+                                await Dispatcher.InvokeAsync(() => { DataGrid.Items.Add(polaznik); });
                             }
                         }
                     }
@@ -98,16 +109,24 @@ namespace Erste.Sluzbenik
             }
             catch (Exception ex)
             {
-                MessageBox.Show("MySQL Exception: " + ex.ToString());
+                if (Dispatcher != null)
+                {
+                    MessageBox.Show("MySQL Exception: " + ex);
+                }
             }
+
         }
 
-        private void DataGrid_OnBeginningEdit(object sender, DataGridBeginningEditEventArgs e)
+        private async void DataGrid_OnBeginningEdit(object sender, DataGridBeginningEditEventArgs e)
         {
-            polaznik polaznik = DataGrid.SelectedItem as polaznik;
-            KandidatiDialog kandidatiDialog = new KandidatiDialog(polaznik);
-            kandidatiDialog.ShowDialog();
-            Load_Data();
+            if (Dispatcher != null)
+                await Dispatcher.InvokeAsync(() =>
+                {
+                    polaznik polaznik = DataGrid.SelectedItem as polaznik;
+                    KandidatiDialog kandidatiDialog = new KandidatiDialog(polaznik);
+                    kandidatiDialog.ShowDialog();
+                });
+            await Refresh();
             e.Cancel = true;
         }
     }

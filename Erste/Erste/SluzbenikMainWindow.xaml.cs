@@ -1,16 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Interop;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Erste.Sluzbenik;
 
 namespace Erste
@@ -33,11 +23,16 @@ namespace Erste
             Environment.Exit(0);
         }
 
-        private void LogOff_Click(object sender, RoutedEventArgs e)
+        private async void LogOff_Click(object sender, RoutedEventArgs e)
         {
-            Hide();
-            LoginWindow window = new LoginWindow { WindowStartupLocation = WindowStartupLocation.CenterOwner, Owner = null };
-            window.Show();
+            if (Dispatcher != null)
+                await Dispatcher.InvokeAsync(() =>
+                {
+                    Hide();
+                    LoginWindow window = new LoginWindow
+                        {WindowStartupLocation = WindowStartupLocation.CenterOwner, Owner = null};
+                    window.Show();
+                });
         }
 
         /*private static int[] _menuIndex = { 0, 0, 0 };
@@ -48,28 +43,39 @@ namespace Erste
             //TODO:Upis kandidata
         }
 
-        private void Raspored_Click(object sender, RoutedEventArgs e)
+        private async void Raspored_Click(object sender, RoutedEventArgs e)
         {
             GridZaPrikaz.Children.Add(raspored = new Raspored());
-            raspored.Refresh();
+            await raspored.Refresh();
         }
 
-        private void Pregled_Click(object sender, RoutedEventArgs e)
+        private async void Pregled_Click(object sender, RoutedEventArgs e)
         {
             GridZaPrikaz.Children.Add(kandidati = new Kandidati("svi"));
-            kandidati.Refresh();
+            await kandidati.Refresh();
         }
 
-        private void KandidatiNaCekanju_Click(object sender, RoutedEventArgs e)
+        private async void KandidatiNaCekanju_Click(object sender, RoutedEventArgs e)
         {
             GridZaPrikaz.Children.Add(kandidati = new Kandidati("cekanje"));
-            kandidati.Refresh();
+            await kandidati.Refresh();
         }
 
         protected override void OnClosing(CancelEventArgs e)
         {
             base.OnClosing(e);
             Environment.Exit(0);
+        }
+
+        private async void DodajNoviTermin_Click(object sender, RoutedEventArgs e)
+        {
+            if (Dispatcher != null)
+                await Dispatcher.InvokeAsync(() =>
+                {
+                    EvidencijaTerminaDialog evidencijaKursaDialog =
+                        new EvidencijaTerminaDialog(async () => await raspored.Refresh());
+                    evidencijaKursaDialog.ShowDialog();
+                });
         }
 
 

@@ -1,4 +1,4 @@
-namespace Erste
+namespace Erste.Model
 {
     using System;
     using System.Collections.Generic;
@@ -19,7 +19,7 @@ namespace Erste
 
         public TimeSpan Do { get; set; }
 
-        public int GrupaId { get; set; }
+        public int? GrupaId { get; set; }
 
         public virtual grupa grupa { get; set; }
     }

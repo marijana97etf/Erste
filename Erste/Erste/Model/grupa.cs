@@ -1,4 +1,4 @@
-namespace Erste
+namespace Erste.Model
 {
     using System;
     using System.Collections.Generic;
@@ -21,7 +21,11 @@ namespace Erste
 
         public int KursId { get; set; }
 
-        public int? BrojClanova { get; set; }
+        public int BrojClanova { get; set; }
+
+        [Required]
+        [StringLength(256)]
+        public string Naziv { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<termin> termini { get; set; }
