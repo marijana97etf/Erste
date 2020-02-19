@@ -1,4 +1,4 @@
-namespace Erste.Model
+namespace Erste
 {
     using System;
     using System.Data.Entity;
@@ -18,6 +18,7 @@ namespace Erste.Model
         public virtual DbSet<kurs> kursevi { get; set; }
         public virtual DbSet<osoba> osobe { get; set; }
         public virtual DbSet<polaznik> polaznici { get; set; }
+        public virtual DbSet<polaznik_na_cekanju> polaznici_na_cekanju { get; set; }
         public virtual DbSet<profesor> profesori { get; set; }
         public virtual DbSet<sluzbenik> sluzbenici { get; set; }
         public virtual DbSet<termin> termini { get; set; }
@@ -35,6 +36,11 @@ namespace Erste.Model
             modelBuilder.Entity<grupa>()
                 .Property(e => e.Naziv)
                 .IsUnicode(false);
+
+            modelBuilder.Entity<kurs>()
+                .HasMany(e => e.polaznici_na_cekanju)
+                .WithMany(e => e.kursevi)
+                .Map(m => m.ToTable("kurs_polaznik_na_cekanju", "erste").MapLeftKey("KursId").MapRightKey("PolaznikNaCekanjuId"));
 
             modelBuilder.Entity<grupa>()
                 .HasMany(e => e.polaznici)
@@ -98,12 +104,8 @@ namespace Erste.Model
                 .WithRequired(e => e.osoba);
 
             modelBuilder.Entity<polaznik>()
-                .Property(e => e.Jezik)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<polaznik>()
-                .Property(e => e.Nivo)
-                .IsUnicode(false);
+                .HasOptional(e => e.polaznik_na_cekanju)
+                .WithRequired(e => e.polaznik);
 
             modelBuilder.Entity<sluzbenik>()
                 .Property(e => e.KorisnickoIme)

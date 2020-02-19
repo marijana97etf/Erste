@@ -1,4 +1,4 @@
-namespace Erste.Model
+namespace Erste
 {
     using System;
     using System.Collections.Generic;
@@ -18,15 +18,9 @@ namespace Erste.Model
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
 
-        [Required]
-        [StringLength(45)]
-        public string Jezik { get; set; }
-
-        [Required]
-        [StringLength(45)]
-        public string Nivo { get; set; }
-
         public virtual osoba osoba { get; set; }
+
+        public virtual polaznik_na_cekanju polaznik_na_cekanju { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<grupa> grupe { get; set; }

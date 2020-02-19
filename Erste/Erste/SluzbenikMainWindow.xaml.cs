@@ -42,7 +42,7 @@ namespace Erste
                 {
                     Hide();
                     LoginWindow window = new LoginWindow
-                        {WindowStartupLocation = WindowStartupLocation.CenterOwner, Owner = null};
+                    { WindowStartupLocation = WindowStartupLocation.CenterOwner, Owner = null };
                     window.Show();
                 });
         }
@@ -52,7 +52,10 @@ namespace Erste
 
         private void Upis_Click(object sender, RoutedEventArgs e)
         {
-            //TODO:Upis kandidata
+
+            UpisPolaznikaDialog upisPolaznikaDialog = new UpisPolaznikaDialog();
+            upisPolaznikaDialog.ShowDialog();
+
         }
 
         private async void Raspored_Click(object sender, RoutedEventArgs e)
@@ -117,29 +120,22 @@ namespace Erste
                     SolidColorBrush solidColor = new SolidColorBrush(Color.FromArgb(0xFF, 0xEF, 0x3D, 0x4A));
                     button.Background = solidColor;
                     RegisterName("SolidColor", solidColor);
-
                     AnimationTimeline expand = new DoubleAnimation(0, stackPanel.ActualHeight, animationDurance);
                     AnimationTimeline shrink = new DoubleAnimation(label.ActualHeight, label.ActualHeight - stackPanel.ActualHeight,
                         animationDurance);
                     //AnimationTimeline timeline = new DoubleAnimation(800, animationDurance);
                     AnimationTimeline opacity = new DoubleAnimation(0,1, animationDurance);
                     AnimationTimeline colorChange = new ColorAnimation(Color.FromArgb(0xFF,0xEF,0x3D,0x4A), Colors.DarkRed, animationDurance);
-
                     Storyboard.SetTarget(expand, stackPanel);
                     Storyboard.SetTargetProperty(expand, new PropertyPath(Rectangle.HeightProperty));
-
                     Storyboard.SetTarget(shrink, label);
                     Storyboard.SetTargetProperty(shrink, new PropertyPath(Rectangle.HeightProperty));
-
                     //Storyboard.SetTarget(timeline, this);
                     //Storyboard.SetTargetProperty(timeline, new PropertyPath(Window.WidthProperty));
-
                     Storyboard.SetTarget(opacity, _kandidati.DataGrid);
                     Storyboard.SetTargetProperty(opacity, new PropertyPath(OpacityProperty));
-
                     Storyboard.SetTargetName(colorChange, "SolidColor");
                     Storyboard.SetTargetProperty(colorChange, new PropertyPath(SolidColorBrush.ColorProperty));
-
                     Storyboard storyboard = new Storyboard();
                     storyboard.Children.Add(expand);
                     storyboard.Children.Add(shrink);
@@ -158,29 +154,22 @@ namespace Erste
                     SolidColorBrush solidColor = new SolidColorBrush(Colors.DarkRed);
                     button.Background = solidColor;
                     RegisterName("SolidColor", solidColor);
-
                     //AnimationTimeline timeline = new DoubleAnimation( 217, TimeSpan.FromMilliseconds(1000));
                     AnimationTimeline expand = new DoubleAnimation(stackPanel.ActualHeight, 0, animationDurance);
                     AnimationTimeline shrink = new DoubleAnimation(label.ActualHeight, label.ActualHeight + stackPanel.ActualHeight,
                         animationDurance);
                     AnimationTimeline colorChange = new ColorAnimation(Colors.DarkRed, Color.FromArgb(0xFF, 0xEF, 0x3D, 0x4A), animationDurance);
                     AnimationTimeline opacity = new DoubleAnimation(1, 0, animationDurance);
-
                     Storyboard.SetTarget(expand, stackPanel);
                     Storyboard.SetTargetProperty(expand, new PropertyPath(Rectangle.HeightProperty));
-
                     Storyboard.SetTarget(shrink, label);
                     Storyboard.SetTargetProperty(shrink, new PropertyPath(Rectangle.HeightProperty));
-
                     //Storyboard.SetTarget(timeline, this);
                     //Storyboard.SetTargetProperty(timeline, new PropertyPath(Window.WidthProperty));
-
                     Storyboard.SetTargetName(colorChange, "SolidColor");
                     Storyboard.SetTargetProperty(colorChange, new PropertyPath(SolidColorBrush.ColorProperty));
-
                     Storyboard.SetTarget(opacity, _kandidati.DataGrid);
                     Storyboard.SetTargetProperty(opacity, new PropertyPath(OpacityProperty));
-
                     Storyboard storyboard = new Storyboard();
                     storyboard.Children.Add(expand);
                     storyboard.Children.Add(shrink);
@@ -189,10 +178,8 @@ namespace Erste
                     storyboard.Children.Add(colorChange);
                     storyboard.Begin(this);
                 }
-
                 UnregisterName("SolidColor");
                 _menuIndex[index]++;
-
             }
             await Task.Run(async () =>
             {

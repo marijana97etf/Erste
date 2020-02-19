@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Windows;
-using Erste.Model;
 
 namespace Erste.Sluzbenik
 {

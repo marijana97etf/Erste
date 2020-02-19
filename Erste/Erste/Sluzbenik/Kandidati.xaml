@@ -20,7 +20,6 @@
 
         <DataGrid Name="DataGrid" Grid.ColumnSpan="3" ColumnHeaderStyle="{StaticResource DataGridErsteStyle}" BeginningEdit="DataGrid_OnBeginningEdit" VerticalGridLinesBrush="#FFB2B2B2" HorizontalGridLinesBrush="#FFB2B2B2" CellStyle="{StaticResource DataGridCellErsteStyle}">
             <DataGrid.Columns>
-                <DataGridTextColumn Width="*" Header="Id" Binding="{Binding Path=osoba.Id}"></DataGridTextColumn>
                 <DataGridTextColumn Width="*" Header="Ime" Binding="{Binding Path=osoba.Ime}"></DataGridTextColumn>
                 <DataGridTextColumn Width="*" Header="Prezime" Binding="{Binding Path=osoba.Prezime}"></DataGridTextColumn>
                 <DataGridTextColumn Width="*" Header="Email" Binding="{Binding Path=osoba.Email}"></DataGridTextColumn>

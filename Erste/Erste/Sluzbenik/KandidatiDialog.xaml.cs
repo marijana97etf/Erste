@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows;
-using Erste.Model;
 
 namespace Erste.Sluzbenik
 {

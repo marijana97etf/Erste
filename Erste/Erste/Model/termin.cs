@@ -1,4 +1,4 @@
-namespace Erste.Model
+namespace Erste
 {
     using System;
     using System.Collections.Generic;

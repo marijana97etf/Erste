@@ -6,7 +6,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
 using Erste.Administrator;
-using Erste.Model;
 
 namespace Erste.Sluzbenik
 {
@@ -92,18 +91,19 @@ namespace Erste.Sluzbenik
                     }
                     else if ("cekanje".Equals(mode))
                     {
-                        var polazniciNaCekanju = await (from polaznik in ersteModel.polaznici.Include("osoba")
-                                                        join osoba in ersteModel.osobe.Include("polaznik") on polaznik.Id equals osoba.Id
-                                                        where polaznik.grupe.Count == 0
-                                                        select polaznik).ToListAsync();
+                        //var polazniciNaCekanju = from p in ersteModel.polaznici_na_cekanju join o in ersteModel.osoba
+                        //                         on p.Id equals o.Id 
+                        //                         join k in ersteModel
 
-                        foreach (var polaznik in polazniciNaCekanju)
-                        {
-                            if (polaznik.osoba != null && Dispatcher != null)
-                            {
-                                await Dispatcher.InvokeAsync(() => { DataGrid.Items.Add(polaznik); });
-                            }
-                        }
+             
+
+                        //foreach (var polaznik in polazniciNaCekanju)
+                        //{
+                        //    if (polaznik.osoba != null && Dispatcher != null)
+                        //    {
+                        //        await Dispatcher.InvokeAsync(() => { DataGrid.Items.Add(polaznik); });
+                        //    }
+                        //}
                     }
                 }
             }
