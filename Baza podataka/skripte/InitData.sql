@@ -15,7 +15,7 @@ insert into jezik(Id,Naziv) values(1,"Engleski");
 insert into jezik(Id,Naziv) values(2,"Njemacki");
 insert into jezik(Id,Naziv) values(3,"Francuski");
 
-insert into kurs(Id,Nivo,JezikId,DatumOd,DatumDo) values(1,"A1.1",1,'2020-01-20','2020-03-20');
+#insert into kurs(Id,Nivo,JezikId,DatumOd,DatumDo) values(1,"A1.1",1,'2020-01-20','2020-03-20');
 insert into kurs(Id,Nivo,JezikId,DatumOd,DatumDo) values(1,"A1.1",1,'2020-01-20','2020-03-20');
 insert into kurs(Id,Nivo,JezikId,DatumOd,DatumDo) values(2,"A1.2",1,'2020-01-20','2020-03-20');
 insert into kurs(Id,Nivo,JezikId,DatumOd,DatumDo) values(3,"A2.1",1,'2020-01-20','2020-03-20');

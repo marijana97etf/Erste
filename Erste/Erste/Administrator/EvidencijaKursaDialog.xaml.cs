@@ -59,9 +59,13 @@ namespace Erste.Administrator
 
                 comboBox_Jezik.IsEnabled = false;
                 textBox_Nivo.IsEnabled = false;
+                TimePickerOd.IsEnabled = false;
+                TimePickerDo.IsEnabled = false;
 
                 comboBox_Jezik.SelectedIndex = comboBoxList.IndexOf(kurs.jezik);
                 textBox_Nivo.Text = kurs.Nivo;
+                TimePickerOd.SelectedDate = kurs.DatumOd;
+                TimePickerDo.SelectedDate = kurs.DatumDo;
             }
         }
 
@@ -73,6 +77,8 @@ namespace Erste.Administrator
                 {
                     comboBox_Jezik.IsEnabled = true;
                     textBox_Nivo.IsEnabled = true;
+                    TimePickerOd.IsEnabled = true;
+                    TimePickerDo.IsEnabled = true;
 
                     Button1.Content = uredu;
                     Button2.Content = otkazi;
@@ -80,7 +86,7 @@ namespace Erste.Administrator
                 }
                 else
                 {
-                    if (!String.IsNullOrEmpty(textBox_Nivo.Text) && comboBox_Jezik.SelectedIndex != -1)
+                    if (!String.IsNullOrEmpty(textBox_Nivo.Text) && comboBox_Jezik.SelectedIndex != -1 && TimePickerOd.SelectedDate != null && TimePickerDo.SelectedDate != null)
                     {
                         try
                         {
@@ -89,6 +95,8 @@ namespace Erste.Administrator
                                 kurs = ersteModel.kursevi.Find(kurs.Id);
                                 kurs.Nivo = textBox_Nivo.Text;
                                 kurs.JezikId = (comboBox_Jezik.SelectedItem as jezik).Id;
+                                kurs.DatumOd = TimePickerOd.SelectedDate.Value;
+                                kurs.DatumDo = TimePickerDo.SelectedDate.Value;
                                 ersteModel.SaveChanges();
                                 MessageBox.Show("Kurs je uspješno izmijenjen.");
                                 Close();
@@ -107,11 +115,13 @@ namespace Erste.Administrator
             }
             else
             {
-                if (!String.IsNullOrEmpty(textBox_Nivo.Text) && comboBox_Jezik.SelectedIndex != -1)
+                if (!String.IsNullOrEmpty(textBox_Nivo.Text) && comboBox_Jezik.SelectedIndex != -1 && TimePickerOd.SelectedDate != null && TimePickerDo.SelectedDate != null)
                 {
                     kurs kurs = new kurs();
                     kurs.Nivo = textBox_Nivo.Text;
                     kurs.JezikId = (comboBox_Jezik.SelectedItem as jezik).Id;
+                    kurs.DatumOd = TimePickerOd.SelectedDate.Value;
+                    kurs.DatumDo = TimePickerDo.SelectedDate.Value;
 
                     try
                     {

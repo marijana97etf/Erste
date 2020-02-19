@@ -303,3 +303,5 @@ C:\Users\baralicD\source\repos\ErsteNewFinal\Erste\Erste\obj\Debug\Erste.exe
 C:\Users\baralicD\source\repos\ErsteNewFinal\Erste\Erste\obj\Debug\Erste.pdb
 C:\Users\baralicD\source\repos\ErsteNewFinal\Erste\Erste\obj\Debug\Sluzbenik\UpisPolaznikaDialog.g.cs
 C:\Users\baralicD\source\repos\ErsteNewFinal\Erste\Erste\obj\Debug\Sluzbenik\UpisPolaznikaDialog.baml
+C:\Users\Dell\Source\Repos\marijana97etf\Erste\Erste\Erste\obj\Debug\Sluzbenik\UpisPolaznikaDialog.g.cs
+C:\Users\Dell\Source\Repos\marijana97etf\Erste\Erste\Erste\obj\Debug\Sluzbenik\UpisPolaznikaDialog.baml

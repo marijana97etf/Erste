@@ -37,5 +37,12 @@ namespace Erste
         public virtual ICollection<polaznik_na_cekanju> polaznici_na_cekanju { get; set; }
 
         public virtual jezik jezik { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            var kurs = obj as kurs;
+            return kurs != null &&
+                   Id == kurs.Id;
+        }
     }
 }
