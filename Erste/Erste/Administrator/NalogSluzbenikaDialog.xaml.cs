@@ -55,30 +55,30 @@ namespace Erste.Administrator
 
         private void Button1_Click(object sender, RoutedEventArgs e)
         {
-            if (!izmjena)
+            if (sluzbenik != null)
             {
-                textBox_Ime.IsEnabled = true;
-                textBox_Prezime.IsEnabled = true;
-                textBox_Email.IsEnabled = true;
-                textBox_BrojTelefona.IsEnabled = true;
-                textBox_KorisnickoIme.IsEnabled = true;
-                textBox_Lozinka.IsEnabled = true;
-                textBox_LozinkaProvjera.IsEnabled = true;
-
-                Button1.Content = uredu;
-                Button2.Content = otkazi;
-                izmjena = true;
-            }
-            else
-            {
-                if (!String.IsNullOrEmpty(textBox_Ime.Text) &&
-                    !String.IsNullOrEmpty(textBox_Prezime.Text) &&
-                    !String.IsNullOrEmpty(textBox_Email.Text) &&
-                    !String.IsNullOrEmpty(textBox_BrojTelefona.Text) &&
-                    !String.IsNullOrEmpty(textBox_KorisnickoIme.Text) &&
-                    textBox_Lozinka.Password.Equals(textBox_LozinkaProvjera.Password))
+                if (!izmjena)
                 {
-                    if (sluzbenik != null)
+                    textBox_Ime.IsEnabled = true;
+                    textBox_Prezime.IsEnabled = true;
+                    textBox_Email.IsEnabled = true;
+                    textBox_BrojTelefona.IsEnabled = true;
+                    textBox_KorisnickoIme.IsEnabled = true;
+                    textBox_Lozinka.IsEnabled = true;
+                    textBox_LozinkaProvjera.IsEnabled = true;
+
+                    Button1.Content = uredu;
+                    Button2.Content = otkazi;
+                    izmjena = true;
+                }
+                else
+                {
+                    if (!String.IsNullOrEmpty(textBox_Ime.Text) &&
+                        !String.IsNullOrEmpty(textBox_Prezime.Text) &&
+                        !String.IsNullOrEmpty(textBox_Email.Text) &&
+                        !String.IsNullOrEmpty(textBox_BrojTelefona.Text) &&
+                        !String.IsNullOrEmpty(textBox_KorisnickoIme.Text) &&
+                        textBox_Lozinka.Password.Equals(textBox_LozinkaProvjera.Password))
                     {
                         try
                         {
@@ -107,31 +107,45 @@ namespace Erste.Administrator
                     }
                     else
                     {
-                        sluzbenik sluzbenik = new sluzbenik();
-                        sluzbenik.osoba = new osoba();
-                        sluzbenik.osoba.Ime = textBox_Ime.Text;
-                        sluzbenik.osoba.Prezime = textBox_Prezime.Text;
-                        sluzbenik.osoba.Email = textBox_Email.Text;
-                        sluzbenik.osoba.BrojTelefona = textBox_BrojTelefona.Text;
-                        sluzbenik.KorisnickoIme = textBox_KorisnickoIme.Text;
+                        if (!textBox_Lozinka.Password.Equals(textBox_LozinkaProvjera.Password))
+                            MessageBox.Show("Lozinke moraju biti iste.");
+                        else
+                            MessageBox.Show("Sva polja moraju biti popunjena.");
+                    }
+                }
+            }
+            else
+            {
+                if (!String.IsNullOrEmpty(textBox_Ime.Text) &&
+                        !String.IsNullOrEmpty(textBox_Prezime.Text) &&
+                        !String.IsNullOrEmpty(textBox_Email.Text) &&
+                        !String.IsNullOrEmpty(textBox_BrojTelefona.Text) &&
+                        !String.IsNullOrEmpty(textBox_KorisnickoIme.Text) &&
+                        textBox_Lozinka.Password.Equals(textBox_LozinkaProvjera.Password))
+                {
+                    sluzbenik sluzbenik = new sluzbenik();
+                    sluzbenik.osoba = new osoba();
+                    sluzbenik.osoba.Ime = textBox_Ime.Text;
+                    sluzbenik.osoba.Prezime = textBox_Prezime.Text;
+                    sluzbenik.osoba.Email = textBox_Email.Text;
+                    sluzbenik.osoba.BrojTelefona = textBox_BrojTelefona.Text;
+                    sluzbenik.KorisnickoIme = textBox_KorisnickoIme.Text;
 
-                        HashGenerator hashGenerator = new HashGenerator();
-                        sluzbenik.LozinkaHash = hashGenerator.ComputeHash(textBox_Lozinka.Password);
+                    HashGenerator hashGenerator = new HashGenerator();
+                    sluzbenik.LozinkaHash = hashGenerator.ComputeHash(textBox_Lozinka.Password);
 
-                        try
+                    try
+                    {
+                        using (var ersteModel = new ErsteModel())
                         {
-                            using (var ersteModel = new ErsteModel())
-                            {
-                                ersteModel.sluzbenici.Add(sluzbenik);
-                                ersteModel.SaveChanges();
-                                MessageBox.Show("Korisnik je uspješno dodan.");
-                                Close();
-                            }
+                            ersteModel.sluzbenici.Add(sluzbenik);
+                            ersteModel.SaveChanges();
+                            Close();
                         }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show("MySQL Exception: " + ex.ToString());
-                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("MySQL Exception: " + ex.ToString());
                     }
                 }
                 else

@@ -22,13 +22,19 @@ namespace Erste
     {
         //private object _locker = new object();
         //private static int[] _menuIndex = { 0, 0, 0 };
-        private NaloziSluzbenika naloziSluzbenika;
-        private EvidencijaProfesora evidencijaProfesora;
-        private EvidencijaKurseva evidencijaKurseva;
+        private NaloziSluzbenika naloziSluzbenika = new NaloziSluzbenika();
+        private EvidencijaProfesora evidencijaProfesora = new EvidencijaProfesora();
+        private EvidencijaKurseva evidencijaKurseva = new EvidencijaKurseva();
 
         public AdminMainWindow()
         {
             InitializeComponent();
+
+            Hide_All();
+
+            GridZaPrikaz.Children.Add(naloziSluzbenika);
+            GridZaPrikaz.Children.Add(evidencijaProfesora);
+            GridZaPrikaz.Children.Add(evidencijaKurseva);
         }
 
         private void Exit_Click(object sender, RoutedEventArgs e)
@@ -43,7 +49,9 @@ namespace Erste
 
         private void Button_NaloziSluzbenika(object sender, RoutedEventArgs e)
         {
-            GridZaPrikaz.Children.Add(naloziSluzbenika = new NaloziSluzbenika());
+            //GridZaPrikaz.Children.Add(naloziSluzbenika = new NaloziSluzbenika());
+            Hide_All();
+            naloziSluzbenika.Visibility = Visibility.Visible;
             naloziSluzbenika.Refresh();
         }
 
@@ -51,11 +59,15 @@ namespace Erste
         {
             NalogSluzbenikaDialog nalogSluzbenikaDialog = new NalogSluzbenikaDialog(null);
             nalogSluzbenikaDialog.ShowDialog();
+            if (naloziSluzbenika != null)
+                naloziSluzbenika.Refresh();
         }
 
         private void Button_EvidencijaProfesora(object sender, RoutedEventArgs e)
         {
-            GridZaPrikaz.Children.Add(evidencijaProfesora = new EvidencijaProfesora());
+            //GridZaPrikaz.Children.Add(evidencijaProfesora = new EvidencijaProfesora());
+            Hide_All();
+            evidencijaProfesora.Visibility = Visibility.Visible;
             evidencijaProfesora.Refresh();
         }
 
@@ -63,11 +75,14 @@ namespace Erste
         {
             EvidencijaProfesoraDialog evidencijaProfesoraDialog = new EvidencijaProfesoraDialog(null);
             evidencijaProfesoraDialog.ShowDialog();
+            evidencijaProfesora.Refresh();
         }
 
         private void Button_EvidencijaKurseva(object sender, RoutedEventArgs e)
         {
-            GridZaPrikaz.Children.Add(evidencijaKurseva = new EvidencijaKurseva());
+            //GridZaPrikaz.Children.Add(evidencijaKurseva = new EvidencijaKurseva());
+            Hide_All();
+            evidencijaKurseva.Visibility = Visibility.Visible;
             evidencijaKurseva.Refresh();
         }
 
@@ -75,6 +90,14 @@ namespace Erste
         {
             EvidencijaKursaDialog evidencijaKursaDialog = new EvidencijaKursaDialog(null);
             evidencijaKursaDialog.ShowDialog();
+            evidencijaKurseva.Refresh();
+        }
+
+        private void Hide_All()
+        {
+            naloziSluzbenika.Visibility = Visibility.Hidden;
+            evidencijaProfesora.Visibility = Visibility.Hidden;
+            evidencijaKurseva.Visibility = Visibility.Hidden;
         }
 
         /*private async Task NapraviAnimaciju(StackPanel stackPanel, int index, Button button, TimeSpan animationDurance)

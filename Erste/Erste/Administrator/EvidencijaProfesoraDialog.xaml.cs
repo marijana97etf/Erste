@@ -52,25 +52,25 @@ namespace Erste.Administrator
 
         private void Button1Click(object sender, RoutedEventArgs e)
         {
-            if (!izmjena)
+            if (profesor != null)
             {
-                textBox_Ime.IsEnabled = true;
-                textBox_Prezime.IsEnabled = true;
-                textBox_Email.IsEnabled = true;
-                textBox_BrojTelefona.IsEnabled = true;
-
-                Button1.Content = uredu;
-                Button2.Content = otkazi;
-                izmjena = true;
-            }
-            else
-            {
-                if (!String.IsNullOrEmpty(textBox_Ime.Text) &&
-                    !String.IsNullOrEmpty(textBox_Prezime.Text) &&
-                    !String.IsNullOrEmpty(textBox_Email.Text) &&
-                    !String.IsNullOrEmpty(textBox_BrojTelefona.Text))
+                if (!izmjena)
                 {
-                    if (profesor != null)
+                    textBox_Ime.IsEnabled = true;
+                    textBox_Prezime.IsEnabled = true;
+                    textBox_Email.IsEnabled = true;
+                    textBox_BrojTelefona.IsEnabled = true;
+
+                    Button1.Content = uredu;
+                    Button2.Content = otkazi;
+                    izmjena = true;
+                }
+                else
+                {
+                    if (!String.IsNullOrEmpty(textBox_Ime.Text) &&
+                        !String.IsNullOrEmpty(textBox_Prezime.Text) &&
+                        !String.IsNullOrEmpty(textBox_Email.Text) &&
+                        !String.IsNullOrEmpty(textBox_BrojTelefona.Text))
                     {
                         try
                         {
@@ -94,29 +94,37 @@ namespace Erste.Administrator
                     }
                     else
                     {
-                        profesor profesor = new profesor();
-                        profesor.osoba = new osoba();
-                        profesor.osoba.Ime = textBox_Ime.Text;
-                        profesor.osoba.Prezime = textBox_Prezime.Text;
-                        profesor.osoba.Email = textBox_Email.Text;
-                        profesor.osoba.BrojTelefona = textBox_BrojTelefona.Text;
+                        MessageBox.Show("Sva polja moraju biti popunjena.");
+                    }
+                }
+            }
+            else
+            {
+                if (!String.IsNullOrEmpty(textBox_Ime.Text) &&
+                        !String.IsNullOrEmpty(textBox_Prezime.Text) &&
+                        !String.IsNullOrEmpty(textBox_Email.Text) &&
+                        !String.IsNullOrEmpty(textBox_BrojTelefona.Text))
+                {
+                    profesor profesor = new profesor();
+                    profesor.osoba = new osoba();
+                    profesor.osoba.Ime = textBox_Ime.Text;
+                    profesor.osoba.Prezime = textBox_Prezime.Text;
+                    profesor.osoba.Email = textBox_Email.Text;
+                    profesor.osoba.BrojTelefona = textBox_BrojTelefona.Text;
 
-                        try
+                    try
+                    {
+                        using (var ersteModel = new ErsteModel())
                         {
-                            using (var ersteModel = new ErsteModel())
-                            {
-                                ersteModel.profesori.Add(profesor);
-                                ersteModel.SaveChanges();
-                                MessageBox.Show("Korisnik je uspješno dodan.");
-                                Close();
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show("MySQL Exception: " + ex.ToString());
+                            ersteModel.profesori.Add(profesor);
+                            ersteModel.SaveChanges();
+                            Close();
                         }
                     }
-                    
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("MySQL Exception: " + ex.ToString());
+                    }
                 }
                 else
                 {

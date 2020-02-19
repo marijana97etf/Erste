@@ -11,10 +11,22 @@ namespace Erste
     public partial class SluzbenikMainWindow : Window
     {
         private Kandidati kandidati;
-        private Raspored raspored;
+        private Kandidati kandidatiSvi = new Kandidati("svi");
+        private Kandidati kandidatiCekanje = new Kandidati("cekanje");
+        private Raspored raspored = new Raspored();
         public SluzbenikMainWindow()
         {
             InitializeComponent();
+
+            kandidati = kandidatiSvi;
+
+            kandidatiSvi.Visibility = Visibility.Hidden;
+            kandidatiCekanje.Visibility = Visibility.Hidden;
+            raspored.Visibility = Visibility.Hidden;
+
+            GridZaPrikaz.Children.Add(kandidatiSvi);
+            GridZaPrikaz.Children.Add(kandidatiCekanje);
+            GridZaPrikaz.Children.Add(raspored);
         }
 
 
@@ -45,19 +57,27 @@ namespace Erste
 
         private async void Raspored_Click(object sender, RoutedEventArgs e)
         {
-            GridZaPrikaz.Children.Add(raspored = new Raspored());
+            //GridZaPrikaz.Children.Add(raspored = new Raspored());
+            Hide_All();
+            raspored.Visibility = Visibility.Visible;
             await raspored.Refresh();
         }
 
         private async void Pregled_Click(object sender, RoutedEventArgs e)
         {
-            GridZaPrikaz.Children.Add(kandidati = new Kandidati("svi"));
+            //GridZaPrikaz.Children.Add(kandidati = new Kandidati("svi"));
+            Hide_All();
+            kandidati = kandidatiSvi;
+            kandidati.Visibility = Visibility.Visible;
             await kandidati.Refresh();
         }
 
         private async void KandidatiNaCekanju_Click(object sender, RoutedEventArgs e)
         {
-            GridZaPrikaz.Children.Add(kandidati = new Kandidati("cekanje"));
+            //GridZaPrikaz.Children.Add(kandidati = new Kandidati("cekanje"));
+            Hide_All();
+            kandidati = kandidatiCekanje;
+            kandidati.Visibility = Visibility.Visible;
             await kandidati.Refresh();
         }
 
@@ -78,6 +98,11 @@ namespace Erste
                 });
         }
 
+        private void Hide_All()
+        {
+            kandidati.Visibility = Visibility.Hidden;
+            raspored.Visibility = Visibility.Hidden;
+        }
 
         /*private async Task NapraviAnimaciju(StackPanel stackPanel, int index, Button button, TimeSpan animationDurance)
         {

@@ -68,20 +68,20 @@ namespace Erste.Administrator
 
         private void Button1_Click(object sender, RoutedEventArgs e)
         {
-            if (!izmjena)
+            if (kurs != null)
             {
-                comboBox_Jezik.IsEnabled = true;
-                textBox_Nivo.IsEnabled = true;
-
-                Button1.Content = uredu;
-                Button2.Content = otkazi;
-                izmjena = true;
-            }
-            else
-            {
-                if (!String.IsNullOrEmpty(textBox_Nivo.Text) && comboBox_Jezik.SelectedIndex != -1)
+                if (!izmjena)
                 {
-                    if (kurs != null)
+                    comboBox_Jezik.IsEnabled = true;
+                    textBox_Nivo.IsEnabled = true;
+
+                    Button1.Content = uredu;
+                    Button2.Content = otkazi;
+                    izmjena = true;
+                }
+                else
+                {
+                    if (!String.IsNullOrEmpty(textBox_Nivo.Text) && comboBox_Jezik.SelectedIndex != -1)
                     {
                         try
                         {
@@ -102,26 +102,31 @@ namespace Erste.Administrator
                     }
                     else
                     {
-                        kurs kurs = new kurs();
-                        kurs.Nivo = textBox_Nivo.Text;
-                        kurs.JezikId = (comboBox_Jezik.SelectedItem as jezik).Id;
+                        MessageBox.Show("Sva polja moraju biti popunjena.");
+                    }
+                }
+            }
+            else
+            {
+                if (!String.IsNullOrEmpty(textBox_Nivo.Text) && comboBox_Jezik.SelectedIndex != -1)
+                {
+                    kurs kurs = new kurs();
+                    kurs.Nivo = textBox_Nivo.Text;
+                    kurs.JezikId = (comboBox_Jezik.SelectedItem as jezik).Id;
 
-                        try
+                    try
+                    {
+                        using (var ersteModel = new ErsteModel())
                         {
-                            using (var ersteModel = new ErsteModel())
-                            {
-                                ersteModel.kursevi.Add(kurs);
-                                ersteModel.SaveChanges();
-                                MessageBox.Show("Kurs je uspješno dodan.");
-                                Close();
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show("Greška. Pokušajte ponovo kasnije.");
+                            ersteModel.kursevi.Add(kurs);
+                            ersteModel.SaveChanges();
+                            Close();
                         }
                     }
-
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Greška. Pokušajte ponovo kasnije.");
+                    }
                 }
                 else
                 {
