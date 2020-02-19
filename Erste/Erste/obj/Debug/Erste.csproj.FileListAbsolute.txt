@@ -115,8 +115,6 @@ C:\Users\stepa\Documents\GitHub\Erste\Erste\Erste\obj\Debug\Erste.csproj.Generat
 C:\Users\stepa\Documents\GitHub\Erste\Erste\Erste\obj\Debug\Erste.csproj.CopyComplete
 C:\Users\stepa\Documents\GitHub\Erste\Erste\Erste\obj\Debug\Erste.exe
 C:\Users\stepa\Documents\GitHub\Erste\Erste\Erste\obj\Debug\Erste.pdb
-C:\Users\stepa\Documents\GitHub\Erste\Erste\Erste\bin\Debug\MySql.Data.dll
-C:\Users\stepa\Documents\GitHub\Erste\Erste\Erste\bin\Debug\MySql.Data.EntityFramework.dll
 C:\Users\stepa\Documents\GitHub\Erste\Erste\Erste\obj\Debug\Sluzbenik\Kandidati.g.cs
 C:\Users\stepa\Documents\GitHub\Erste\Erste\Erste\obj\Debug\Sluzbenik\KandidatiDialog.g.cs
 C:\Users\stepa\Documents\GitHub\Erste\Erste\Erste\obj\Debug\Sluzbenik\Kandidati.baml
@@ -305,3 +303,5 @@ C:\Users\baralicD\source\repos\ErsteNewFinal\Erste\Erste\obj\Debug\Sluzbenik\Upi
 C:\Users\baralicD\source\repos\ErsteNewFinal\Erste\Erste\obj\Debug\Sluzbenik\UpisPolaznikaDialog.baml
 C:\Users\Dell\Source\Repos\marijana97etf\Erste\Erste\Erste\obj\Debug\Sluzbenik\UpisPolaznikaDialog.g.cs
 C:\Users\Dell\Source\Repos\marijana97etf\Erste\Erste\Erste\obj\Debug\Sluzbenik\UpisPolaznikaDialog.baml
+C:\Users\stepa\Documents\GitHub\Erste\Erste\Erste\obj\Debug\Sluzbenik\UpisPolaznikaDialog.g.cs
+C:\Users\stepa\Documents\GitHub\Erste\Erste\Erste\obj\Debug\Sluzbenik\UpisPolaznikaDialog.baml

@@ -24,6 +24,23 @@ namespace Erste.Sluzbenik
 
         private async void Button1Click(object sender, RoutedEventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(DanCombo.Text))
+            {
+                MessageBox.Show("Odaberite dan termina.");
+                return;
+            }
+            if (string.IsNullOrWhiteSpace(TimePickerOd.Value.ToString()) || string.IsNullOrWhiteSpace(TimePickerDo.Value.ToString()))
+            {
+                MessageBox.Show("Popunite termine.");
+                return;
+            }
+            Func<DateTime?, DateTime?, bool> compare = (a, b) => a?.TimeOfDay.CompareTo(b?.TimeOfDay) > 0;
+            if (compare(TimePickerOd.Value, TimePickerDo.Value))
+            {
+                MessageBox.Show("Termin početka mora biti prije termina završetka.");
+                return;
+            }
+
             try
             {
                 TimeSpan @od = new TimeSpan();

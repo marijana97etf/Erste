@@ -35,8 +35,7 @@
         </Border>
 
         <Button x:Name="Button1" Grid.Column="0" Content="Zatvori prozor" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" Click="Potvrdi_Click" Style="{DynamicResource buttonStyle}" Height="48" Padding="0" Margin="37,460,0,0" Width="158" VerticalAlignment="Top"/>
-        <DataGrid x:Name="TerminiTable" HorizontalAlignment="Left" Margin="40,275,0,0" Width="415" Height="160" VerticalAlignment="Top">
-            <DataGridColumnHeader Style="{StaticResource DataGridErsteStyle}"></DataGridColumnHeader>
+        <DataGrid x:Name="TerminiTable" HorizontalAlignment="Left" ColumnHeaderStyle="{StaticResource DataGridErsteStyle}" CellStyle="{StaticResource DataGridCellErsteStyle}" Margin="40,275,0,0" Width="415" Height="160" VerticalAlignment="Top">
             <DataGrid.Columns>
                 <DataGridTextColumn Width="*" Header="Dan" Binding="{Binding Path=Dan}"></DataGridTextColumn>
                 <DataGridTextColumn Width="*" Header="Početak termina" Binding="{Binding Path=Od}"></DataGridTextColumn>
@@ -46,8 +45,7 @@
         <Border HorizontalAlignment="Left" Grid.RowSpan="1" Margin="635,220,0,0" Height="30" VerticalAlignment="Top" Width="205">
             <TextBlock Text="Polaznici" TextAlignment="Center" VerticalAlignment="Center"/>
         </Border>
-        <DataGrid x:Name="PolazniciTable" Margin="520,60,0,0" HorizontalAlignment="Left" Width="415" Height="160" VerticalAlignment="Top" RenderTransformOrigin="0.146,0.483">
-            <DataGridColumnHeader Style="{StaticResource DataGridErsteStyle}"></DataGridColumnHeader>
+        <DataGrid x:Name="PolazniciTable" Margin="520,60,0,0" HorizontalAlignment="Left" Width="415" Height="160" VerticalAlignment="Top" ColumnHeaderStyle="{StaticResource DataGridErsteStyle}" CellStyle="{StaticResource DataGridCellErsteStyle}">
             <DataGrid.Columns>
                 <DataGridTextColumn Width="*" Header="Ime" Binding="{Binding Path=osoba.Ime}"></DataGridTextColumn>
                 <DataGridTextColumn Width="*" Header="Prezime" Binding="{Binding Path=osoba.Prezime}"></DataGridTextColumn>
@@ -55,8 +53,7 @@
                 <DataGridTextColumn Width="*" Header="Broj telefona" Binding="{Binding Path=osoba.BrojTelefona}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <DataGrid x:Name="ProfesoriTable" Margin="520,275,0,0" HorizontalAlignment="Left" Width="415" Height="160" VerticalAlignment="Top">
-            <DataGridColumnHeader Style="{StaticResource DataGridErsteStyle}"></DataGridColumnHeader>
+        <DataGrid x:Name="ProfesoriTable" Margin="520,275,0,0" HorizontalAlignment="Left" Width="415" Height="160" ColumnHeaderStyle="{StaticResource DataGridErsteStyle}" CellStyle="{StaticResource DataGridCellErsteStyle}" VerticalAlignment="Top">
             <DataGrid.Columns>
                 <DataGridTextColumn Width="*" Header="Ime" Binding="{Binding Path=osoba.Ime}"></DataGridTextColumn>
                 <DataGridTextColumn Width="*" Header="Prezime" Binding="{Binding Path=osoba.Prezime}"></DataGridTextColumn>

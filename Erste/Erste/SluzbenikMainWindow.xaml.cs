@@ -1,6 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
 using Erste.Sluzbenik;
 
 namespace Erste
@@ -52,14 +55,22 @@ namespace Erste
 
         private void Upis_Click(object sender, RoutedEventArgs e)
         {
+            ClickOnFieldColor(upisButton);
 
             UpisPolaznikaDialog upisPolaznikaDialog = new UpisPolaznikaDialog();
             upisPolaznikaDialog.ShowDialog();
 
+            if (raspored.Visibility == Visibility.Visible)
+                ClickOnFieldColor(rasporedButton);
+            else if (kandidatiSvi.Visibility == Visibility.Visible)
+                ClickOnFieldColor(pregledButton);
+            else if (kandidatiCekanje.Visibility == Visibility.Visible)
+                ClickOnFieldColor(pregledCekanjeButton);
         }
 
         private async void Raspored_Click(object sender, RoutedEventArgs e)
         {
+            ClickOnFieldColor(rasporedButton);
             //GridZaPrikaz.Children.Add(raspored = new Raspored());
             Hide_All();
             raspored.Visibility = Visibility.Visible;
@@ -68,6 +79,7 @@ namespace Erste
 
         private async void Pregled_Click(object sender, RoutedEventArgs e)
         {
+            ClickOnFieldColor(pregledButton);
             //GridZaPrikaz.Children.Add(kandidati = new Kandidati("svi"));
             Hide_All();
             kandidati = kandidatiSvi;
@@ -77,6 +89,7 @@ namespace Erste
 
         private async void KandidatiNaCekanju_Click(object sender, RoutedEventArgs e)
         {
+            ClickOnFieldColor(pregledCekanjeButton);
             //GridZaPrikaz.Children.Add(kandidati = new Kandidati("cekanje"));
             Hide_All();
             kandidati = kandidatiCekanje;
@@ -92,12 +105,19 @@ namespace Erste
 
         private async void DodajNoviTermin_Click(object sender, RoutedEventArgs e)
         {
+            ClickOnFieldColor(noviTerminButton);
             if (Dispatcher != null)
                 await Dispatcher.InvokeAsync(() =>
                 {
                     EvidencijaTerminaDialog evidencijaKursaDialog =
                         new EvidencijaTerminaDialog(async () => await raspored.Refresh());
                     evidencijaKursaDialog.ShowDialog();
+                    if (raspored.Visibility == Visibility.Visible)
+                        ClickOnFieldColor(rasporedButton);
+                    else if (kandidatiSvi.Visibility == Visibility.Visible) 
+                        ClickOnFieldColor(pregledButton);
+                    else if(kandidatiCekanje.Visibility == Visibility.Visible)
+                        ClickOnFieldColor(pregledCekanjeButton);
                 });
         }
 
@@ -107,6 +127,27 @@ namespace Erste
             raspored.Visibility = Visibility.Hidden;
         }
 
+        private void ClickOnFieldColor(Button clickedButton)
+        {
+            ClearFieldsColor();
+            clickedButton.Background = new SolidColorBrush(Colors.DarkRed);
+        }
+
+        private void ClearFieldsColor()
+        {
+            Button[] buttons =
+            {
+                upisButton,
+                pregledButton,
+                pregledCekanjeButton,
+                rasporedButton,
+                noviTerminButton
+            };
+            foreach (var button in buttons)
+            {
+                button.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0xEF, 0x3D, 0x4A));
+            }
+        }
         /*private async Task NapraviAnimaciju(StackPanel stackPanel, int index, Button button, TimeSpan animationDurance)
         {
             lock (_locker)

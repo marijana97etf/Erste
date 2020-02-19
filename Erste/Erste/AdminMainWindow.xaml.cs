@@ -49,6 +49,7 @@ namespace Erste
 
         private void Button_NaloziSluzbenika(object sender, RoutedEventArgs e)
         {
+            ClickOnFieldColor(prikaziSluzbenikeButton);
             //GridZaPrikaz.Children.Add(naloziSluzbenika = new NaloziSluzbenika());
             Hide_All();
             naloziSluzbenika.Visibility = Visibility.Visible;
@@ -57,14 +58,22 @@ namespace Erste
 
         private void Button_DodajSluzbenika(object sender, RoutedEventArgs e)
         {
+            ClickOnFieldColor(dodajSluzbenikeButton);
             NalogSluzbenikaDialog nalogSluzbenikaDialog = new NalogSluzbenikaDialog(null);
             nalogSluzbenikaDialog.ShowDialog();
-            if (naloziSluzbenika != null)
-                naloziSluzbenika.Refresh();
+            naloziSluzbenika?.Refresh();
+
+            if (evidencijaKurseva.Visibility == Visibility.Visible)
+                ClickOnFieldColor(prikaziKurseveButton);
+            else if (evidencijaProfesora.Visibility == Visibility.Visible)
+                ClickOnFieldColor(prikaziProfesoreButton);
+            else if (naloziSluzbenika?.Visibility == Visibility.Visible)
+                ClickOnFieldColor(prikaziSluzbenikeButton);
         }
 
         private void Button_EvidencijaProfesora(object sender, RoutedEventArgs e)
         {
+            ClickOnFieldColor(prikaziProfesoreButton);
             //GridZaPrikaz.Children.Add(evidencijaProfesora = new EvidencijaProfesora());
             Hide_All();
             evidencijaProfesora.Visibility = Visibility.Visible;
@@ -73,13 +82,21 @@ namespace Erste
 
         private void Button_DodajProfesora(object sender, RoutedEventArgs e)
         {
+            ClickOnFieldColor(dodajProfesoreButton);
             EvidencijaProfesoraDialog evidencijaProfesoraDialog = new EvidencijaProfesoraDialog(null);
             evidencijaProfesoraDialog.ShowDialog();
             evidencijaProfesora.Refresh();
+            if (evidencijaKurseva.Visibility == Visibility.Visible)
+                ClickOnFieldColor(prikaziKurseveButton);
+            else if (evidencijaProfesora.Visibility == Visibility.Visible)
+                ClickOnFieldColor(prikaziProfesoreButton);
+            else if (naloziSluzbenika?.Visibility == Visibility.Visible)
+                ClickOnFieldColor(prikaziSluzbenikeButton);
         }
 
         private void Button_EvidencijaKurseva(object sender, RoutedEventArgs e)
         {
+            ClickOnFieldColor(prikaziKurseveButton);
             //GridZaPrikaz.Children.Add(evidencijaKurseva = new EvidencijaKurseva());
             Hide_All();
             evidencijaKurseva.Visibility = Visibility.Visible;
@@ -88,9 +105,16 @@ namespace Erste
 
         private void Button_DodajKurs(object sender, RoutedEventArgs e)
         {
+            ClickOnFieldColor(dodajKursButton);
             EvidencijaKursaDialog evidencijaKursaDialog = new EvidencijaKursaDialog(null);
             evidencijaKursaDialog.ShowDialog();
             evidencijaKurseva.Refresh();
+            if (evidencijaKurseva.Visibility == Visibility.Visible)
+                ClickOnFieldColor(prikaziKurseveButton);
+            else if (evidencijaProfesora.Visibility == Visibility.Visible)
+                ClickOnFieldColor(prikaziProfesoreButton);
+            else if (naloziSluzbenika?.Visibility == Visibility.Visible)
+                ClickOnFieldColor(prikaziSluzbenikeButton);
         }
 
         private void Hide_All()
@@ -98,6 +122,29 @@ namespace Erste
             naloziSluzbenika.Visibility = Visibility.Hidden;
             evidencijaProfesora.Visibility = Visibility.Hidden;
             evidencijaKurseva.Visibility = Visibility.Hidden;
+        }
+
+        private void ClickOnFieldColor(Button clickedButton)
+        {
+            ClearFieldsColor();
+            clickedButton.Background = new SolidColorBrush(Colors.DarkRed);
+        }
+
+        private void ClearFieldsColor()
+        {
+            Button[] buttons =
+            {
+                prikaziSluzbenikeButton,
+                prikaziKurseveButton,
+                prikaziProfesoreButton,
+                dodajSluzbenikeButton,
+                dodajKursButton,
+                dodajProfesoreButton,
+            };
+            foreach (var button in buttons)
+            {
+                button.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0xEF, 0x3D, 0x4A));
+            }
         }
 
         /*private async Task NapraviAnimaciju(StackPanel stackPanel, int index, Button button, TimeSpan animationDurance)

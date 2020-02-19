@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Erste.Sluzbenik"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Class="Erste.Sluzbenik.PregledTermina"
         mc:Ignorable="d"
-        Title="PregledTermina" Height="400" Width="550">
+        Title="PregledTermina" Height="400" Width="568.333">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="150*"/>

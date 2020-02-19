@@ -1,6 +1,7 @@
 ﻿using Erste.Util;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -22,15 +23,17 @@ namespace Erste.Sluzbenik
     public partial class PregledTermina : Window
     {
         private TimetableItem item;
+        private readonly Action refresh;
 
         public PregledTermina()
         {
             InitializeComponent();
         }
 
-        public PregledTermina(TimetableItem item) : this()
+        public PregledTermina(TimetableItem item, Action refresh) : this()
         {
             this.item = item;
+            this.refresh = refresh;
             Init();
         }
 
@@ -43,9 +46,28 @@ namespace Erste.Sluzbenik
             {
                 using (ErsteModel ersteModel = new ErsteModel())
                 {
-                    foreach (var grupaId in ersteModel.grupe.Select(e => e.Id).ToList())
+                    foreach (var naziv in ersteModel.grupe.Select(e => e.Naziv).ToList())
                     {
-                        GrupaCombo.Items.Add(grupaId);
+                        GrupaCombo.Items.Add(naziv);
+                    }
+
+                    if (item.GrupaId.HasValue)
+                    {
+                        grupa find = ersteModel.grupe.Find(item.GrupaId);
+                        if (find is null)
+                        {
+                            GrupaCombo.Items.Add("Nije dodjeljena grupa");
+                            GrupaCombo.Text = "Nije dodjeljena grupa";
+                        }
+                        else
+                        {
+                            GrupaCombo.Text = find.Naziv;
+                        }
+                    }
+                    else
+                    {
+                        GrupaCombo.Items.Add("Nije dodjeljena grupa");
+                        GrupaCombo.Text = "Nije dodjeljena grupa";
                     }
                 }
             }
@@ -53,25 +75,49 @@ namespace Erste.Sluzbenik
             {
                 MessageBox.Show("Greška");
             }
-            if (item.GrupaId.HasValue) GrupaCombo.Text = $"{item.GrupaId}";
         }
 
         private async void Potvrdi_Click(object sender, RoutedEventArgs e)
         {
-            //using (ErsteModel ersteModel = new ErsteModel())
-            //{
-            //    termin termin = await ersteModel.termini.FindAsync(item.termin.Id);
-            //    if (termin != null)
-            //    {
-            //        termin.Dan = DanCombo.Text;
-            //        termin.GrupaId = ersteModel.grupe.Where(e => e.)
-            //    }
-            //}
+            if (string.IsNullOrWhiteSpace(DanCombo.Text))
+            {
+                MessageBox.Show("Odaberite dan termina.");
+                return;
+            }
+            if (string.IsNullOrWhiteSpace(TimePickerOd.Value.ToString()) || string.IsNullOrWhiteSpace(TimePickerDo.Value.ToString()))
+            {
+                MessageBox.Show("Popunite termine.");
+                return;
+            }
+            Func<DateTime?, DateTime?, bool> compare = (a, b) => a?.TimeOfDay.CompareTo(b?.TimeOfDay)>0;
+            if (compare(TimePickerOd.Value, TimePickerDo.Value))
+            {
+                MessageBox.Show("Termin početka mora biti prije termina završetka.");
+                return;
+            }
+
+            using (ErsteModel ersteModel = new ErsteModel())
+            {
+                termin termin = await ersteModel.termini.FindAsync(item.termin.Id);
+                if (termin != null)
+                {
+                    termin.Dan = DanCombo.Text;
+                    if (TimePickerOd.Value != null) 
+                        termin.Od = TimePickerOd.Value.Value.TimeOfDay;
+                    if (TimePickerDo.Value != null)
+                        termin.Do = TimePickerDo.Value.Value.TimeOfDay;
+                    if(GrupaCombo.Text!="Nije dodjeljena grupa" && !string.IsNullOrWhiteSpace(GrupaCombo.Text))
+                        termin.GrupaId = (await ersteModel.grupe.FirstAsync(g => g.Naziv == GrupaCombo.Text)).Id;
+                    await ersteModel.SaveChangesAsync();
+                }
+            }
+            Close();
+            refresh();
         }
 
         private void Button_Otkazi_Click(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            Close();
         }
 
         private void DodavanjeGrupe_OnMouseUp(object sender, MouseButtonEventArgs e)
@@ -81,16 +127,23 @@ namespace Erste.Sluzbenik
 
         private async void PregledGrupe_OnMouseUp(object sender, MouseButtonEventArgs e)
         {
-            int idGrupe = 0;
+            string NazivGrupe = null;
             grupa grupa;
             if (Dispatcher != null)
                 await Dispatcher.InvokeAsync(() =>
                 {
-                    idGrupe = int.Parse(GrupaCombo.SelectedItem.ToString());
+                    NazivGrupe = GrupaCombo.SelectedItem.ToString();
                 });
+
+            if (NazivGrupe==null || NazivGrupe == "Nije dodjeljena grupa")
+            {
+                MessageBox.Show("Nije dodjeljena grupa.");
+                return;
+            }
+            
             using (ErsteModel ersteModel = new ErsteModel())
             {
-                grupa = await ersteModel.grupe.FindAsync(idGrupe);
+                grupa = await ersteModel.grupe.FirstAsync(g => g.Naziv == NazivGrupe);
             }
 
             if (grupa != null && Dispatcher != null)

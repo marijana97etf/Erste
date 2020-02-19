@@ -118,11 +118,8 @@ namespace Erste.Sluzbenik
                             {
                                 if (Dispatcher != null)
                                 {
-                                    Window pregledTermina = new PregledTermina(item);
+                                    Window pregledTermina = new PregledTermina(item, async () => await Refresh());
                                     pregledTermina.ShowDialog();
-                                    #pragma warning disable 4014
-                                    Refresh();
-                                    #pragma warning restore 4014
                                 }
                             }
                         };
