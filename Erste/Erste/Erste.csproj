@@ -71,6 +71,9 @@
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Transactions" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net461\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -146,9 +149,6 @@
     <Compile Include="SluzbenikMainWindow.xaml.cs">
       <DependentUpon>SluzbenikMainWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Sluzbenik\EvidencijaTerminaDialog.xaml.cs">
-      <DependentUpon>EvidencijaTerminaDialog.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Sluzbenik\Kandidati.xaml.cs">
       <DependentUpon>Kandidati.xaml</DependentUpon>
     </Compile>
@@ -157,6 +157,12 @@
     </Compile>
     <Compile Include="Sluzbenik\KandidatiNaCekanju.xaml.cs">
       <DependentUpon>KandidatiNaCekanju.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Sluzbenik\KreiranjeGrupe.xaml.cs">
+      <DependentUpon>KreiranjeGrupe.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Sluzbenik\KreiranjeTermina.xaml.cs">
+      <DependentUpon>KreiranjeTermina.xaml</DependentUpon>
     </Compile>
     <Compile Include="Sluzbenik\PregledGrupe.xaml.cs">
       <DependentUpon>PregledGrupe.xaml</DependentUpon>
@@ -215,10 +221,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Sluzbenik\EvidencijaTerminaDialog.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Sluzbenik\Kandidati.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -230,6 +232,14 @@
     <Page Include="Sluzbenik\KandidatiNaCekanju.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Sluzbenik\KreiranjeGrupe.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Sluzbenik\KreiranjeTermina.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Sluzbenik\PregledGrupe.xaml">
       <SubType>Designer</SubType>

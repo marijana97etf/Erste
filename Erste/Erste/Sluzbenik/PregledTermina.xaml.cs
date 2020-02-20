@@ -1,6 +1,7 @@
 ﻿using Erste.Util;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
@@ -14,6 +15,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Org.BouncyCastle.Crypto.Digests;
 
 namespace Erste.Sluzbenik
 {
@@ -46,6 +48,7 @@ namespace Erste.Sluzbenik
             {
                 using (ErsteModel ersteModel = new ErsteModel())
                 {
+                    GrupaCombo.Items.Clear();
                     foreach (var naziv in ersteModel.grupe.Select(e => e.Naziv).ToList())
                     {
                         GrupaCombo.Items.Add(naziv);
@@ -122,7 +125,9 @@ namespace Erste.Sluzbenik
 
         private void DodavanjeGrupe_OnMouseUp(object sender, MouseButtonEventArgs e)
         {
-            throw new NotImplementedException();
+            KreiranjeGrupe kreiranjeGrupe = new KreiranjeGrupe();
+            kreiranjeGrupe.ShowDialog();
+            Init();
         }
 
         private async void PregledGrupe_OnMouseUp(object sender, MouseButtonEventArgs e)
@@ -143,6 +148,7 @@ namespace Erste.Sluzbenik
             
             using (ErsteModel ersteModel = new ErsteModel())
             {
+                //grupa = await ersteModel.grupe.FirstAsync(g => g.termini!=null && g.profesori!=null && g.polaznici!=null && g.Naziv == NazivGrupe);
                 grupa = await ersteModel.grupe.FirstAsync(g => g.Naziv == NazivGrupe);
             }
 

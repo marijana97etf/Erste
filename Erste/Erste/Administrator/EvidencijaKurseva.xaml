@@ -22,8 +22,6 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Width="*" Header="Jezik" Binding="{Binding Path=jezik.Naziv}"></DataGridTextColumn>
                 <DataGridTextColumn Width="*" Header="Nivo" Binding="{Binding Path=Nivo}"></DataGridTextColumn>
-                <DataGridTextColumn Width="*" Header="Datum od" Binding="{Binding Path=DatumOd}"></DataGridTextColumn>
-                <DataGridTextColumn Width="*" Header="Datum do" Binding="{Binding Path=DatumDo}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

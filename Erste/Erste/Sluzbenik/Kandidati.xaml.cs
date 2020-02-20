@@ -79,6 +79,7 @@ namespace Erste.Sluzbenik
                     {
                         var polaznici = await (from polaznik in ersteModel.polaznici.Include("osoba")
                                                join osoba in ersteModel.osobe.Include("polaznik") on polaznik.Id equals osoba.Id
+                                               where polaznik.grupe.Count!=0
                                                select polaznik).ToListAsync();
 
                         foreach (var polaznik in polaznici)
@@ -91,19 +92,21 @@ namespace Erste.Sluzbenik
                     }
                     else if ("cekanje".Equals(mode))
                     {
-                        //var polazniciNaCekanju = from p in ersteModel.polaznici_na_cekanju join o in ersteModel.osoba
-                        //                         on p.Id equals o.Id 
-                        //                         join k in ersteModel
+                        var polazniciNaCekanju = (from p in ersteModel.polaznici_na_cekanju
+                            join o in ersteModel.osobe
+                                on p.Id equals o.Id
+                            select p).ToList();
 
-             
 
-                        //foreach (var polaznik in polazniciNaCekanju)
-                        //{
-                        //    if (polaznik.osoba != null && Dispatcher != null)
-                        //    {
-                        //        await Dispatcher.InvokeAsync(() => { DataGrid.Items.Add(polaznik); });
-                        //    }
-                        //}
+
+
+                        foreach (var pc in polazniciNaCekanju)
+                        {
+                            if (pc.polaznik.osoba != null && Dispatcher != null)
+                            {
+                                await Dispatcher.InvokeAsync(() => { DataGrid.Items.Add(pc.polaznik); });
+                            }
+                        }
                     }
                 }
             }
@@ -111,7 +114,7 @@ namespace Erste.Sluzbenik
             {
                 if (Dispatcher != null)
                 {
-                    MessageBox.Show("MySQL Exception: " + ex);
+                    MessageBox.Show("Greska");
                 }
             }
 

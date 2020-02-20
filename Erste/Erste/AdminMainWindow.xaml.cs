@@ -243,5 +243,16 @@ namespace Erste
                 });
             });
         }*/
+        private async void LogOff_Click(object sender, RoutedEventArgs e)
+        {
+            if (Dispatcher != null)
+                await Dispatcher.InvokeAsync(() =>
+                {
+                    Hide();
+                    LoginWindow window = new LoginWindow
+                        { WindowStartupLocation = WindowStartupLocation.CenterOwner, Owner = null };
+                    window.Show();
+                });
+        }
     }
 }

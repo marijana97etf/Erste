@@ -8,16 +8,16 @@ namespace Erste.Sluzbenik
     /// <summary>
     /// Interaction logic for EvidencijaTerminaDialog.xaml
     /// </summary>
-    public partial class EvidencijaTerminaDialog : Window
+    public partial class KreiranjeTermina : Window
     {
         private readonly Action refresh;
 
-        public EvidencijaTerminaDialog()
+        public KreiranjeTermina()
         {
             InitializeComponent();
         }
 
-        public EvidencijaTerminaDialog(Action refresh) : this()
+        public KreiranjeTermina(Action refresh) : this()
         {
             this.refresh = refresh;
         }

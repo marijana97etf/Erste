@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -13,7 +14,6 @@ namespace Erste
     /// </summary>
     public partial class SluzbenikMainWindow : Window
     {
-        private Kandidati kandidati;
         private Kandidati kandidatiSvi = new Kandidati("svi");
         private Kandidati kandidatiCekanje = new Kandidati("cekanje");
         private Raspored raspored = new Raspored();
@@ -21,11 +21,7 @@ namespace Erste
         {
             InitializeComponent();
 
-            kandidati = kandidatiSvi;
-
-            kandidatiSvi.Visibility = Visibility.Hidden;
-            kandidatiCekanje.Visibility = Visibility.Hidden;
-            raspored.Visibility = Visibility.Hidden;
+            Hide_All();
 
             GridZaPrikaz.Children.Add(kandidatiSvi);
             GridZaPrikaz.Children.Add(kandidatiCekanje);
@@ -60,12 +56,7 @@ namespace Erste
             UpisPolaznikaDialog upisPolaznikaDialog = new UpisPolaznikaDialog();
             upisPolaznikaDialog.ShowDialog();
 
-            if (raspored.Visibility == Visibility.Visible)
-                ClickOnFieldColor(rasporedButton);
-            else if (kandidatiSvi.Visibility == Visibility.Visible)
-                ClickOnFieldColor(pregledButton);
-            else if (kandidatiCekanje.Visibility == Visibility.Visible)
-                ClickOnFieldColor(pregledCekanjeButton);
+            ShowLastView();
         }
 
         private async void Raspored_Click(object sender, RoutedEventArgs e)
@@ -82,9 +73,8 @@ namespace Erste
             ClickOnFieldColor(pregledButton);
             //GridZaPrikaz.Children.Add(kandidati = new Kandidati("svi"));
             Hide_All();
-            kandidati = kandidatiSvi;
-            kandidati.Visibility = Visibility.Visible;
-            await kandidati.Refresh();
+            kandidatiSvi.Visibility = Visibility.Visible;
+            await kandidatiSvi.Refresh();
         }
 
         private async void KandidatiNaCekanju_Click(object sender, RoutedEventArgs e)
@@ -92,9 +82,8 @@ namespace Erste
             ClickOnFieldColor(pregledCekanjeButton);
             //GridZaPrikaz.Children.Add(kandidati = new Kandidati("cekanje"));
             Hide_All();
-            kandidati = kandidatiCekanje;
-            kandidati.Visibility = Visibility.Visible;
-            await kandidati.Refresh();
+            kandidatiCekanje.Visibility = Visibility.Visible;
+            await kandidatiCekanje.Refresh();
         }
 
         protected override void OnClosing(CancelEventArgs e)
@@ -109,31 +98,35 @@ namespace Erste
             if (Dispatcher != null)
                 await Dispatcher.InvokeAsync(() =>
                 {
-                    EvidencijaTerminaDialog evidencijaKursaDialog =
-                        new EvidencijaTerminaDialog(async () => await raspored.Refresh());
-                    evidencijaKursaDialog.ShowDialog();
-                    if (raspored.Visibility == Visibility.Visible)
-                        ClickOnFieldColor(rasporedButton);
-                    else if (kandidatiSvi.Visibility == Visibility.Visible) 
-                        ClickOnFieldColor(pregledButton);
-                    else if(kandidatiCekanje.Visibility == Visibility.Visible)
-                        ClickOnFieldColor(pregledCekanjeButton);
+                    KreiranjeTermina kreiranjeKursa =
+                        new KreiranjeTermina(async () => await raspored.Refresh());
+                    kreiranjeKursa.ShowDialog();
+                    ShowLastView();
                 });
+        }
+
+        private void ShowLastView()
+        {
+            if (raspored.Visibility == Visibility.Visible)
+                ClickOnFieldColor(rasporedButton);
+            else if (kandidatiSvi.Visibility == Visibility.Visible)
+                ClickOnFieldColor(pregledButton);
+            else if (kandidatiCekanje.Visibility == Visibility.Visible)
+                ClickOnFieldColor(pregledCekanjeButton);
+            else
+            {
+                ClickOnFieldColor(null);
+            }
         }
 
         private void Hide_All()
         {
-            kandidati.Visibility = Visibility.Hidden;
+            kandidatiSvi.Visibility = Visibility.Hidden;
+            kandidatiCekanje.Visibility = Visibility.Hidden;
             raspored.Visibility = Visibility.Hidden;
         }
 
         private void ClickOnFieldColor(Button clickedButton)
-        {
-            ClearFieldsColor();
-            clickedButton.Background = new SolidColorBrush(Colors.DarkRed);
-        }
-
-        private void ClearFieldsColor()
         {
             Button[] buttons =
             {
@@ -141,22 +134,44 @@ namespace Erste
                 pregledButton,
                 pregledCekanjeButton,
                 rasporedButton,
-                noviTerminButton
+                noviTerminButton,
+                pregledGrupa,
+                kreiranjeGrupe
             };
+
             foreach (var button in buttons)
             {
                 button.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0xEF, 0x3D, 0x4A));
             }
+
+            if (clickedButton != null)
+            {
+                clickedButton.Background = new SolidColorBrush(Colors.DarkRed);
+            }
         }
 
-        private void PregledGrupa_OnClick(object sender, RoutedEventArgs e)
+        private async void PregledGrupa_OnClick(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            ClickOnFieldColor(pregledGrupa);
+            if (Dispatcher != null)
+                await Dispatcher.InvokeAsync(() =>
+                {
+                    PregledGrupe pregledGrupe = new PregledGrupe(null);
+                    pregledGrupe.ShowDialog();
+                    ShowLastView();
+                });
         }
 
-        private void DodajNovuGrupu_OnClick(object sender, RoutedEventArgs e)
+        private async void DodajNovuGrupu_OnClick(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            ClickOnFieldColor(kreiranjeGrupe);
+            if (Dispatcher != null)
+                await Dispatcher.InvokeAsync(() =>
+                {
+                    KreiranjeGrupe kreiranjeGrupe = new KreiranjeGrupe();
+                    kreiranjeGrupe.ShowDialog();
+                    ShowLastView();
+                });
         }
         /*private async Task NapraviAnimaciju(StackPanel stackPanel, int index, Button button, TimeSpan animationDurance)
         {

@@ -24,53 +24,51 @@ namespace Erste.Sluzbenik
             InitializeComponent();
         }
 
-        //public async Task Refresh() => await Load_Data();
+        public async Task Refresh() => await Load_Data();
 
-        //public async Task Load_Data()
-        //{
-        //    if (Dispatcher != null)
-        //    {
-        //        await Dispatcher.InvokeAsync(() =>
-        //        {
-        //            DataGrid.Items.Clear();
-        //            DataGrid.ItemsSource = null;
-        //            DataGrid.Items.Refresh();
-        //        });
-        //    }
+        public async Task Load_Data()
+        {
+            if (Dispatcher != null)
+            {
+                await Dispatcher.InvokeAsync(() =>
+                {
+                    DataGrid.Items.Clear();
+                    DataGrid.ItemsSource = null;
+                    DataGrid.Items.Refresh();
+                });
+            }
 
-        //    try
-        //    {
-        //        using (var ersteModel = new ErsteModel())
-        //        {
-        //            var osobeKojeCekaju = (from o in ersteModel.osobe join pnc in ersteModel.polaznici_na_cekanju
-        //                                   on o.Id equals pnc.Id select new {
-        //                                       Id = o.Id,
-        //                                       Ime = o.Ime,
-        //                                       Prezime = o.Prezime,
-        //                                       BrojTelefon = o.BrojTelefona,
-        //                                       Email = o.Email;
-                                                
-        //                                   }).ToList();
-        //            foreach (osoba o in osobeKojeCekaju)
-        //            {
-        //                foreach( )
-        //                if (polaznik.osoba != null && Dispatcher != null)
-        //                {
-        //                    await Dispatcher.InvokeAsync(() => { DataGrid.Items.Add(polaznik); });
-        //                }
-        //            }
-        //            var zapis = new {  }
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        if (Dispatcher != null)
-        //        {
-        //            MessageBox.Show("MySQL Exception: " + ex);
-        //        }
-        //    }
+            try
+            {
+                using (var ersteModel = new ErsteModel())
+                {
+                    var osobeKojeCekaju = (from o in ersteModel.osobe
+                        join pnc in ersteModel.polaznici_na_cekanju on o.Id equals pnc.Id
+                        select new
+                        {
+                            Id = o.Id,
+                            Ime = o.Ime,
+                            Prezime = o.Prezime,
+                            BrojTelefon = o.BrojTelefona,
+                            Email = o.Email
 
-        //}
+                        }).ToList();
+
+                    foreach (var o in osobeKojeCekaju)
+                    {
+                        await Dispatcher.InvokeAsync(() => { DataGrid.Items.Add(o); });
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                if (Dispatcher != null)
+                {
+                    MessageBox.Show("MySQL Exception: " + ex);
+                }
+}
+
+        }
 
         private async void DataGrid_OnBeginningEdit(object sender, DataGridBeginningEditEventArgs e)
         {
