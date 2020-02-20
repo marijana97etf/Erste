@@ -45,8 +45,11 @@ namespace Erste.Sluzbenik
         private void btn_PrikaziGrupe_Click(object sender, RoutedEventArgs e)
         {
             ResetBorderColors();
-            string odabraniJezik = (string)chb_Jezik.SelectedItem;
-            string odabraniNivo = (string)chb_Nivo.SelectedItem;
+            int odabraniJezikInt = chb_Jezik.SelectedIndex;
+            int odabraniNivoInt = chb_Nivo.SelectedIndex;
+
+            string odabraniJezik = (string)chb_Jezik.Items.GetItemAt(odabraniJezikInt);
+            string odabraniNivo = (string)chb_Nivo.Items.GetItemAt(odabraniNivoInt);
 
             if (string.IsNullOrEmpty(odabraniJezik) && string.IsNullOrEmpty(odabraniNivo))
             {
@@ -75,18 +78,25 @@ namespace Erste.Sluzbenik
 
                 var kursGrupa = (from g in ersteModel.grupe join k in ersteModel.kursevi on g.KursId equals k.Id
                              join j in ersteModel.jezici on k.JezikId equals j.Id
-                             where g.BrojClanova>3 && k.DatumDo.CompareTo(DateTime.Now) > 0
+                             where g.BrojClanova>=3 && k.DatumDo.CompareTo(DateTime.Now) > 0
                              && j.Naziv.Equals(odabraniJezik) && k.Nivo.Equals(odabraniNivo)
                              select new GrupaKursZapis {
                                  Grupa = g,
                                  Kurs = k,
                                  Jezik = j 
                              }).ToList();
-                foreach(var zapis in kursGrupa)
+                if (kursGrupa.Count == 0)
+                {
+                    MessageBox.Show("Nema formiranih grupa.");
+                    return;
+                }
+                foreach (var zapis in kursGrupa)
                 {
                     if(!GrupeDataGrid.Items.Contains(zapis))
                         GrupeDataGrid.Items.Add(zapis);
                 }
+
+
 
             }
         }
@@ -95,10 +105,10 @@ namespace Erste.Sluzbenik
         {
             var textBoxes = grid.Children.OfType<TextBox>();
             foreach (var t in textBoxes)
-                if (String.IsNullOrEmpty(t.Text))
-                    t.BorderBrush = Brushes.Transparent;
-            chb_Jezik.BorderBrush = Brushes.Transparent;
-            chb_Nivo.BorderBrush = Brushes.Transparent;
+                if (!String.IsNullOrEmpty(t.Text))
+                    t.ClearValue(Border.BorderBrushProperty);
+            chb_Jezik.ClearValue(Border.BorderBrushProperty);
+            chb_Nivo.ClearValue(Border.BorderBrushProperty);
         }
 
         private  void Apply_Btn_Click(object sender, RoutedEventArgs e)
@@ -130,102 +140,115 @@ namespace Erste.Sluzbenik
                 return;
             }
 
-            using (var ersteModel = new ErsteModel())
+            var ersteModel = new ErsteModel();
+
+            osoba o = new osoba();
+            o.Ime = textBox_Ime.Text;
+            o.Prezime = textBox_Prezime.Text;
+            o.BrojTelefona = textBox_BrojTelefona.Text;
+            o.Email = textBox_Email.Text;
+            polaznik p = new polaznik();
+            p.osoba = o;
+
+            if (!GrupeDataGrid.Items.IsEmpty)
             {
-                osoba o = new osoba();
-                o.Ime = textBox_Ime.Text;
-                o.Prezime = textBox_Prezime.Text;
-                o.BrojTelefona = textBox_BrojTelefona.Text;
-                o.Email = textBox_Email.Text;   
-                polaznik p = new polaznik();
-                p.osoba = o;
+                GrupaKursZapis zapis = (GrupaKursZapis)GrupeDataGrid.SelectedItem;
+                grupa zapisGrupa = (from g in ersteModel.grupe where g.Id == zapis.Grupa.Id select g).First();
+                p.grupe.Add(zapisGrupa);
+                zapisGrupa.polaznici.Add(p);
 
-                if (!GrupeDataGrid.Items.IsEmpty)
+                MessageBox.Show("Uspjeno dodan polaznik.");
+                ersteModel.SaveChanges();
+                ersteModel.Dispose();
+                
+            }
+            else
+            {
+                polaznik_na_cekanju pnc = new polaznik_na_cekanju();
+                pnc.polaznik = p;
+                pnc.Id = p.Id;
+
+                // RAZMISLI O OVOME, KAKO MAPIRATI POLAZNIKE PO KURSEVIMA RAZLICITIH DATUMA
+                var kursLista = (from k in ersteModel.kursevi
+                                 join j in ersteModel.jezici on k.JezikId equals j.Id
+                                 where k.Nivo.Equals(odabraniNivo) && j.Naziv.Equals(odabraniJezik)
+                                     && k.DatumDo.CompareTo(DateTime.Now) > 0
+                                 orderby k.DatumDo descending
+                                 select k).ToList();
+
+                kurs kurs = kursLista.First();
+                IEnumerable<polaznik_na_cekanju> polazniciNaCekanjuZaTrazeniKurs = kursLista.SelectMany(k => k.polaznici_na_cekanju).ToList();
+                //List<polaznik_na_cekanju> polazniciNaCekanjuZaTrazeniKurs = new List<polaznik_na_cekanju>();
+                //foreach (kurs k in kursLista)
+                //{
+                //    polazniciNaCekanjuZaTrazeniKurs.AddRange(k.polaznici_na_cekanju);
+                //}
+
+                if (polazniciNaCekanjuZaTrazeniKurs.Count() >= 2)
                 {
-                    GrupaKursZapis zapis = (GrupaKursZapis)GrupeDataGrid.SelectedItem;
-                    grupa zapisGrupa = (from g in ersteModel.grupe where g.Id == zapis.Grupa.Id select g).First();
-                    p.grupe.Add(zapisGrupa);
-                    zapisGrupa.polaznici.Add(p);
+                    //nova grupa
+                    grupa g = new grupa
+                    {
+                        KursId = kurs.Id,
+                        BrojClanova = 0,
+                    };
 
-                    MessageBox.Show("Uspjeno dodan polaznik.");
+                    ersteModel.SaveChanges();
+
+                    //unos podataka o novoj grupi
+                    UpisTerminaGrupe upisTermina = new UpisTerminaGrupe(g,ersteModel);
+                    upisTermina.ShowDialog();
+                    if (g.Naziv == null)
+                    {
+                        Task.Run(() => MessageBox.Show("Unesite naziv grupe."));
+                        upisTermina = new UpisTerminaGrupe(g,ersteModel);
+                        upisTermina.ShowDialog();
+                    }
+
+                    g = (from gr in ersteModel.grupe where gr.Id == g.Id select gr).First();
+
+                    //dobijanje ref na polaznike i polaznika na cekanju
+                    List<polaznik> polazniciNoveGrupe = new List<polaznik>();
+                    polazniciNoveGrupe.Add(p);
+                    foreach (polaznik_na_cekanju p_na_c in polazniciNaCekanjuZaTrazeniKurs)
+                    {
+                        polazniciNoveGrupe.Add(p_na_c.polaznik);
+                    }
+
+                    //brisanje korisnika na cekanju i veza s kursevima
+                    foreach (polaznik_na_cekanju p_na_c in polazniciNaCekanjuZaTrazeniKurs)
+                    {
+                        kurs kurs_za_p_na_c = p_na_c.kursevi.First(k => k.Nivo.Equals(odabraniNivo) &&
+                            k.jezik.Naziv.Equals(odabraniJezik));
+                        kurs_za_p_na_c.polaznici_na_cekanju.Remove(p_na_c);
+                        p_na_c.kursevi.Remove(kurs_za_p_na_c);
+                        p_na_c.polaznik.polaznik_na_cekanju = null;
+                    }
+
+                    //dodavanje polaznika u grupu
+                    foreach (polaznik p_u_g in polazniciNoveGrupe)
+                    {
+                        p_u_g.grupe.Add(g);
+                        g.polaznici.Add(p_u_g);
+                    }
+
+                    //dodavanje grupe u tabelu
+                    //ersteModel.grupe.Add(g);
+
+                    MessageBox.Show("Polaznik uspjesno ubacen u grupu.Polaznici na cekanju za odabrani kurs i nivo su takodje uspjesno ubaceni u grupu.");
+                    ersteModel.SaveChanges();
+                    ersteModel.Dispose();
                 }
                 else
                 {
-                    polaznik_na_cekanju pnc = new polaznik_na_cekanju();
-                    pnc.polaznik = p;
-                    pnc.Id = p.Id;
 
-                    // RAZMISLI O OVOME, KAKO MAPIRATI POLAZNIKE PO KURSEVIMA RAZLICITIH DATUMA
-                    var kursLista = from k in ersteModel.kursevi
-                                    join j in ersteModel.jezici on k.JezikId equals j.Id
-                                    where k.Nivo.Equals(odabraniNivo) && j.Naziv.Equals(odabraniJezik)
-                                        && k.DatumDo.CompareTo(DateTime.Now)>0
-                                    orderby k.DatumDo descending
-                                    select k;
+                    kurs.polaznici_na_cekanju.Add(pnc);
+                    pnc.kursevi.Add(kurs);
 
-                    kurs kurs = kursLista.First();
-                    IEnumerable<polaznik_na_cekanju> polazniciNaCekanjuZaTrazeniKurs = kursLista.SelectMany(k => k.polaznici_na_cekanju);
-                    if (polazniciNaCekanjuZaTrazeniKurs.Count() >= 2)
-                    {
-                        //nova grupa
-                        grupa g = new grupa
-                        {
-                            KursId = kurs.Id,
-                            BrojClanova = 0,
-                        };
-
-                        //unos podataka o novoj grupi
-                        UpisTerminaGrupe upisTermina = new UpisTerminaGrupe(g);
-                        upisTermina.ShowDialog();
-                        if (g.Naziv == null)
-                        {
-                            Task.Run(() => MessageBox.Show("Unesite naziv grupe.") );
-                            upisTermina = new UpisTerminaGrupe(g);
-                            upisTermina.ShowDialog();
-                        }
-
-                        //dobijanje ref na polaznike i polaznika na cekanju
-                        List<polaznik> polazniciNoveGrupe = new List<polaznik>();
-                        polazniciNoveGrupe.Add(p);
-                        foreach (polaznik_na_cekanju p_na_c in polazniciNaCekanjuZaTrazeniKurs)
-                        {
-                            polazniciNoveGrupe.Add(p_na_c.polaznik);
-                        }
-                        
-                        //brisanje korisnika na cekanju i veza s kursevima
-                        foreach (polaznik_na_cekanju p_na_c in polazniciNaCekanjuZaTrazeniKurs)
-                        {
-                            kurs kurs_za_p_na_c = p_na_c.kursevi.First(k => k.Nivo.Equals(odabraniNivo) &&
-                                k.jezik.Naziv.Equals(odabraniJezik));
-                            kurs_za_p_na_c.polaznici_na_cekanju.Remove(p_na_c);
-                            p_na_c.kursevi.Remove(kurs_za_p_na_c);
-                            p_na_c.polaznik.polaznik_na_cekanju = null;
-                        }
-
-                        //dodavanje polaznika u grupu
-                        foreach (polaznik p_u_g in polazniciNoveGrupe)
-                        {
-                            p_u_g.grupe.Add(g);
-                            g.polaznici.Add(p_u_g);
-                        }
-
-                        //dodavanje grupe u tabelu
-                        ersteModel.grupe.Add(g);
-
-                        MessageBox.Show("Polaznik uspjesno ubacen u grupu.Polaznici na cekanju za odabrani kurs i nivo su takodje uspjesno ubaceni u grupu.");
-
-                    }
-                    else
-                    {
-                        kurs.polaznici_na_cekanju.Add(pnc);
-                        pnc.kursevi.Add(kurs);
-
-                        MessageBox.Show("Polaznik dodat na listu cekanja za odabrani kurs i jezik.");
-                    }   
+                    MessageBox.Show("Polaznik dodat na listu cekanja za odabrani kurs i jezik.");
+                    ersteModel.SaveChanges();
+                    ersteModel.Dispose();
                 }
-
-                ersteModel.SaveChanges();
-
             }
 
         }
@@ -237,8 +260,39 @@ namespace Erste.Sluzbenik
 
         private void DataGrid_OnBeginningEdit(object sender, DataGridBeginningEditEventArgs e)
         {
-        
         }
+
+        //private void Chb_Jezik_Selected(object sender, RoutedEventArgs e)
+        //{
+        //    string odabraniJezik = (string)chb_Jezik.SelectedItem;
+        //    string odabraniNivo = (string)chb_Nivo.SelectedItem;
+
+        //    if (string.IsNullOrEmpty(odabraniJezik) && string.IsNullOrWhiteSpace(odabraniNivo))
+        //    {
+        //        using (var ersteModel = new ErsteModel())
+        //        {
+
+        //            var kursGrupa = (from g in ersteModel.grupe
+        //                             join k in ersteModel.kursevi on g.KursId equals k.Id
+        //                             join j in ersteModel.jezici on k.JezikId equals j.Id
+        //                             where g.BrojClanova >= 3 && k.DatumDo.CompareTo(DateTime.Now) > 0
+        //                             && j.Naziv.Equals(odabraniJezik) && k.Nivo.Equals(odabraniNivo)
+        //                             select new GrupaKursZapis
+        //                             {
+        //                                 Grupa = g,
+        //                                 Kurs = k,
+        //                                 Jezik = j
+        //                             }).ToList();
+        //            foreach (var zapis in kursGrupa)
+        //            {
+        //                if (!GrupeDataGrid.Items.Contains(zapis))
+        //                    GrupeDataGrid.Items.Add(zapis);
+        //            }
+
+        //        }
+
+        //    }
+        //}
     }
 
     public class GrupaKursZapis {

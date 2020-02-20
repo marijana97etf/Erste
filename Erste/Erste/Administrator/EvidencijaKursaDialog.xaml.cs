@@ -171,11 +171,11 @@ namespace Erste.Administrator
         {
             var textBoxes = grid.Children.OfType<TextBox>();
             foreach (var t in textBoxes)
-                if (String.IsNullOrEmpty(t.Text))
-                    t.BorderBrush = Brushes.Transparent;
-            TimePickerOd.BorderBrush = Brushes.Transparent;
-            TimePickerDo.BorderBrush = Brushes.Transparent;
-            comboBox_Jezik.BorderBrush = Brushes.Transparent;
+                if (!String.IsNullOrEmpty(t.Text))
+                    t.ClearValue(Border.BorderBrushProperty);
+            TimePickerOd.ClearValue(Border.BorderBrushProperty);
+            TimePickerDo.ClearValue(Border.BorderBrushProperty);
+            comboBox_Jezik.ClearValue(Border.BorderBrushProperty);
         }
 
         private void Button_Otkazi_Click(object sender, RoutedEventArgs e)

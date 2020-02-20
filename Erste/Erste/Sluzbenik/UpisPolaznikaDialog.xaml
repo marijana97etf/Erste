@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Erste.Administrator"
         mc:Ignorable="d"
-        Title="NalogSluzbenikaDialog" SizeToContent="WidthAndHeight" Height="534.243" Width="998.311" MinHeight="450" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="NalogSluzbenikaDialog" SizeToContent="WidthAndHeight" Height="530" Width="998" MinHeight="530" MinWidth="998" MaxHeight="530" MaxWidth="998" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid x:Name="grid">
         <Grid.RowDefinitions>
             <RowDefinition Height="206*"/>
@@ -22,24 +22,24 @@
 
         <Grid Margin="0,0,10,0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="240*"/>
-                <RowDefinition Height="181*"/>
+                <RowDefinition Height="299*"/>
+                <RowDefinition Height="202*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="218*"/>
                 <ColumnDefinition Width="637*"/>
             </Grid.ColumnDefinitions>
-            <Button Name="btn_Apply" Content="Uredu" Click="Apply_Btn_Click"  Style="{DynamicResource buttonStyle}" Height="28" VerticalAlignment="Top" Grid.Row="1" Margin="64,150,556,0" Grid.Column="1" />
+            <Button Name="btn_Apply" Content="Uredu" Click="Apply_Btn_Click"  Style="{DynamicResource buttonStyle}" Height="Auto" Grid.Row="1" Margin="0,150,556,22" Grid.Column="1" HorizontalAlignment="Right" Width="112" />
             <Label VerticalAlignment="Top" Height="26" Content="Ime:" Margin="53,76,160,0"/>
             <Label VerticalAlignment="Top" Height="26" Content="Prezime:" Margin="31,111,159,0" RenderTransformOrigin="-7.757,0.786"/>
             <Label VerticalAlignment="Top" Height="26" Content="Email:" Margin="45,152,161,0"/>
             <Label VerticalAlignment="Top" Height="26" Content="Broj telefona:" Margin="7,190,0,0" HorizontalAlignment="Left" Width="84"/>
             <Label VerticalAlignment="Top" Height="26"  Content="Jezik:" RenderTransformOrigin="1.481,0.613" Margin="48,226,0,0" HorizontalAlignment="Left" Width="39"/>
             <Label VerticalAlignment="Top" Height="26" Content="Nivo kursa:" Margin="16,258,0,0" HorizontalAlignment="Left" Width="78"  />
-            <Button x:Name="btn_PrikaziGrupe" Content="Prikaži grupe" Click="btn_PrikaziGrupe_Click"  Style="{DynamicResource buttonStyle}" Height="28" VerticalAlignment="Top" Grid.Row="1" Margin="68,68,10,0" RenderTransformOrigin="0.347,0.891" />
-            <Button x:Name="Button2" Content="Otkaži" Click="Button2_Click"  Style="{DynamicResource buttonStyle}" Height="28" VerticalAlignment="Top" Grid.Row="1" Margin="269,150,360,0" Grid.Column="1" />
+            <Button x:Name="btn_PrikaziGrupe" Content="Prikaži grupe" Click="btn_PrikaziGrupe_Click"  Style="{DynamicResource buttonStyle}" Height="28" VerticalAlignment="Top" Grid.Row="1" Margin="53,57,50,0" RenderTransformOrigin="0.347,0.891" />
+            <Button x:Name="Button2" Content="Otkaži" Click="Button2_Click"  Style="{DynamicResource buttonStyle}" Height="Auto" Grid.Row="1" Margin="269,150,0,22" Grid.Column="1" HorizontalAlignment="Left" Width="103" />
             <Label x:Name="label" Content="        Podaci o polazniku" Height="34" VerticalAlignment="Top" FontSize="19" FontWeight="Bold" Foreground="DarkRed" Margin="6,9,0,0"/>
-            <Grid HorizontalAlignment="Left" Height="350" VerticalAlignment="Top" Width="505" Margin="96.306,34,0,0" Grid.RowSpan="2" Grid.Column="1">
+            <Grid HorizontalAlignment="Left" Height="350" VerticalAlignment="Top" Width="505" Margin="96,34,0,0" Grid.RowSpan="2" Grid.Column="1">
                 <Grid.RowDefinitions>
                     <RowDefinition />
                 </Grid.RowDefinitions>
@@ -61,8 +61,8 @@
                 </DataGrid>
             </Grid>
             <TextBlock HorizontalAlignment="Left" x:Name="NapomenaBox" Visibility="Collapsed" Margin="37,27,0,0" Grid.Row="1" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="38" Width="171"/>
-            <ComboBox x:Name="chb_Jezik" Margin="110,226,0,0" VerticalAlignment="Top"/>
-            <ComboBox x:Name="chb_Nivo" HorizontalAlignment="Left" Margin="110,262,0,4" Width="141" Grid.ColumnSpan="2"/>
+            <ComboBox x:Name="chb_Jezik" Margin="110,226,0,0" VerticalAlignment="Top"  Height="22"/>
+            <ComboBox x:Name="chb_Nivo" HorizontalAlignment="Left" Margin="110,262,0,0" Width="141" Grid.ColumnSpan="2" Height="20" VerticalAlignment="Top"/>
         </Grid>
     </Grid>
 </Window>

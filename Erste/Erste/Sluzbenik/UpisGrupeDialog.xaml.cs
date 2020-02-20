@@ -22,11 +22,13 @@ namespace Erste.Sluzbenik
     {
         public grupa Grupa { set; get; }
         public string NazivGrupe { set; get; }
+        public ErsteModel ErsteModel { set; get; }
 
-        public UpisTerminaGrupe(grupa g)
+        public UpisTerminaGrupe(grupa g,ErsteModel ersteModel)
         {
             InitializeComponent();
             Grupa = g;
+            ErsteModel = ersteModel;
         }
 
         private void Button_Otkazi_Click(object sender, RoutedEventArgs e)
@@ -77,21 +79,18 @@ namespace Erste.Sluzbenik
                 @od = TimePickerOd.Value.Value.TimeOfDay;
                 @do = TimePickerDo.Value.Value.TimeOfDay;
 
-                using (ErsteModel ersteModel = new ErsteModel())
+                termin t = new termin()
                 {
-                    termin t = new termin()
-                    {
-                        Dan = dan,
-                        Od = @od,
-                        Do = @do,
-                        grupa = Grupa,
-                        GrupaId = Grupa.Id
-                    };
-                    ersteModel.termini.Add(t);
-                    Grupa.termini.Add(t);
-                    Grupa.Naziv = textBox_NazivGrupe.Text;
-                    ersteModel.SaveChanges();
-                }
+                    Dan = dan,
+                    Od = @od,
+                    Do = @do,
+                    grupa = Grupa,
+                    GrupaId = Grupa.Id
+                };
+                ErsteModel.termini.Add(t);
+                Grupa.termini.Add(t);
+                Grupa.Naziv = textBox_NazivGrupe.Text;
+                ErsteModel.SaveChanges();
                 MessageBox.Show("Uspješno ste dodali novi termin.");
             }
             catch (IOException ioException)
@@ -103,10 +102,11 @@ namespace Erste.Sluzbenik
 
         private void ResetBorderColors()
         {
-            textBox_NazivGrupe.BorderBrush = Brushes.Transparent;
-            DanCombo.BorderBrush = Brushes.Transparent;
-            DanCombo.BorderBrush = Brushes.Transparent;
-            DanCombo.BorderBrush = Brushes.Transparent;
+          //  if(textBox_NazivGrupe)
+            textBox_NazivGrupe.ClearValue(Border.BorderBrushProperty);
+            DanCombo.ClearValue(Border.BorderBrushProperty);
+            DanCombo.ClearValue(Border.BorderBrushProperty);
+            DanCombo.ClearValue(Border.BorderBrushProperty);
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)

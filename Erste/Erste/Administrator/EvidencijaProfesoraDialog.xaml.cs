@@ -147,8 +147,8 @@ namespace Erste.Administrator
         {
             var textBoxes = grid.Children.OfType<TextBox>();
             foreach (var t in textBoxes)
-                if (String.IsNullOrEmpty(t.Text))
-                    t.BorderBrush = Brushes.Transparent;
+                if (!String.IsNullOrEmpty(t.Text))
+                    t.ClearValue(Border.BorderBrushProperty);
         }
 
         private void Button_Otkazi_Click(object sender, RoutedEventArgs e)
