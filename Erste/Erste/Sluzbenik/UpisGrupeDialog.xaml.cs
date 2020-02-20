@@ -97,7 +97,7 @@ namespace Erste.Sluzbenik
             {
                 MessageBox.Show(ioException.StackTrace);
             }
-
+            Close();
         }
 
         private void ResetBorderColors()

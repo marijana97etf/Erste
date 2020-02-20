@@ -33,7 +33,9 @@ namespace Erste.Sluzbenik
             using (var ersteModel = new ErsteModel())
             {
                 var jezici = (from j in ersteModel.jezici select j).Select(j => j.Naziv);
-                var nivoi = (from k in ersteModel.kursevi select k).GroupBy(k => k.Id).Select(k => k.FirstOrDefault()).Select(k => k.Nivo);
+                var nivoi = (from k in ersteModel.kursevi select k).Select(k => k.Nivo);
+
+                 nivoi = nivoi.Distinct();
 
                foreach(string naziv in jezici)
                     chb_Jezik.Items.Add(naziv);
@@ -48,10 +50,7 @@ namespace Erste.Sluzbenik
             int odabraniJezikInt = chb_Jezik.SelectedIndex;
             int odabraniNivoInt = chb_Nivo.SelectedIndex;
 
-            string odabraniJezik = (string)chb_Jezik.Items.GetItemAt(odabraniJezikInt);
-            string odabraniNivo = (string)chb_Nivo.Items.GetItemAt(odabraniNivoInt);
-
-            if (string.IsNullOrEmpty(odabraniJezik) && string.IsNullOrEmpty(odabraniNivo))
+            if (odabraniJezikInt < 0 || odabraniNivoInt < 0)
             {
                 MessageBox.Show("Odaberite jezik i nivo kursa za prikaz grupa.");
                 chb_Jezik.BorderBrush = Brushes.Red;
@@ -59,6 +58,10 @@ namespace Erste.Sluzbenik
 
                 return;
             }
+            string odabraniJezik = (string)chb_Jezik.Items.GetItemAt(odabraniJezikInt);
+            string odabraniNivo = (string)chb_Nivo.Items.GetItemAt(odabraniNivoInt);
+
+
 
             if (string.IsNullOrEmpty(odabraniJezik))
             {
