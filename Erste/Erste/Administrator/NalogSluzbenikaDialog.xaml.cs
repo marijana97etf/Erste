@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Threading;
 
 namespace Erste.Administrator
 {
@@ -54,6 +55,7 @@ namespace Erste.Administrator
 
         private void Button1_Click(object sender, RoutedEventArgs e)
         {
+            ResetBorderColors();
             if (sluzbenik != null)
             {
                 if (!izmjena)
@@ -109,7 +111,13 @@ namespace Erste.Administrator
                         if (!textBox_Lozinka.Password.Equals(textBox_LozinkaProvjera.Password))
                             MessageBox.Show("Lozinke moraju biti iste.");
                         else
+                        {
                             MessageBox.Show("Sva polja moraju biti popunjena.");
+                            var textBoxes = grid.Children.OfType<TextBox>();
+                            foreach (var t in textBoxes)
+                                if (String.IsNullOrEmpty(t.Text))
+                                    t.BorderBrush = Brushes.Red;
+                        }
                     }
                 }
             }
@@ -152,37 +160,62 @@ namespace Erste.Administrator
                     if (!textBox_Lozinka.Password.Equals(textBox_LozinkaProvjera.Password))
                         MessageBox.Show("Lozinke moraju biti iste.");
                     else
+                    {
                         MessageBox.Show("Sva polja moraju biti popunjena.");
+                        var textBoxes = grid.Children.OfType<TextBox>();
+                        foreach (var t in textBoxes)
+                            if (String.IsNullOrEmpty(t.Text))
+                                t.BorderBrush = Brushes.Red;
+                    }
                 }
             }
+        }
+
+        private void ResetBorderColors()
+        {
+            var textBoxes = grid.Children.OfType<TextBox>();
+            foreach (var t in textBoxes)
+                if (String.IsNullOrEmpty(t.Text))
+                    t.BorderBrush = Brushes.Transparent;
         }
 
         private void Button2_Click(object sender, RoutedEventArgs e)
         {
             if (sluzbenik != null && !izmjena)
             {
-                try
-                {
-                    using (var ersteModel = new ErsteModel())
-                    {
-                        sluzbenik sluzbenik_remove = ersteModel.sluzbenici.Find(sluzbenik.Id);
-                        if (sluzbenik_remove.osoba != null)
-                        {
-                            ersteModel.osobe.Remove(sluzbenik_remove.osoba);
-                            ersteModel.SaveChanges();
-                        }
-                    }
-                    MessageBox.Show("Korisnik je uspješno obrisan.");
-                    Close();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("MySQL Exception: " + ex.ToString());
-                }
+                var culture = new System.Globalization.CultureInfo("sr-Latn-RS");
+                Thread.CurrentThread.CurrentCulture = culture;
+                Thread.CurrentThread.CurrentUICulture = culture;
+
+                MessageBoxResult result = MessageBox.Show("Da li ste sigurni da želite obrisati službenika?", "Brisanje", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (result == MessageBoxResult.Yes)
+                    ObrisiSluzbenika();
             }
             else
             {
                 Close();
+            }
+        }
+
+        private void ObrisiSluzbenika()
+        {
+            try
+            {
+                using (var ersteModel = new ErsteModel())
+                {
+                    sluzbenik sluzbenik_remove = ersteModel.sluzbenici.Find(sluzbenik.Id);
+                    if (sluzbenik_remove.osoba != null)
+                    {
+                        ersteModel.osobe.Remove(sluzbenik_remove.osoba);
+                        ersteModel.SaveChanges();
+                    }
+                }
+                MessageBox.Show("Korisnik je uspješno obrisan.");
+                Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("MySQL Exception: " + ex.ToString());
             }
         }
     }

@@ -1,9 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
 
 namespace Erste.Sluzbenik
 {
@@ -35,23 +44,29 @@ namespace Erste.Sluzbenik
 
         private void btn_PrikaziGrupe_Click(object sender, RoutedEventArgs e)
         {
+            ResetBorderColors();
             string odabraniJezik = (string)chb_Jezik.SelectedItem;
             string odabraniNivo = (string)chb_Nivo.SelectedItem;
 
             if (string.IsNullOrEmpty(odabraniJezik) && string.IsNullOrEmpty(odabraniNivo))
             {
                 MessageBox.Show("Odaberite jezik i nivo kursa za prikaz grupa.");
+                chb_Jezik.BorderBrush = Brushes.Red;
+                chb_Nivo.BorderBrush = Brushes.Red;
+
                 return;
             }
 
             if (string.IsNullOrEmpty(odabraniJezik))
             {
                 MessageBox.Show("Odaberite jezik za prikaz grupa.");
+                chb_Jezik.BorderBrush = Brushes.Red;
                 return;
 
             }else if (string.IsNullOrEmpty(odabraniNivo))
             {
                 MessageBox.Show("Odaberite nivo kursa za prikaz grupa.");
+                chb_Nivo.BorderBrush = Brushes.Red;
                 return;
             }
 
@@ -76,8 +91,20 @@ namespace Erste.Sluzbenik
             }
         }
 
+        private void ResetBorderColors()
+        {
+            var textBoxes = grid.Children.OfType<TextBox>();
+            foreach (var t in textBoxes)
+                if (String.IsNullOrEmpty(t.Text))
+                    t.BorderBrush = Brushes.Transparent;
+            chb_Jezik.BorderBrush = Brushes.Transparent;
+            chb_Nivo.BorderBrush = Brushes.Transparent;
+        }
+
         private  void Apply_Btn_Click(object sender, RoutedEventArgs e)
         {
+            ResetBorderColors();
+
             string odabraniJezik = (string)chb_Jezik.SelectedItem;
             string odabraniNivo = (string)chb_Nivo.SelectedItem;
 
@@ -85,7 +112,15 @@ namespace Erste.Sluzbenik
                 || string.IsNullOrEmpty(textBox_Email.Text) || string.IsNullOrEmpty(textBox_BrojTelefona.Text)
                     || string.IsNullOrEmpty(odabraniJezik) || string.IsNullOrWhiteSpace(odabraniNivo))
             {
-                MessageBox.Show("Sva polja za unos moraju biti popunjena .");
+                MessageBox.Show("Sva polja za unos moraju biti popunjena.");
+                var textBoxes = grid.Children.OfType<TextBox>();
+                foreach (var t in textBoxes)
+                    if (String.IsNullOrEmpty(t.Text))
+                        t.BorderBrush = Brushes.Red;
+                if (string.IsNullOrEmpty(odabraniJezik))
+                    chb_Jezik.BorderBrush = Brushes.Red;
+                else if (string.IsNullOrWhiteSpace(odabraniNivo))
+                    chb_Nivo.BorderBrush = Brushes.Red;
                 return;
             }
 

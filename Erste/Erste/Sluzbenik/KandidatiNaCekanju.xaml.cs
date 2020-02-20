@@ -72,17 +72,17 @@ namespace Erste.Sluzbenik
 
         //}
 
-        //private async void DataGrid_OnBeginningEdit(object sender, DataGridBeginningEditEventArgs e)
-        //{
-        //    if (Dispatcher != null)
-        //        await Dispatcher.InvokeAsync(() =>
-        //        {
-        //            polaznik polaznik = DataGrid.SelectedItem as polaznik;
-        //            KandidatiDialog kandidatiDialog = new KandidatiDialog(polaznik);
-        //            kandidatiDialog.ShowDialog();
-        //        });
-        //    await Refresh();
-        //    e.Cancel = true;
-        //}
+        private async void DataGrid_OnBeginningEdit(object sender, DataGridBeginningEditEventArgs e)
+        {
+            //if (Dispatcher != null)
+            //    await Dispatcher.InvokeAsync(() =>
+            //    {
+            //        polaznik polaznik = DataGrid.SelectedItem as polaznik;
+            //        KandidatiDialog kandidatiDialog = new KandidatiDialog(polaznik);
+            //        kandidatiDialog.ShowDialog();
+            //    });
+            //await Refresh();
+            //e.Cancel = true;
+        }
     }
 }

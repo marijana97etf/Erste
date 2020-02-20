@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Erste.Administrator"
         mc:Ignorable="d"
         Title="NalogSluzbenikaDialog" SizeToContent="WidthAndHeight" Height="534.243" Width="998.311" MinHeight="450" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
-    <Grid>
+    <Grid x:Name="grid">
         <Grid.RowDefinitions>
             <RowDefinition Height="206*"/>
 
@@ -15,10 +15,10 @@
             <ColumnDefinition Width="274*"/>
 
         </Grid.ColumnDefinitions>
-        <TextBox Name="textBox_Ime" VerticalAlignment="Top" Margin="109,76,772,0" Height="18"/>
-        <TextBox Name="textBox_Prezime" VerticalAlignment="Top" Margin="109,112,772,0" Height="18"/>
-        <TextBox Name="textBox_Email" VerticalAlignment="Top" Margin="109,151,772,0" Height="18"/>
-        <TextBox Name="textBox_BrojTelefona" VerticalAlignment="Top" Margin="109,192,772,0" Height="18"/>
+        <TextBox Name="textBox_Ime" VerticalAlignment="Top" Margin="110,78,743,0" Height="23"/>
+        <TextBox Name="textBox_Prezime" VerticalAlignment="Top" Margin="109,112,742,0" Height="23"/>
+        <TextBox Name="textBox_Email" VerticalAlignment="Top" Margin="109,151,742,0" Height="23"/>
+        <TextBox Name="textBox_BrojTelefona" VerticalAlignment="Top" Margin="109,192,742,0" Height="23"/>
 
         <Grid Margin="0,0,10,0">
             <Grid.RowDefinitions>
@@ -30,15 +30,15 @@
                 <ColumnDefinition Width="637*"/>
             </Grid.ColumnDefinitions>
             <Button Name="btn_Apply" Content="Uredu" Click="Apply_Btn_Click"  Style="{DynamicResource buttonStyle}" Height="28" VerticalAlignment="Top" Grid.Row="1" Margin="64,150,556,0" Grid.Column="1" />
-            <Label HorizontalAlignment="Right" VerticalAlignment="Top" Height="26"  Width="37" Content="Ime:" Margin="0,70,176,0"/>
-            <Label HorizontalAlignment="Right" VerticalAlignment="Top" Height="26"  Width="60" Content="Prezime:" Margin="0,101,168,0" RenderTransformOrigin="-7.757,0.786"/>
-            <Label HorizontalAlignment="Right" VerticalAlignment="Top" Height="26"  Width="49" Content="Email:" Margin="0,149,176,0"/>
-            <Label HorizontalAlignment="Right" VerticalAlignment="Top" Height="26"  Width="84" Content="Broj telefona:" Margin="0,180,156,0"/>
-            <Label VerticalAlignment="Top" Height="26"  Content="Jezik:" RenderTransformOrigin="1.481,0.613" Margin="22,226,140,0"/>
-            <Label HorizontalAlignment="Right" VerticalAlignment="Top" Height="26"  Width="78" Content="Nivo kursa:" Margin="0,262,156,0"  />
-            <Button x:Name="btn_PrikaziGrupe" Content="Prikaži grupe" Click="btn_PrikaziGrupe_Click"  Style="{DynamicResource buttonStyle}" Height="28" VerticalAlignment="Top" Grid.Row="1" Margin="68,81,9.694,0" RenderTransformOrigin="0.347,0.891" />
+            <Label VerticalAlignment="Top" Height="26" Content="Ime:" Margin="53,76,160,0"/>
+            <Label VerticalAlignment="Top" Height="26" Content="Prezime:" Margin="31,111,159,0" RenderTransformOrigin="-7.757,0.786"/>
+            <Label VerticalAlignment="Top" Height="26" Content="Email:" Margin="45,152,161,0"/>
+            <Label VerticalAlignment="Top" Height="26" Content="Broj telefona:" Margin="7,190,0,0" HorizontalAlignment="Left" Width="84"/>
+            <Label VerticalAlignment="Top" Height="26"  Content="Jezik:" RenderTransformOrigin="1.481,0.613" Margin="48,226,0,0" HorizontalAlignment="Left" Width="39"/>
+            <Label VerticalAlignment="Top" Height="26" Content="Nivo kursa:" Margin="16,258,0,0" HorizontalAlignment="Left" Width="78"  />
+            <Button x:Name="btn_PrikaziGrupe" Content="Prikaži grupe" Click="btn_PrikaziGrupe_Click"  Style="{DynamicResource buttonStyle}" Height="28" VerticalAlignment="Top" Grid.Row="1" Margin="68,68,10,0" RenderTransformOrigin="0.347,0.891" />
             <Button x:Name="Button2" Content="Otkaži" Click="Button2_Click"  Style="{DynamicResource buttonStyle}" Height="28" VerticalAlignment="Top" Grid.Row="1" Margin="269,150,360,0" Grid.Column="1" />
-            <Label x:Name="label" Content="        Podaci o polazniku" Height="34" VerticalAlignment="Top" FontSize="19" FontWeight="Bold" Foreground="DarkRed" Grid.ColumnSpan="2"/>
+            <Label x:Name="label" Content="        Podaci o polazniku" Height="34" VerticalAlignment="Top" FontSize="19" FontWeight="Bold" Foreground="DarkRed" Margin="6,9,0,0"/>
             <Grid HorizontalAlignment="Left" Height="350" VerticalAlignment="Top" Width="505" Margin="96.306,34,0,0" Grid.RowSpan="2" Grid.Column="1">
                 <Grid.RowDefinitions>
                     <RowDefinition />
@@ -61,8 +61,8 @@
                 </DataGrid>
             </Grid>
             <TextBlock HorizontalAlignment="Left" x:Name="NapomenaBox" Visibility="Collapsed" Margin="37,27,0,0" Grid.Row="1" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="38" Width="171"/>
-            <ComboBox x:Name="chb_Jezik" HorizontalAlignment="Left" Margin="110,226,0,0" VerticalAlignment="Top" Width="109"/>
-            <ComboBox x:Name="chb_Nivo" HorizontalAlignment="Left" Margin="110,262,0,0" VerticalAlignment="Top" Width="109"/>
+            <ComboBox x:Name="chb_Jezik" Margin="110,226,0,0" VerticalAlignment="Top"/>
+            <ComboBox x:Name="chb_Nivo" HorizontalAlignment="Left" Margin="110,262,0,4" Width="141" Grid.ColumnSpan="2"/>
         </Grid>
     </Grid>
 </Window>

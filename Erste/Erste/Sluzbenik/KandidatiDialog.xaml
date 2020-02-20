@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Erste.Administrator"
         mc:Ignorable="d"
         Title="NalogSluzbenikaDialog" Height="346" Width="448" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
-    <Grid>
+    <Grid x:Name="grid">
         <Grid.RowDefinitions>
             <RowDefinition Height="206*"/>
 

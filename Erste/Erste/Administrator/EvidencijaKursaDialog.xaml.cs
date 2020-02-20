@@ -12,6 +12,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Threading;
+using System.Globalization;
 
 namespace Erste.Administrator
 {
@@ -71,6 +73,7 @@ namespace Erste.Administrator
 
         private void Button1_Click(object sender, RoutedEventArgs e)
         {
+            ResetBorderColors();
             if (kurs != null)
             {
                 if (!izmjena)
@@ -110,6 +113,16 @@ namespace Erste.Administrator
                     else
                     {
                         MessageBox.Show("Sva polja moraju biti popunjena.");
+                        var textBoxes = grid.Children.OfType<TextBox>();
+                        foreach (var t in textBoxes)
+                            if (String.IsNullOrEmpty(t.Text))
+                                t.BorderBrush = Brushes.Red;
+                        if (TimePickerOd.SelectedDate == null)
+                            TimePickerOd.BorderBrush = Brushes.Red;
+                        if (TimePickerDo.SelectedDate == null)
+                            TimePickerDo.BorderBrush = Brushes.Red;
+                        if (comboBox_Jezik.SelectedIndex == -1)
+                            comboBox_Jezik.BorderBrush = Brushes.Red;
                     }
                 }
             }
@@ -140,33 +153,65 @@ namespace Erste.Administrator
                 else
                 {
                     MessageBox.Show("Sva polja moraju biti popunjena.");
+                    var textBoxes = grid.Children.OfType<TextBox>();
+                    foreach (var t in textBoxes)
+                        if (String.IsNullOrEmpty(t.Text))
+                            t.BorderBrush = Brushes.Red;
+                    if (TimePickerOd.SelectedDate == null)
+                        TimePickerOd.BorderBrush = Brushes.Red;
+                    if (TimePickerDo.SelectedDate == null)
+                        TimePickerDo.BorderBrush = Brushes.Red;
+                    if (comboBox_Jezik.SelectedIndex == -1)
+                        comboBox_Jezik.BorderBrush = Brushes.Red;
                 }
             }
+        }
+
+        private void ResetBorderColors()
+        {
+            var textBoxes = grid.Children.OfType<TextBox>();
+            foreach (var t in textBoxes)
+                if (String.IsNullOrEmpty(t.Text))
+                    t.BorderBrush = Brushes.Transparent;
+            TimePickerOd.BorderBrush = Brushes.Transparent;
+            TimePickerDo.BorderBrush = Brushes.Transparent;
+            comboBox_Jezik.BorderBrush = Brushes.Transparent;
         }
 
         private void Button_Otkazi_Click(object sender, RoutedEventArgs e)
         {
             if (kurs != null && !izmjena)
             {
-                try
-                {
-                    using (var ersteModel = new ErsteModel())
-                    {
-                        kurs kurs_remove = ersteModel.kursevi.Find(kurs.Id);
-                        ersteModel.kursevi.Remove(kurs_remove);
-                        ersteModel.SaveChanges();
-                    }
-                    MessageBox.Show("Kurs je uspješno obrisan.");
-                    Close();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("MySQL Exception: " + ex.ToString());
-                }
+                var culture = new System.Globalization.CultureInfo("sr-Latn-RS");
+                Thread.CurrentThread.CurrentCulture = culture;
+                Thread.CurrentThread.CurrentUICulture = culture;
+
+                MessageBoxResult result = MessageBox.Show("Da li ste sigurni da želite obrisati kurs?", "Brisanje", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (result == MessageBoxResult.Yes)
+                    ObrisiKurs();               
             }
             else
             {
                 Close();
+            }
+        }
+
+        private void ObrisiKurs()
+        {
+            try
+            {
+                using (var ersteModel = new ErsteModel())
+                {
+                    kurs kurs_remove = ersteModel.kursevi.Find(kurs.Id);
+                    ersteModel.kursevi.Remove(kurs_remove);
+                    ersteModel.SaveChanges();
+                }
+                MessageBox.Show("Kurs je uspješno obrisan.");
+                Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("MySQL Exception: " + ex.ToString());
             }
         }
     }

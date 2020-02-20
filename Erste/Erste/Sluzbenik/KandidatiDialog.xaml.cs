@@ -1,5 +1,17 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
+using System.Threading;
 
 namespace Erste.Sluzbenik
 {
@@ -40,6 +52,7 @@ namespace Erste.Sluzbenik
 
         private void Button_Uredu_Click(object sender, RoutedEventArgs e)
         {
+            ResetBorderColors();
             if (!izmjena)
             {
                 textBox_Ime.IsEnabled = true;
@@ -109,37 +122,59 @@ namespace Erste.Sluzbenik
                         || string.IsNullOrEmpty(textBox_Email.Text) || string.IsNullOrEmpty(textBox_BrojTelefona.Text))
                     {
                         MessageBox.Show("Sva polja moraju biti popunjena.");
+                        var textBoxes = grid.Children.OfType<TextBox>();
+                        foreach (var t in textBoxes)
+                            if (String.IsNullOrEmpty(t.Text))
+                                t.BorderBrush = Brushes.Red;
                     }
                 }
             }
+        }
+
+        private void ResetBorderColors()
+        {
+            var textBoxes = grid.Children.OfType<TextBox>();
+            foreach (var t in textBoxes)
+                if (String.IsNullOrEmpty(t.Text))
+                    t.BorderBrush = Brushes.Transparent;
         }
 
         private void Button_Otkazi_Click(object sender, RoutedEventArgs e)
         {
             if (polaznik != null && !izmjena)
             {
-                try
-                {
-                    using (var ersteModel = new ErsteModel())
-                    {
-                        //Mozda treba setovati da nije aktivan
-                        polaznik polaznikRemove = ersteModel.polaznici.Find(polaznik.Id);
-                        if (polaznikRemove?.osoba != null)
-                        {
-                            ersteModel.osobe.Remove(polaznikRemove.osoba);
-                            ersteModel.SaveChanges();
-                        }
-                    }
-                    Close();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("MySQL Exception: " + ex.ToString());
-                }
+                var culture = new System.Globalization.CultureInfo("sr-Latn-RS");
+                Thread.CurrentThread.CurrentCulture = culture;
+                Thread.CurrentThread.CurrentUICulture = culture;
+
+                MessageBoxResult result = MessageBox.Show("Da li ste sigurni da želite obrisati kandidata?", "Brisanje", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (result == MessageBoxResult.Yes)
+                    ObrisiKandidata();
             }
             else
             {
                 Close();
+            }
+        }
+
+        private void ObrisiKandidata()
+        {
+            try
+            {
+                using (var ersteModel = new ErsteModel())
+                {
+                    polaznik polaznikRemove = ersteModel.polaznici.Find(polaznik.Id);
+                    if (polaznikRemove?.osoba != null)
+                    {
+                        ersteModel.osobe.Remove(polaznikRemove.osoba);
+                        ersteModel.SaveChanges();
+                    }
+                }
+                Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("MySQL Exception: " + ex.ToString());
             }
         }
     }

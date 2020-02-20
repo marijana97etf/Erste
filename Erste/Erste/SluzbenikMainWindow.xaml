@@ -26,6 +26,9 @@
             <Button x:Name="pregledCekanjeButton" Style="{DynamicResource buttonStyle}" HorizontalContentAlignment="Left" Height="47" Margin="0" Click="KandidatiNaCekanju_Click">
                 <TextBlock Text="Prikaži kandidate na čekanju" TextWrapping="Wrap" TextAlignment="Center" Width="132" Margin="0" Height="36"/>
             </Button>
+            <Label x:Name="grupe" Height="31" Margin="0" Content="Grupe" FontSize="14" FontFamily="Rockwell" Foreground="#FFEF3D4A" FontWeight="Bold" Padding="8,8,5,5"></Label>
+            <Button x:Name="pregledGrupa" Style="{DynamicResource buttonStyle}" Content="Prikaži grupu" HorizontalContentAlignment="Left" Click="PregledGrupa_OnClick"/>
+            <Button x:Name="kreiranjeGrupe" Style="{DynamicResource buttonStyle}" Content="Dodaj novu grupu" HorizontalContentAlignment="Left" Click="DodajNovuGrupu_OnClick"/>
             <Label x:Name="label1" Height="31" Margin="0" Content="Raspored nastave" FontSize="14" FontFamily="Rockwell" Foreground="#FFEF3D4A" FontWeight="Bold" Padding="8,8,5,5"></Label>
             <Button x:Name="rasporedButton" Style="{DynamicResource buttonStyle}" Content="Prikaži raspored" HorizontalContentAlignment="Left" Click="Raspored_Click"/>
             <Button x:Name="noviTerminButton" Style="{DynamicResource buttonStyle}" Content="Dodaj novi termin" HorizontalContentAlignment="Left" Click="DodajNoviTermin_Click"/>

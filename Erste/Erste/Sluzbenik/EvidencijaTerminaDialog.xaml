@@ -9,7 +9,7 @@
         Title="EvidencijaTerminaDialog" Height="320" Width="383.333" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid>
         <Label VerticalAlignment="Bottom"  Margin="84,0,0,193" Height="26" Content="Dan:" HorizontalAlignment="Left" Width="43" />
-        <ComboBox x:Name="DanCombo" Margin="152,0,0,192.667" Height="22" ToolTip="Unesite dan kad će se održavati termin." HorizontalAlignment="Left" Width="159" VerticalAlignment="Bottom">
+        <ComboBox x:Name="DanCombo" Margin="0,76,66,0" Height="22" ToolTip="Unesite dan kad će se održavati termin." VerticalAlignment="Top" HorizontalAlignment="Right" Width="159">
             <ComboBox.Items>
                 <ComboBoxItem Content="Ponedjeljak"></ComboBoxItem>
                 <ComboBoxItem Content="Utorak"></ComboBoxItem>
@@ -27,7 +27,7 @@
         <Button x:Name="Button2" Content="Otkaži" Click="Button_Otkazi_Click" Margin="0,0,53.667,40.667" Style="{DynamicResource buttonStyle}" Height="30" Padding="0" HorizontalAlignment="Right" Width="108" VerticalAlignment="Bottom"/>
         <Label VerticalAlignment="Bottom" Height="29" Margin="87,0,0,106" Content="Do:" RenderTransformOrigin="1.357,0.138" HorizontalAlignment="Left" Width="29"/>
         <Label x:Name="label" Content="Podaci o terminu" Margin="106,0,88.667,234.667" VerticalAlignment="Bottom" FontSize="19" FontWeight="Bold" Foreground="DarkRed" Height="38"/>
-        <xctk:TimePicker x:Name="TimePickerOd" Value="{Binding CurrentDateTime}" Margin="152,0,0,154.667" HorizontalAlignment="Left" Width="160" Height="20" VerticalAlignment="Bottom"/>
-        <xctk:TimePicker x:Name="TimePickerDo" Value="{Binding CurrentDateTime}" Margin="152,0,0,114.667" Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="160"/>
+        <xctk:TimePicker x:Name="TimePickerOd" Value="{Binding CurrentDateTime}" Margin="0,0,65,155" Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="160"/>
+        <xctk:TimePicker x:Name="TimePickerDo" Value="{Binding CurrentDateTime}" Margin="0,0,65,115" Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="160"/>
     </Grid>
 </Window>

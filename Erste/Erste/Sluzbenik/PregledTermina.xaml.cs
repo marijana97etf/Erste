@@ -56,8 +56,8 @@ namespace Erste.Sluzbenik
                         grupa find = ersteModel.grupe.Find(item.GrupaId);
                         if (find is null)
                         {
-                            GrupaCombo.Items.Add("Nije dodjeljena grupa");
-                            GrupaCombo.Text = "Nije dodjeljena grupa";
+                            GrupaCombo.Items.Add("Nije dodijeljena grupa");
+                            GrupaCombo.Text = "Nije dodijeljena grupa";
                         }
                         else
                         {
@@ -66,8 +66,8 @@ namespace Erste.Sluzbenik
                     }
                     else
                     {
-                        GrupaCombo.Items.Add("Nije dodjeljena grupa");
-                        GrupaCombo.Text = "Nije dodjeljena grupa";
+                        GrupaCombo.Items.Add("Nije dodijeljena grupa");
+                        GrupaCombo.Text = "Nije dodijeljena grupa";
                     }
                 }
             }
@@ -106,7 +106,7 @@ namespace Erste.Sluzbenik
                         termin.Od = TimePickerOd.Value.Value.TimeOfDay;
                     if (TimePickerDo.Value != null)
                         termin.Do = TimePickerDo.Value.Value.TimeOfDay;
-                    if(GrupaCombo.Text!="Nije dodjeljena grupa" && !string.IsNullOrWhiteSpace(GrupaCombo.Text))
+                    if(GrupaCombo.Text!="Nije dodijeljena grupa" && !string.IsNullOrWhiteSpace(GrupaCombo.Text))
                         termin.GrupaId = (await ersteModel.grupe.FirstAsync(g => g.Naziv == GrupaCombo.Text)).Id;
                     await ersteModel.SaveChangesAsync();
                 }
@@ -135,9 +135,9 @@ namespace Erste.Sluzbenik
                     NazivGrupe = GrupaCombo.SelectedItem.ToString();
                 });
 
-            if (NazivGrupe==null || NazivGrupe == "Nije dodjeljena grupa")
+            if (NazivGrupe==null || NazivGrupe == "Nije dodijeljena grupa")
             {
-                MessageBox.Show("Nije dodjeljena grupa.");
+                MessageBox.Show("Nije dodijeljena grupa.");
                 return;
             }
             

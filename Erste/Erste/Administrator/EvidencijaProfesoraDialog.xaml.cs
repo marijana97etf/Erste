@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Threading;
 
 namespace Erste.Administrator
 {
@@ -51,6 +52,8 @@ namespace Erste.Administrator
 
         private void Button1Click(object sender, RoutedEventArgs e)
         {
+            ResetBorderColors();
+
             if (profesor != null)
             {
                 if (!izmjena)
@@ -94,6 +97,10 @@ namespace Erste.Administrator
                     else
                     {
                         MessageBox.Show("Sva polja moraju biti popunjena.");
+                        var textBoxes = grid.Children.OfType<TextBox>();
+                        foreach (var t in textBoxes)
+                            if (String.IsNullOrEmpty(t.Text))
+                                t.BorderBrush = Brushes.Red;
                     }
                 }
             }
@@ -128,36 +135,59 @@ namespace Erste.Administrator
                 else
                 {
                     MessageBox.Show("Sva polja moraju biti popunjena.");
+                    var textBoxes = grid.Children.OfType<TextBox>();
+                    foreach (var t in textBoxes)
+                        if (String.IsNullOrEmpty(t.Text))
+                            t.BorderBrush = Brushes.Red;
                 }
             }
+        }
+
+        private void ResetBorderColors()
+        {
+            var textBoxes = grid.Children.OfType<TextBox>();
+            foreach (var t in textBoxes)
+                if (String.IsNullOrEmpty(t.Text))
+                    t.BorderBrush = Brushes.Transparent;
         }
 
         private void Button_Otkazi_Click(object sender, RoutedEventArgs e)
         {
             if (profesor != null && !izmjena)
             {
-                try
-                {
-                    using (var ersteModel = new ErsteModel())
-                    {
-                        profesor profesor_remove = ersteModel.profesori.Find(profesor.Id);
-                        if (profesor_remove.osoba != null)
-                        {
-                            ersteModel.osobe.Remove(profesor_remove.osoba);
-                            ersteModel.SaveChanges();
-                        }
-                    }
-                    MessageBox.Show("Korisnik je uspješno obrisan.");
-                    Close();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("MySQL Exception: " + ex.ToString());
-                }
+                var culture = new System.Globalization.CultureInfo("sr-Latn-RS");
+                Thread.CurrentThread.CurrentCulture = culture;
+                Thread.CurrentThread.CurrentUICulture = culture;
+
+                MessageBoxResult result = MessageBox.Show("Da li ste sigurni da želite obrisati profesora?", "Brisanje", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (result == MessageBoxResult.Yes)
+                    ObrisiProfesora();               
             }
             else
             {
                 Close();
+            }
+        }
+
+        private void ObrisiProfesora()
+        {
+            try
+            {
+                using (var ersteModel = new ErsteModel())
+                {
+                    profesor profesor_remove = ersteModel.profesori.Find(profesor.Id);
+                    if (profesor_remove.osoba != null)
+                    {
+                        ersteModel.osobe.Remove(profesor_remove.osoba);
+                        ersteModel.SaveChanges();
+                    }
+                }
+                MessageBox.Show("Korisnik je uspješno obrisan.");
+                Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("MySQL Exception: " + ex.ToString());
             }
         }
     }

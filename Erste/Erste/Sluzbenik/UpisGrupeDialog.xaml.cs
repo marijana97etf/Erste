@@ -36,25 +36,34 @@ namespace Erste.Sluzbenik
 
         private void Button1Click(object sender, RoutedEventArgs e)
         {
+            ResetBorderColors();
             if (string.IsNullOrWhiteSpace(textBox_NazivGrupe.Text))
             {
                 MessageBox.Show("Odaberite naziv grupe.");
+                textBox_NazivGrupe.BorderBrush = Brushes.Red;
                 return;
             }
             if (string.IsNullOrWhiteSpace(DanCombo.Text))
             {
                 MessageBox.Show("Odaberite dan termina.");
+                DanCombo.BorderBrush = Brushes.Red;
                 return;
             }
             if (string.IsNullOrWhiteSpace(TimePickerOd.Value.ToString()) || string.IsNullOrWhiteSpace(TimePickerDo.Value.ToString()))
             {
                 MessageBox.Show("Popunite termine.");
+                if (string.IsNullOrWhiteSpace(TimePickerOd.Value.ToString()))
+                    TimePickerOd.BorderBrush = Brushes.Red;
+                else
+                    TimePickerDo.BorderBrush = Brushes.Red;
                 return;
             }
             Func<DateTime?, DateTime?, bool> compare = (a, b) => a?.TimeOfDay.CompareTo(b?.TimeOfDay) > 0;
             if (compare(TimePickerOd.Value, TimePickerDo.Value))
             {
                 MessageBox.Show("Termin početka mora biti prije termina završetka.");
+                TimePickerOd.BorderBrush = Brushes.Red;
+                TimePickerDo.BorderBrush = Brushes.Red;
                 return;
             }
 
@@ -90,6 +99,14 @@ namespace Erste.Sluzbenik
                 MessageBox.Show(ioException.StackTrace);
             }
 
+        }
+
+        private void ResetBorderColors()
+        {
+            textBox_NazivGrupe.BorderBrush = Brushes.Transparent;
+            DanCombo.BorderBrush = Brushes.Transparent;
+            DanCombo.BorderBrush = Brushes.Transparent;
+            DanCombo.BorderBrush = Brushes.Transparent;
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)

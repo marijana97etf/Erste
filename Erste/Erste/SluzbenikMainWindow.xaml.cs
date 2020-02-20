@@ -148,6 +148,16 @@ namespace Erste
                 button.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0xEF, 0x3D, 0x4A));
             }
         }
+
+        private void PregledGrupa_OnClick(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void DodajNovuGrupu_OnClick(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
         /*private async Task NapraviAnimaciju(StackPanel stackPanel, int index, Button button, TimeSpan animationDurance)
         {
             lock (_locker)
