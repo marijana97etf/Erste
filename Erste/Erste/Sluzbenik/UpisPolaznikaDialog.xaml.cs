@@ -81,7 +81,7 @@ namespace Erste.Sluzbenik
 
                 var kursGrupa = (from g in ersteModel.grupe join k in ersteModel.kursevi on g.KursId equals k.Id
                              join j in ersteModel.jezici on k.JezikId equals j.Id
-                             where g.BrojClanova>=3 && k.DatumDo.CompareTo(DateTime.Now) > 0
+                             where g.BrojClanova>=1 && k.DatumDo.CompareTo(DateTime.Now) > 0
                              && j.Naziv.Equals(odabraniJezik) && k.Nivo.Equals(odabraniNivo)
                              select new GrupaKursZapis {
                                  Grupa = g,
@@ -160,7 +160,7 @@ namespace Erste.Sluzbenik
                 p.grupe.Add(zapisGrupa);
                 zapisGrupa.polaznici.Add(p);
 
-                MessageBox.Show("Uspjeno dodan polaznik.");
+                MessageBox.Show("Uspjesno dodan polaznik.");
                 ersteModel.SaveChanges();
                 ersteModel.Dispose();
                 

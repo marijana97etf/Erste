@@ -398,8 +398,6 @@ C:\Users\baralicD\source\repos\ErsteFinal\Erste\Erste\bin\Debug\Xceed.Wpf.Toolki
 C:\Users\baralicD\source\repos\ErsteFinal\Erste\Erste\bin\Debug\EntityFramework.xml
 C:\Users\baralicD\source\repos\ErsteFinal\Erste\Erste\bin\Debug\EntityFramework.SqlServer.xml
 C:\Users\baralicD\source\repos\ErsteFinal\Erste\Erste\bin\Debug\Google.Protobuf.xml
-C:\Users\baralicD\source\repos\ErsteFinal\Erste\Erste\bin\Debug\MySql.Data.xml
-C:\Users\baralicD\source\repos\ErsteFinal\Erste\Erste\bin\Debug\MySql.Data.EntityFramework.xml
 C:\Users\baralicD\source\repos\ErsteFinal\Erste\Erste\bin\Debug\Renci.SshNet.xml
 C:\Users\baralicD\source\repos\ErsteFinal\Erste\Erste\bin\Debug\cs-CZ\Xceed.Wpf.AvalonDock.resources.dll
 C:\Users\baralicD\source\repos\ErsteFinal\Erste\Erste\bin\Debug\de\Xceed.Wpf.AvalonDock.resources.dll
@@ -422,7 +420,6 @@ C:\Users\baralicD\source\repos\ErsteFinal\Erste\Erste\obj\Debug\Administrator\Na
 C:\Users\baralicD\source\repos\ErsteFinal\Erste\Erste\obj\Debug\AdminMainWindow.g.cs
 C:\Users\baralicD\source\repos\ErsteFinal\Erste\Erste\obj\Debug\MainWindow.g.cs
 C:\Users\baralicD\source\repos\ErsteFinal\Erste\Erste\obj\Debug\SluzbenikMainWindow.g.cs
-C:\Users\baralicD\source\repos\ErsteFinal\Erste\Erste\obj\Debug\Sluzbenik\EvidencijaTerminaDialog.g.cs
 C:\Users\baralicD\source\repos\ErsteFinal\Erste\Erste\obj\Debug\Sluzbenik\Kandidati.g.cs
 C:\Users\baralicD\source\repos\ErsteFinal\Erste\Erste\obj\Debug\Sluzbenik\KandidatiDialog.g.cs
 C:\Users\baralicD\source\repos\ErsteFinal\Erste\Erste\obj\Debug\Sluzbenik\KandidatiNaCekanju.g.cs
@@ -444,7 +441,6 @@ C:\Users\baralicD\source\repos\ErsteFinal\Erste\Erste\obj\Debug\Administrator\Na
 C:\Users\baralicD\source\repos\ErsteFinal\Erste\Erste\obj\Debug\AdminMainWindow.baml
 C:\Users\baralicD\source\repos\ErsteFinal\Erste\Erste\obj\Debug\MainWindow.baml
 C:\Users\baralicD\source\repos\ErsteFinal\Erste\Erste\obj\Debug\SluzbenikMainWindow.baml
-C:\Users\baralicD\source\repos\ErsteFinal\Erste\Erste\obj\Debug\Sluzbenik\EvidencijaTerminaDialog.baml
 C:\Users\baralicD\source\repos\ErsteFinal\Erste\Erste\obj\Debug\Sluzbenik\Kandidati.baml
 C:\Users\baralicD\source\repos\ErsteFinal\Erste\Erste\obj\Debug\Sluzbenik\KandidatiDialog.baml
 C:\Users\baralicD\source\repos\ErsteFinal\Erste\Erste\obj\Debug\Sluzbenik\KandidatiNaCekanju.baml
@@ -470,3 +466,9 @@ C:\Users\stepa\Documents\GitHub\Erste\Erste\Erste\bin\Debug\System.ValueTuple.dl
 C:\Users\stepa\Documents\GitHub\Erste\Erste\Erste\bin\Debug\System.ValueTuple.xml
 C:\Users\stepa\Documents\GitHub\Erste\Erste\Erste\obj\Debug\Sluzbenik\KreiranjeGrupe.baml
 C:\Users\stepa\Documents\GitHub\Erste\Erste\Erste\obj\Debug\Sluzbenik\KreiranjeTermina.baml
+C:\Users\baralicD\source\repos\ErsteFinal\Erste\Erste\bin\Debug\System.ValueTuple.dll
+C:\Users\baralicD\source\repos\ErsteFinal\Erste\Erste\bin\Debug\System.ValueTuple.xml
+C:\Users\baralicD\source\repos\ErsteFinal\Erste\Erste\obj\Debug\Sluzbenik\KreiranjeGrupe.g.cs
+C:\Users\baralicD\source\repos\ErsteFinal\Erste\Erste\obj\Debug\Sluzbenik\KreiranjeTermina.g.cs
+C:\Users\baralicD\source\repos\ErsteFinal\Erste\Erste\obj\Debug\Sluzbenik\KreiranjeGrupe.baml
+C:\Users\baralicD\source\repos\ErsteFinal\Erste\Erste\obj\Debug\Sluzbenik\KreiranjeTermina.baml

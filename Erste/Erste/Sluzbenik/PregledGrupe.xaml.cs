@@ -46,7 +46,7 @@ namespace Erste.Sluzbenik
             using (ErsteModel ersteModel = new ErsteModel())
             {
                 BrojClanovaBox.Text = $"{ersteModel.polaznici.Count(e => e.grupe.Any(g => g.Id == grupa.Id))}";
-                kurs kurs = ersteModel.kursevi.Find(grupa.Id);
+                kurs kurs = ersteModel.kursevi.First(e => e.grupe.Any(p => p.Id == grupa.Id));
                 if (!(kurs is null))
                 {
                     NazivGrupeCombo.Items.Clear();
@@ -100,15 +100,23 @@ namespace Erste.Sluzbenik
 
         private void PopuniPolaznikeCombo(ErsteModel ersteModel)
         {
-            var polaznici = ersteModel.polaznici.ToList();
-            foreach (polaznik polaznik in PolazniciTable.Items)
-            {
-                polaznici.RemoveAll(e => e.Id == polaznik.Id);
-            }
+            string odabraniNivo = NivoKursa.Text;
+            string odabraniJezik = jezikKursa.Text;
+            var polazniciNaCekanju = (from p_na_c in ersteModel.polaznici_na_cekanju
+                                      where p_na_c.kursevi.Any(k =>
+                                        k.Nivo.Equals(odabraniNivo) && k.jezik.Naziv.Equals(odabraniJezik))
+                                      select p_na_c).ToList();
+
+            //var polaznici = ersteModel.polaznici.ToList();
+            //foreach (polaznik polaznik in PolazniciTable.Items)
+            //{
+            //    polaznici.RemoveAll(e => e.Id == polaznik.Id);
+            //}
             dodavanjePolaznika.Items.Clear();
-            foreach (var polaznik in polaznici)
+            foreach (var polaznikNaCekanju in polazniciNaCekanju)
             {
-                dodavanjePolaznika.Items.Add($"{polaznik.osoba.Ime} {polaznik.osoba.Prezime} ({polaznik.osoba.Email})");
+                dodavanjePolaznika.Items.Add($"{polaznikNaCekanju.polaznik.osoba.Ime}" +
+                    $" {polaznikNaCekanju.polaznik.osoba.Prezime} ({polaznikNaCekanju.polaznik.osoba.Email})");
             }
         }
 
@@ -350,6 +358,14 @@ namespace Erste.Sluzbenik
                         grupa grupica = ersteModel.grupe.Where(gr => gr.Id == grupa.Id).ToList().First();
                         grupica.polaznici.Add(polaznik);
                         polaznik.grupe.Add(grupica);
+                        string odabraniNivo = NivoKursa.Text;
+                        string odabraniJezik = jezikKursa.Text;
+                        polaznik_na_cekanju p_na_c = polaznik.polaznik_na_cekanju;
+                        kurs kurs_za_p_na_c = p_na_c.kursevi.First(k => k.Nivo.Equals(odabraniNivo) &&
+                                k.jezik.Naziv.Equals(odabraniJezik));
+                        kurs_za_p_na_c.polaznici_na_cekanju.Remove(p_na_c);
+                        p_na_c.kursevi.Remove(kurs_za_p_na_c);
+                        p_na_c.polaznik.polaznik_na_cekanju = null;
                         ersteModel.SaveChanges();
                         Init();
                         NazivGrupeCombo.Text = text;
