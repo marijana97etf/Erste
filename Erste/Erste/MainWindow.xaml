@@ -9,7 +9,7 @@
                   ResizeMode="NoResize"
                   WindowStartupLocation="CenterScreen" 
                   ShowsNavigationUI="False" SizeToContent="WidthAndHeight"
-                  d:DesignHeight="368" d:DesignWidth="532">
+                  d:DesignHeight="368" d:DesignWidth="532" >
     <NavigationWindow.Content>
         <Grid>
             <Label x:Name="label" Content="Korisničko ime:" FontSize="12.5" Margin="116,134,314,0" Height="26" VerticalAlignment="Top"/>

@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:Erste"
         xmlns:System="clr-namespace:System;assembly=mscorlib" x:Name="MainWindow" x:Class="Erste.SluzbenikMainWindow"
        mc:Ignorable="d"
-        Title="Erste" WindowStartupLocation="CenterScreen" Height="650" Width="830" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
+        Title="Erste" WindowStartupLocation="CenterScreen" Height="659" Width="830" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
 
     <Grid Background="GhostWhite" ScrollViewer.VerticalScrollBarVisibility="Auto">
         <Grid.RowDefinitions>
@@ -22,7 +22,9 @@
             <Image x:Name="image" Grid.Row="0" Grid.Column="0" Height="60" Source="/Resources/erste_logo.png" Stretch="Fill" Margin="0" />
             <Label x:Name="label" Height="31" Margin="0" Content="Kandidati" FontSize="14" FontFamily="Rockwell" Foreground="#FFEF3D4A" FontWeight="Bold" Padding="8,8,5,5"></Label>
             <Button x:Name="upisButton" Style="{DynamicResource buttonStyle}" Content="Upiši kandidata" HorizontalContentAlignment="Left" Click="Upis_Click" Height="35"/>
-            <Button x:Name="pregledButton" Style="{DynamicResource buttonStyle}" Content="Prikaži sve kandidate" HorizontalContentAlignment="Left" Click="Pregled_Click"/>
+            <Button x:Name="pregledButton" Style="{DynamicResource buttonStyle}" Content="Prikaži sve kandidate"  HorizontalContentAlignment="Left" Click="Pregled_Click" Height="44">
+               
+            </Button>
             <Button x:Name="pregledCekanjeButton" Style="{DynamicResource buttonStyle}" HorizontalContentAlignment="Left" Height="47" Margin="0" Click="KandidatiNaCekanju_Click">
                 <TextBlock Text="Prikaži kandidate na čekanju" TextWrapping="Wrap" TextAlignment="Center" Width="132" Margin="0" Height="36"/>
             </Button>

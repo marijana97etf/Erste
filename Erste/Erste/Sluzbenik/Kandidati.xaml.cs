@@ -47,14 +47,14 @@ namespace Erste.Sluzbenik
             };
         }*/
 
-        /*private void PregledKandidata_DoubleClick(object sender, RoutedEventArgs e)
-        {
-            polaznik polaznik = DataGrid.SelectedItem as polaznik;
-            KandidatiDialog kandidatiDialog = new KandidatiDialog(polaznik);
-            kandidatiDialog.ShowDialog();
+        //private void PregledKandidata_DoubleClick(object sender, RoutedEventArgs e)
+        //{
+        //    polaznik polaznik = DataGrid.SelectedItem as polaznik;
+        //    KandidatiDialog kandidatiDialog = new KandidatiDialog(polaznik);
+        //    kandidatiDialog.ShowDialog();
 
-            Load_Data();
-        }*/
+        //    Load_Data();
+        //}
 
         public async Task Refresh() => await Load_Data();
 
@@ -79,7 +79,6 @@ namespace Erste.Sluzbenik
                     {
                         var polaznici = await (from polaznik in ersteModel.polaznici.Include("osoba")
                                                join osoba in ersteModel.osobe.Include("polaznik") on polaznik.Id equals osoba.Id
-                                               where polaznik.grupe.Count!=0
                                                select polaznik).ToListAsync();
 
                         foreach (var polaznik in polaznici)
@@ -87,24 +86,6 @@ namespace Erste.Sluzbenik
                             if (polaznik.osoba != null && Dispatcher != null)
                             {
                                 await Dispatcher.InvokeAsync(() => { DataGrid.Items.Add(polaznik); });
-                            }
-                        }
-                    }
-                    else if ("cekanje".Equals(mode))
-                    {
-                        var polazniciNaCekanju = (from p in ersteModel.polaznici_na_cekanju
-                            join o in ersteModel.osobe
-                                on p.Id equals o.Id
-                            select p).ToList();
-
-
-
-
-                        foreach (var pc in polazniciNaCekanju)
-                        {
-                            if (pc.polaznik.osoba != null && Dispatcher != null)
-                            {
-                                await Dispatcher.InvokeAsync(() => { DataGrid.Items.Add(pc.polaznik); });
                             }
                         }
                     }
@@ -122,14 +103,10 @@ namespace Erste.Sluzbenik
 
         private async void DataGrid_OnBeginningEdit(object sender, DataGridBeginningEditEventArgs e)
         {
-            if (Dispatcher != null)
-                await Dispatcher.InvokeAsync(() =>
-                {
-                    polaznik polaznik = DataGrid.SelectedItem as polaznik;
-                    KandidatiDialog kandidatiDialog = new KandidatiDialog(polaznik);
-                    kandidatiDialog.ShowDialog();
-                });
-            await Refresh();
+            polaznik polaznik = DataGrid.SelectedItem as polaznik;
+            KandidatiDialog kandidatiDialog = new KandidatiDialog(polaznik);
+            kandidatiDialog.ShowDialog();
+            Refresh();
             e.Cancel = true;
         }
     }

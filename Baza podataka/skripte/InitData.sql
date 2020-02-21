@@ -13,6 +13,7 @@ insert into sluzbenik(Id,KorisnickoIme,LozinkaHash) values(4,"jovan","0851f9cb7e
 
 insert into jezik(Id,Naziv) values(1,"Engleski");
 insert into jezik(Id,Naziv) values(2,"Njemacki");
+insert into jezik(Id,Naziv) values(3,"Francuski");
 
 insert into kurs(Id,Nivo,JezikId,DatumOd,DatumDo) values(1,"A1.1",1,'2020-01-20','2020-03-20');
 insert into kurs(Id,Nivo,JezikId,DatumOd,DatumDo) values(2,"A1.2",1,'2020-01-20','2020-03-20');
@@ -22,8 +23,6 @@ insert into kurs(Id,Nivo,JezikId,DatumOd,DatumDo) values(5,"B1.1",1,'2020-01-20'
 insert into kurs(Id,Nivo,JezikId,DatumOd,DatumDo) values(6,"B1.2",1,'2020-01-20','2020-03-20');
 insert into kurs(Id,Nivo,JezikId,DatumOd,DatumDo) values(7,"B2.1",1,'2020-01-20','2020-03-20');
 insert into kurs(Id,Nivo,JezikId,DatumOd,DatumDo) values(8,"B2.2",1,'2020-01-20','2020-03-20');
-insert into kurs(Id,Nivo,JezikId,DatumOd,DatumDo) values(9,"C1.1",1,'2020-01-20','2020-03-20');
-insert into kurs(Id,Nivo,JezikId,DatumOd,DatumDo) values(10,"C1.2",1,'2020-01-20','2020-03-20');
 
 insert into kurs(Id,Nivo,JezikId,DatumOd,DatumDo) values(11,"A1.1",2,'2020-01-20','2020-03-20');
 insert into kurs(Id,Nivo,JezikId,DatumOd,DatumDo) values(12,"A1.2",2,'2020-01-20','2020-03-20');
@@ -35,6 +34,11 @@ insert into kurs(Id,Nivo,JezikId,DatumOd,DatumDo) values(17,"B2.1",2,'2020-01-20
 insert into kurs(Id,Nivo,JezikId,DatumOd,DatumDo) values(18,"B2.2",2,'2020-01-20','2020-03-20');
 insert into kurs(Id,Nivo,JezikId,DatumOd,DatumDo) values(19,"C1.1",2,'2020-01-20','2020-03-20');
 insert into kurs(Id,Nivo,JezikId,DatumOd,DatumDo) values(20,"C1.2",2,'2020-01-20','2020-03-20');
+
+insert into kurs(Id,Nivo,JezikId,DatumOd,DatumDo) values(21,"A1.1",3,'2020-01-20','2020-03-20');
+insert into kurs(Id,Nivo,JezikId,DatumOd,DatumDo) values(22,"A1.2",3,'2020-01-20','2020-03-20');
+insert into kurs(Id,Nivo,JezikId,DatumOd,DatumDo) values(23,"A2.1",3,'2020-01-20','2020-03-20');
+insert into kurs(Id,Nivo,JezikId,DatumOd,DatumDo) values(24,"A2.2",3,'2020-01-20','2020-03-20');
 
 insert into osoba(Id,Ime,Prezime,Email,BrojTelefona) values(5,"Jovana","Jovanovic","jovana.jovanovic","065/000-000");
 insert into osoba(Id,Ime,Prezime,Email,BrojTelefona) values(6,"Mira","Mirkovic","mira.mirkovic","065/000-000");

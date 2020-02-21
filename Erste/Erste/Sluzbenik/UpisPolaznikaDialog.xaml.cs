@@ -24,6 +24,7 @@ namespace Erste.Sluzbenik
         public UpisPolaznikaDialog()
         {
             InitializeComponent();
+            chb_Nivo.IsEnabled = false;
             loadChb();
         }
 
@@ -33,14 +34,14 @@ namespace Erste.Sluzbenik
             using (var ersteModel = new ErsteModel())
             {
                 var jezici = (from j in ersteModel.jezici select j).Select(j => j.Naziv);
-                var nivoi = (from k in ersteModel.kursevi select k).Select(k => k.Nivo);
+                //var nivoi = (from k in ersteModel.kursevi select k).Select(k => k.Nivo);
 
-                 nivoi = nivoi.Distinct();
+                // nivoi = nivoi.Distinct();
 
                foreach(string naziv in jezici)
                     chb_Jezik.Items.Add(naziv);
-               foreach( string nivo in nivoi)
-                    chb_Nivo.Items.Add(nivo);
+               //foreach( string nivo in nivoi)
+               //     chb_Nivo.Items.Add(nivo);
             }
         }
 
@@ -264,6 +265,26 @@ namespace Erste.Sluzbenik
         private void DataGrid_OnBeginningEdit(object sender, DataGridBeginningEditEventArgs e)
         {
         }
+
+        private void Chb_Jezik_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            string odabraniJezik = (string)chb_Jezik.SelectedItem;
+            using (var ersteModel = new ErsteModel())
+            {
+                chb_Nivo.IsEnabled = true;
+                chb_Nivo.Items.Clear();
+                var nivoi = (from k in ersteModel.kursevi
+                             join j in ersteModel.jezici on
+                             k.JezikId equals j.Id
+                             where j.Naziv.Equals(odabraniJezik)
+                             select k.Nivo).ToList();
+                var distNivoi = nivoi.Distinct();
+                foreach (var nivo in distNivoi)
+                    chb_Nivo.Items.Add(nivo);
+            }
+        }
+
+
 
         //private void Chb_Jezik_Selected(object sender, RoutedEventArgs e)
         //{
